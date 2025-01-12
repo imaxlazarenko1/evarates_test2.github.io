@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const jsonUrl = './data.json'; // Путь к вашему JSON файлу
+    const jsonUrl = './data.json'; // Путь к JSON файлу
     let jsonData = {}; // Для хранения загруженных данных
 
     // Кнопки и разделы
@@ -53,19 +53,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Загрузка данных из JSON
     async function loadData() {
-    try {
-        console.log('Запрашиваю JSON:', jsonUrl); // Добавлено для отладки
-        const response = await fetch(jsonUrl);
-        console.log('Ответ от сервера:', response); // Показывает статус ответа
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
+        try {
+            console.log('Запрашиваю JSON:', jsonUrl);
+            const response = await fetch(jsonUrl);
+            console.log('Ответ от сервера:', response);
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            jsonData = await response.json();
+            console.log('Данные успешно загружены:', JSON.stringify(jsonData, null, 2));
+            console.log('Доступные ключи в jsonData:', Object.keys(jsonData));
+        } catch (error) {
+            console.error('Ошибка при загрузке данных:', error);
         }
-        jsonData = await response.json();
-        console.log('Данные успешно загружены:', JSON.stringify(jsonData, null, 2)); // Проверяем загруженные данные
-    } catch (error) {
-        console.error('Ошибка при загрузке данных:', error); // Показываем ошибку, если она есть
     }
-}
 
     // Настраиваем обработчики кнопок
     function setupButtonHandlers() {
@@ -76,15 +77,20 @@ document.addEventListener('DOMContentLoaded', () => {
                 const section = sections[format];
                 section.classList.add('active'); // Показываем текущий раздел
 
+                // Преобразуем ключ формата в нужный регистр
+                const jsonKey = format.charAt(0).toUpperCase() + format.slice(1);
+                console.log(`Активный формат: ${format}, JSON ключ: ${jsonKey}`);
+
                 // Очищаем старый контент и добавляем новый
-                section.innerHTML = `<h2>${format.charAt(0).toUpperCase() + format.slice(1)} Section</h2>`;
-               if (jsonData[format]) {
-    console.log(`Данные для ${format}:`, jsonData[format]);
-    const table = createTable(jsonData[format]);
-    section.appendChild(table);
-} else {
-    console.warn(`Нет данных для формата ${format}`);
-    section.innerHTML += '<p>Нет данных для этого раздела.</p>';}
+                section.innerHTML = `<h2>${jsonKey} Section</h2>`;
+                if (jsonData[jsonKey]) {
+                    console.log(`Данные для ${jsonKey}:`, jsonData[jsonKey]);
+                    const table = createTable(jsonData[jsonKey]);
+                    section.appendChild(table);
+                } else {
+                    console.warn(`Нет данных для формата ${jsonKey}`);
+                    section.innerHTML += '<p>Нет данных для этого раздела.</p>';
+                }
             });
         });
     }
