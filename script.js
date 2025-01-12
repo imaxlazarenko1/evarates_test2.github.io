@@ -53,11 +53,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 const value = row[header];
 
                 // Проверяем, является ли значение числом
-                if (typeof value === 'number') {
-                    td.textContent = value.toFixed(3); // Округляем до 3 знаков
-                } else {
-                    td.textContent = value || '-'; // Выводим текстовые значения или "-"
-                }
+           if (!isNaN(value) && typeof value === 'number') {
+    td.textContent = value.toFixed(3); // Округляем число
+} else {
+    td.textContent = value || '-'; // Если это не число, выводим как есть
+}
 
                 tr.appendChild(td);
             });
