@@ -1,42 +1,42 @@
 {
-    "push": [
-        {
-            "Country code": "RU",
-            "Country name": "Russian Federation",
-            "CPC mainstream": 0.011,
-            "CPM mainstream": 0.086,
-            "CPC adult": 0.074,
-            "CPM adult": 0.029
-        }
-    ],
-    "inPage": [
-        {
-            "Country code": "US",
-            "Country name": "United States",
-            "CPC mainstream": 0.02,
-            "CPM mainstream": 0.15,
-            "CPC adult": 0.1,
-            "CPM adult": 0.05
-        }
-    ],
-    "pop": [
-        {
-            "Country code": "GB",
-            "Country name": "United Kingdom",
-            "CPC mainstream": 0.015,
-            "CPM mainstream": 0.12,
-            "CPC adult": 0.08,
-            "CPM adult": 0.04
-        }
-    ],
-    "native": [
-        {
-            "Country code": "DE",
-            "Country name": "Germany",
-            "CPC mainstream": 0.018,
-            "CPM mainstream": 0.14,
-            "CPC adult": 0.09,
-            "CPM adult": 0.03
-        }
-    ]
+  "Push": [
+    {
+      "Country code": "RU",
+      "Country name": "Russian Federation",
+      "CPC mainstream": 0.011,
+      "CPM mainstream": 0.086,
+      "CPC adult": 0.074,
+      "CPM adult": 0.029
+    }
+  ],
+  "InPage": [
+    {
+      "Country code": "US",
+      "Country name": "United States",
+      "CPC mainstream": 0.02,
+      "CPM mainstream": 0.15,
+      "CPC adult": 0.1,
+      "CPM adult": 0.05
+    }
+  ],
+  "Pop": [
+    {
+      "Country code": "GB",
+      "Country name": "United Kingdom",
+      "CPC mainstream": 0.015,
+      "CPM mainstream": 0.12,
+      "CPC adult": 0.08,
+      "CPM adult": 0.04
+    }
+  ],
+  "Native": [
+    {
+      "Country code": "DE",
+      "Country name": "Germany",
+      "CPC mainstream": 0.018,
+      "CPM mainstream": 0.14,
+      "CPC adult": 0.09,
+      "CPM adult": 0.03
+    }
+  ]
 }
