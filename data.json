@@ -1,5 +1,5 @@
 {
-    "Push": [
+    "push": [
         {
             "Country code": "RU",
             "Country name": "Russian Federation",
@@ -9,7 +9,7 @@
             "CPM adult": 0.029
         }
     ],
-    "InPage": [
+    "inPage": [
         {
             "Country code": "US",
             "Country name": "United States",
@@ -19,7 +19,7 @@
             "CPM adult": 0.05
         }
     ],
-    "Pop": [
+    "pop": [
         {
             "Country code": "GB",
             "Country name": "United Kingdom",
@@ -29,7 +29,7 @@
             "CPM adult": 0.04
         }
     ],
-    "Native": [
+    "native": [
         {
             "Country code": "DE",
             "Country name": "Germany",
