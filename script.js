@@ -23,6 +23,11 @@ async function loadData() {
             // Если это массив, проходим по всем элементам и добавляем в таблицу
             const tableBody = document.querySelector('#data-table tbody');  // Находим tbody в таблице
             console.log('Table Body found:', tableBody);  // Проверка, нашли ли мы tbody
+            if (!tableBody) {
+                console.error('Не удалось найти tbody для таблицы.');
+                return;
+            }
+
             rows.forEach(row => {
                 const tableRow = document.createElement('tr');
                 for (const key in row) {
