@@ -1,42 +1,43 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Кнопки для каждого раздела
-    const pushBtn = document.getElementById('pushBtn');
-    const inPageBtn = document.getElementById('inPageBtn');
-    const popBtn = document.getElementById('popBtn');
-    const nativeBtn = document.getElementById('nativeBtn');
+    // Путь к вашему файлу JSON
+    const jsonUrl = 'data.json';
 
-    // Разделы контента
-    const pushSection = document.getElementById('pushSection');
-    const inPageSection = document.getElementById('inPageSection');
-    const popSection = document.getElementById('popSection');
-    const nativeSection = document.getElementById('nativeSection');
+    async function loadData() {
+        try {
+            const response = await fetch(jsonUrl);
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
 
-    // Функция для скрытия всех разделов
-    function hideAllSections() {
-        pushSection.style.display = 'none';
-        inPageSection.style.display = 'none';
-        popSection.style.display = 'none';
-        nativeSection.style.display = 'none';
+            const data = await response.json();
+            console.log('Data received:', data);
+
+            const tableBody = document.querySelector('#data-table tbody');
+            console.log(tableBody);  // Проверка, нашли ли tbody
+            if (!tableBody) {
+                console.error('Не удалось найти tbody для таблицы.');
+                return;  // Если не нашли tbody, останавливаем выполнение
+            }
+
+            // Проверка структуры данных
+            if (Array.isArray(data)) {
+                data.forEach(row => {
+                    const tableRow = document.createElement('tr');
+                    for (const key in row) {
+                        const cell = document.createElement('td');
+                        cell.textContent = row[key] || '-';  // Если значения нет, отображаем '-'
+                        tableRow.appendChild(cell);
+                    }
+                    tableBody.appendChild(tableRow);
+                });
+            } else {
+                console.error('Полученные данные не являются массивом!');
+            }
+        } catch (error) {
+            console.error('Ошибка загрузки данных:', error);
+        }
     }
 
-    // Обработчики для кнопок
-    pushBtn.addEventListener('click', () => {
-        hideAllSections();
-        pushSection.style.display = 'block';  // Показываем Push
-    });
-
-    inPageBtn.addEventListener('click', () => {
-        hideAllSections();
-        inPageSection.style.display = 'block';  // Показываем In-Page
-    });
-
-    popBtn.addEventListener('click', () => {
-        hideAllSections();
-        popSection.style.display = 'block';  // Показываем Pop
-    });
-
-    nativeBtn.addEventListener('click', () => {
-        hideAllSections();
-        nativeSection.style.display = 'block';  // Показываем Native
-    });
+    // Загружаем данные при загрузке страницы
+    loadData();
 });
