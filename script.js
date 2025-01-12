@@ -1,35 +1,51 @@
-// Load data from JSON file and populate the table
-window.addEventListener('DOMContentLoaded', () => {
-    fetch('Rates_recommended_Evadav_January25.json')
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.json();
-        })
-        .then(data => {
-            const tableBody = document.querySelector('#data-table tbody');
+// script.js
 
-            // Clear existing rows
-            tableBody.innerHTML = '';
+// URL или путь к вашему JSON-файлу
+const jsonUrl = 'Rates_recommended_Evadav_January25.json';
 
-            // Populate rows with data
-            data.forEach(row => {
-                const tableRow = document.createElement('tr');
+// Функция для загрузки данных из JSON
+async function loadData() {
+    try {
+        const response = await fetch(jsonUrl);
+        const data = await response.json();
 
-                tableRow.innerHTML = `
-                    <td>${row['Country code']}</td>
-                    <td>${row['Country name']}</td>
-                    <td>${row['CPC mainstream']}</td>
-                    <td>${row['CPM mainstream']}</td>
-                    <td>${row['CPC adult']}</td>
-                    <td>${row['CPM adult']}</td>
-                `;
+        // Вставить данные в таблицу
+        populateTable(data);
+    } catch (error) {
+        console.error('Ошибка загрузки JSON:', error);
+    }
+}
 
-                tableBody.appendChild(tableRow);
-            });
-        })
-        .catch(error => {
-            console.error('Error fetching data:', error);
+// Функция для добавления данных в таблицу
+function populateTable(data) {
+    const tableBody = document.querySelector('#data-table tbody');
+
+    // Пример: Добавляем данные из первого листа JSON
+    const sheetName = Object.keys(data)[0]; // Имя первого листа
+    const rows = data[sheetName];
+
+    rows.forEach(row => {
+        const tableRow = document.createElement('tr');
+
+        // Создание ячеек таблицы на основе столбцов
+        const columns = [
+            'Country Code',
+            'Country Name',
+            'CPC Mainstream',
+            'CPM Mainstream',
+            'CPC Adult',
+            'CPM Adult'
+        ];
+
+        columns.forEach(column => {
+            const cell = document.createElement('td');
+            cell.textContent = row[column] || '-'; // Значение или "-"
+            tableRow.appendChild(cell);
         });
-});
+
+        tableBody.appendChild(tableRow);
+    });
+}
+
+// Вызов функции загрузки данных при загрузке страницы
+document.addEventListener('DOMContentLoaded', loadData);
