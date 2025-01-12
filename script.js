@@ -12,13 +12,16 @@ async function loadData() {
 
         // Парсим JSON
         const data = await response.json();
-        console.log('Data received:', data);  // Выводим данные для диагностики
+        console.log('Data received:', data);  // Логируем полученные данные для диагностики
 
-        // Проверяем, что data — это массив
-        if (Array.isArray(data)) {
+        // Если данные являются объектом, получаем массив из свойства "data"
+        const rows = data.data || [];  // Если данных нет, используем пустой массив
+
+        // Проверяем, что rows — это массив
+        if (Array.isArray(rows)) {
             // Если это массив, проходим по всем элементам и добавляем в таблицу
             const tableBody = document.querySelector('#data-table tbody');  // Находим tbody в таблице
-            data.forEach(row => {
+            rows.forEach(row => {
                 const tableRow = document.createElement('tr');
                 for (const key in row) {
                     const cell = document.createElement('td');
