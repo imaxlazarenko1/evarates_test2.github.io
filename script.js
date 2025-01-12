@@ -52,12 +52,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 const td = document.createElement('td');
                 const value = row[header];
 
-                // Проверяем, является ли значение числом
-           if (!isNaN(value) && typeof value === 'number') {
-    td.textContent = value.toFixed(3); // Округляем число
-} else {
-    td.textContent = value || '-'; // Если это не число, выводим как есть
-}
+                // Проверяем, является ли значение числом или строкой-числом
+                if (!isNaN(value)) {
+                    const numericValue = parseFloat(value); // Преобразуем к числу
+                    td.textContent = numericValue.toFixed(3); // Округляем до 3 знаков
+                } else {
+                    td.textContent = value || '-'; // Выводим текстовые значения или "-"
+                }
 
                 tr.appendChild(td);
             });
