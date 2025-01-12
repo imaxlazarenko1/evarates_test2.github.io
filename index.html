@@ -3,21 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Data Table</title>
+    <title>Разделы с кнопками</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <table id="data-table">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Age</th>
-            </tr>
-        </thead>
-        <tbody>
-            <!-- Строки данных будут добавляться сюда -->
-        </tbody>
-    </table>
+    <div class="container">
+        <h1>Форматы рекламы</h1>
+        <!-- Кнопки для выбора раздела -->
+        <div class="buttons">
+            <button id="pushBtn" class="format-btn">Push</button>
+            <button id="inPageBtn" class="format-btn">In-Page</button>
+            <button id="popBtn" class="format-btn">Pop</button>
+            <button id="nativeBtn" class="format-btn">Native</button>
+        </div>
 
+        <!-- Разделы для отображения данных -->
+        <div id="pushSection" class="content-section">
+            <h2>Push Section</h2>
+            <p>Здесь будет отображаться информация для формата Push.</p>
+        </div>
+        <div id="inPageSection" class="content-section">
+            <h2>In-Page Section</h2>
+            <p>Здесь будет отображаться информация для формата In-Page.</p>
+        </div>
+        <div id="popSection" class="content-section">
+            <h2>Pop Section</h2>
+            <p>Здесь будет отображаться информация для формата Pop.</p>
+        </div>
+        <div id="nativeSection" class="content-section">
+            <h2>Native Section</h2>
+            <p>Здесь будет отображаться информация для формата Native.</p>
+        </div>
+    </div>
     <script src="script.js"></script>
 </body>
 </html>
