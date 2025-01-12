@@ -1,50 +1,42 @@
-const jsonUrl = 'data.json';  // Путь к файлу JSON
+document.addEventListener('DOMContentLoaded', () => {
+    // Кнопки для каждого раздела
+    const pushBtn = document.getElementById('pushBtn');
+    const inPageBtn = document.getElementById('inPageBtn');
+    const popBtn = document.getElementById('popBtn');
+    const nativeBtn = document.getElementById('nativeBtn');
 
-async function loadData() {
-    try {
-        // Загружаем данные из файла
-        const response = await fetch(jsonUrl);
-        
-        // Проверяем, успешен ли запрос
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
+    // Разделы контента
+    const pushSection = document.getElementById('pushSection');
+    const inPageSection = document.getElementById('inPageSection');
+    const popSection = document.getElementById('popSection');
+    const nativeSection = document.getElementById('nativeSection');
 
-        // Парсим JSON
-        const data = await response.json();
-        console.log('Data received:', data);  // Логируем полученные данные для диагностики
-
-        // Если данные являются объектом, получаем массив из свойства "data"
-        const rows = data.data || [];  // Если данных нет, используем пустой массив
-        console.log('Rows to display:', rows);  // Логируем массив, который будет отображен
-
-        // Проверяем, что rows — это массив
-        if (Array.isArray(rows)) {
-            // Если это массив, проходим по всем элементам и добавляем в таблицу
-            const tableBody = document.querySelector('#data-table tbody');  // Находим tbody в таблице
-            console.log('Table Body found:', tableBody);  // Проверка, нашли ли мы tbody
-            if (!tableBody) {
-                console.error('Не удалось найти tbody для таблицы.');
-                return;
-            }
-
-            rows.forEach(row => {
-                const tableRow = document.createElement('tr');
-                for (const key in row) {
-                    const cell = document.createElement('td');
-                    cell.textContent = row[key] || '-';  // Если значение отсутствует, ставим '-'
-                    tableRow.appendChild(cell);
-                }
-                tableBody.appendChild(tableRow);
-            });
-        } else {
-            console.error('Полученные данные не являются массивом!');
-        }
-    } catch (error) {
-        // Если произошла ошибка при загрузке или парсинге
-        console.error('Ошибка загрузки данных:', error);
+    // Функция для скрытия всех разделов
+    function hideAllSections() {
+        pushSection.style.display = 'none';
+        inPageSection.style.display = 'none';
+        popSection.style.display = 'none';
+        nativeSection.style.display = 'none';
     }
-}
 
-// Загружаем данные при загрузке страницы
-document.addEventListener('DOMContentLoaded', loadData);
+    // Обработчики для кнопок
+    pushBtn.addEventListener('click', () => {
+        hideAllSections();
+        pushSection.style.display = 'block';  // Показываем Push
+    });
+
+    inPageBtn.addEventListener('click', () => {
+        hideAllSections();
+        inPageSection.style.display = 'block';  // Показываем In-Page
+    });
+
+    popBtn.addEventListener('click', () => {
+        hideAllSections();
+        popSection.style.display = 'block';  // Показываем Pop
+    });
+
+    nativeBtn.addEventListener('click', () => {
+        hideAllSections();
+        nativeSection.style.display = 'block';  // Показываем Native
+    });
+});
