@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const jsonUrl = 'data.json'; // Путь к вашему JSON файлу
     let jsonData = {}; // Для хранения загруженных данных
 
-    // Элементы кнопок
+    // Кнопки и разделы
     const buttons = {
         push: document.getElementById('pushBtn'),
         inPage: document.getElementById('inPageBtn'),
@@ -10,7 +10,6 @@ document.addEventListener('DOMContentLoaded', () => {
         native: document.getElementById('nativeBtn')
     };
 
-    // Элементы разделов
     const sections = {
         push: document.getElementById('pushSection'),
         inPage: document.getElementById('inPageSection'),
@@ -18,40 +17,34 @@ document.addEventListener('DOMContentLoaded', () => {
         native: document.getElementById('nativeSection')
     };
 
-    // Скрыть все разделы
+    // Скрываем все разделы
     function hideAllSections() {
-        Object.values(sections).forEach(section => (section.style.display = 'none'));
+        Object.values(sections).forEach(section => section.classList.remove('active'));
     }
 
-    // Создание таблицы для отображения данных
+    // Создаем таблицу для отображения данных
     function createTable(data) {
         const table = document.createElement('table');
-        table.style.width = '100%';
-        table.style.borderCollapse = 'collapse';
 
-        // Создаем заголовок таблицы
+        // Заголовки таблицы
+        const headers = ['Country code', 'Country name', 'CPC mainstream', 'CPM mainstream', 'CPC adult', 'CPM adult'];
         const headerRow = document.createElement('tr');
-        ['Country code', 'Country name', 'CPC mainstream', 'CPM mainstream', 'CPC adult', 'CPM adult'].forEach(header => {
+        headers.forEach(header => {
             const th = document.createElement('th');
             th.textContent = header;
-            th.style.border = '1px solid black';
-            th.style.padding = '8px';
-            th.style.textAlign = 'left';
             headerRow.appendChild(th);
         });
         table.appendChild(headerRow);
 
-        // Заполняем таблицу данными
+        // Строки данных
         data.forEach(row => {
-            const tableRow = document.createElement('tr');
-            Object.keys(row).forEach(key => {
+            const tr = document.createElement('tr');
+            headers.forEach(header => {
                 const td = document.createElement('td');
-                td.textContent = row[key];
-                td.style.border = '1px solid black';
-                td.style.padding = '8px';
-                tableRow.appendChild(td);
+                td.textContent = row[header] || '-';
+                tr.appendChild(td);
             });
-            table.appendChild(tableRow);
+            table.appendChild(tr);
         });
 
         return table;
@@ -65,25 +58,23 @@ document.addEventListener('DOMContentLoaded', () => {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
             jsonData = await response.json();
-            console.log('Данные успешно загружены:', jsonData);
+            console.log('Данные загружены:', jsonData);
         } catch (error) {
             console.error('Ошибка загрузки данных:', error);
         }
     }
 
-    // Обработчик для кнопок
+    // Настраиваем обработчики кнопок
     function setupButtonHandlers() {
         Object.keys(buttons).forEach(format => {
             buttons[format].addEventListener('click', () => {
                 hideAllSections(); // Скрываем все разделы
 
-                const section = sections[format]; // Показываем выбранный раздел
-                section.style.display = 'block';
+                const section = sections[format];
+                section.classList.add('active'); // Показываем текущий раздел
 
-                // Удаляем старый контент
+                // Очищаем старый контент и добавляем новый
                 section.innerHTML = `<h2>${format.charAt(0).toUpperCase() + format.slice(1)} Section</h2>`;
-
-                // Создаем таблицу с данными
                 if (jsonData[format]) {
                     const table = createTable(jsonData[format]);
                     section.appendChild(table);
@@ -96,8 +87,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Инициализация
     async function init() {
-        await loadData(); // Загружаем JSON данные
-        setupButtonHandlers(); // Настраиваем обработчики для кнопок
+        await loadData(); // Загружаем JSON
+        setupButtonHandlers(); // Настраиваем кнопки
     }
 
     init(); // Запуск
