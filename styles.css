@@ -98,3 +98,24 @@ h1 {
     font-weight: bold;
     box-shadow: 0 0 10px rgba(38, 192, 169, 0.5);
 }
+
+.footer {
+    text-align: center;
+    background-color: #26C0A9; /* Зеленый фон */
+    color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.footer a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.2rem;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+.footer a:hover {
+    color: #d9fff5; /* Светлый оттенок для наведения */
+}
