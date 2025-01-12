@@ -1,4 +1,4 @@
-const jsonUrl = './Rates_recommended_Evadav_January25.json';
+const jsonUrl = 'data.json';
 
 async function loadData() {
     try {
