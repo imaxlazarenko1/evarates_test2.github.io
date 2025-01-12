@@ -53,17 +53,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Загрузка данных из JSON
     async function loadData() {
-        try {
-            const response = await fetch(jsonUrl);
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            jsonData = await response.json();
-            console.log('Данные загружены:', jsonData);
-        } catch (error) {
-            console.error('Ошибка загрузки данных:', error);
+    try {
+        console.log('Запрашиваю JSON:', jsonUrl); // Добавлено для отладки
+        const response = await fetch(jsonUrl);
+        console.log('Ответ от сервера:', response); // Показывает статус ответа
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
         }
+        jsonData = await response.json();
+        console.log('Данные успешно загружены:', jsonData); // Проверяем загруженные данные
+    } catch (error) {
+        console.error('Ошибка при загрузке данных:', error); // Показываем ошибку, если она есть
     }
+}
 
     // Настраиваем обработчики кнопок
     function setupButtonHandlers() {
