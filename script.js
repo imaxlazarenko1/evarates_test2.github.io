@@ -1,6 +1,6 @@
 // Load data from JSON file and populate the table
 window.addEventListener('DOMContentLoaded', () => {
-    fetch('data.json')
+    fetch('Rates_recommended_Evadav_January25.json')
         .then(response => {
             if (!response.ok) {
                 throw new Error('Network response was not ok');
