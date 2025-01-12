@@ -16,11 +16,13 @@ async function loadData() {
 
         // Если данные являются объектом, получаем массив из свойства "data"
         const rows = data.data || [];  // Если данных нет, используем пустой массив
+        console.log('Rows to display:', rows);  // Логируем массив, который будет отображен
 
         // Проверяем, что rows — это массив
         if (Array.isArray(rows)) {
             // Если это массив, проходим по всем элементам и добавляем в таблицу
             const tableBody = document.querySelector('#data-table tbody');  // Находим tbody в таблице
+            console.log('Table Body found:', tableBody);  // Проверка, нашли ли мы tbody
             rows.forEach(row => {
                 const tableRow = document.createElement('tr');
                 for (const key in row) {
