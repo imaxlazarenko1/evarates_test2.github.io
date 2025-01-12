@@ -78,12 +78,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 // Очищаем старый контент и добавляем новый
                 section.innerHTML = `<h2>${format.charAt(0).toUpperCase() + format.slice(1)} Section</h2>`;
-                if (jsonData[format]) {
-                    const table = createTable(jsonData[format]);
-                    section.appendChild(table);
-                } else {
-                    section.innerHTML += '<p>Нет данных для этого раздела.</p>';
-                }
+               if (jsonData[format]) {
+    console.log(`Данные для ${format}:`, jsonData[format]);
+    const table = createTable(jsonData[format]);
+    section.appendChild(table);
+} else {
+    console.warn(`Нет данных для формата ${format}`);
+    section.innerHTML += '<p>Нет данных для этого раздела.</p>';}
             });
         });
     }
