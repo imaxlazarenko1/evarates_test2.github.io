@@ -81,15 +81,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 const jsonKey = format.charAt(0).toUpperCase() + format.slice(1);
                 console.log(`Активный формат: ${format}, JSON ключ: ${jsonKey}`);
 
-                // Очищаем старый контент и добавляем новый
-                section.innerHTML = `<h2>${jsonKey} Section</h2>`;
+                // Проверяем наличие данных
                 if (jsonData[jsonKey]) {
                     console.log(`Данные найдены для ключа: ${jsonKey}`, jsonData[jsonKey]);
+                    section.innerHTML = `<h2>${jsonKey} Section</h2>`;
                     const table = createTable(jsonData[jsonKey]);
                     section.appendChild(table);
                 } else {
                     console.warn(`Нет данных для формата: ${jsonKey}`);
-                    section.innerHTML += '<p>Нет данных для этого раздела.</p>';
+                    section.innerHTML = `<h2>${jsonKey} Section</h2><p>Нет данных для этого раздела.</p>`;
                 }
             });
         });
@@ -97,6 +97,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Инициализация
     async function init() {
+        console.log('Инициализация приложения...');
         await loadData(); // Загружаем JSON
         setupButtonHandlers(); // Настраиваем кнопки
     }
