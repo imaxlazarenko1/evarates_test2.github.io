@@ -77,19 +77,18 @@ document.addEventListener('DOMContentLoaded', () => {
                 const section = sections[format];
                 section.classList.add('active'); // Показываем текущий раздел
 
-                // Преобразуем ключ формата в нужный регистр
-                const jsonKey = format.charAt(0).toUpperCase() + format.slice(1);
-                console.log(`Активный формат: ${format}, JSON ключ: ${jsonKey}`);
+                // Используем ключи из JSON напрямую
+                console.log(`Активный формат: ${format}`);
 
                 // Проверяем наличие данных
-                if (jsonData[jsonKey]) {
-                    console.log(`Данные найдены для ключа: ${jsonKey}`, jsonData[jsonKey]);
-                    section.innerHTML = `<h2>${jsonKey} Section</h2>`;
-                    const table = createTable(jsonData[jsonKey]);
+                if (jsonData[format]) {
+                    console.log(`Данные найдены для ключа: ${format}`, jsonData[format]);
+                    section.innerHTML = `<h2>${format} Section</h2>`;
+                    const table = createTable(jsonData[format]);
                     section.appendChild(table);
                 } else {
-                    console.warn(`Нет данных для формата: ${jsonKey}`);
-                    section.innerHTML = `<h2>${jsonKey} Section</h2><p>Нет данных для этого раздела.</p>`;
+                    console.warn(`Нет данных для формата: ${format}`);
+                    section.innerHTML = `<h2>${format} Section</h2><p>Нет данных для этого раздела.</p>`;
                 }
             });
         });
