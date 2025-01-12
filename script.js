@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const jsonUrl = 'data.json'; // Путь к вашему JSON файлу
+    const jsonUrl = './data.json'; // Путь к вашему JSON файлу
     let jsonData = {}; // Для хранения загруженных данных
 
     // Кнопки и разделы
