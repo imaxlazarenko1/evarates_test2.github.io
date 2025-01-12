@@ -1,42 +1,1075 @@
 {
-  "push": [
-    {
-      "Country code": "RU",
-      "Country name": "Russian Federation",
-      "CPC mainstream": 0.011,
-      "CPM mainstream": 0.086,
-      "CPC adult": 0.074,
-      "CPM adult": 0.029
-    }
-  ],
-  "inPage": [
-    {
-      "Country code": "US",
-      "Country name": "United States",
-      "CPC mainstream": 0.02,
-      "CPM mainstream": 0.15,
-      "CPC adult": 0.1,
-      "CPM adult": 0.05
-    }
-  ],
-  "pop": [
-    {
-      "Country code": "GB",
-      "Country name": "United Kingdom",
-      "CPC mainstream": 0.015,
-      "CPM mainstream": 0.12,
-      "CPC adult": 0.08,
-      "CPM adult": 0.04
-    }
-  ],
-  "native": [
-    {
-      "Country code": "DE",
-      "Country name": "Germany",
-      "CPC mainstream": 0.018,
-      "CPM mainstream": 0.14,
-      "CPC adult": 0.09,
-      "CPM adult": 0.03
-    }
-  ]
+    "push": [
+        {
+            "Country code": "RU",
+            "Country name": "Russian Federation",
+            "CPC mainstream": 0.011,
+            "CPM mainstream": 0.086,
+            "CPC adult": 0.074,
+            "CPM adult": 0.029
+        },
+        {
+            "Country code": "ID",
+            "Country name": "Indonesia",
+            "CPC mainstream": 0.038,
+            "CPM mainstream": 0.015,
+            "CPC adult": 0.017,
+            "CPM adult": 0.007
+        },
+        {
+            "Country code": "IN",
+            "Country name": "India",
+            "CPC mainstream": 0.007,
+            "CPM mainstream": 0.012,
+            "CPC adult": 0.002,
+            "CPM adult": 0.001
+        },
+        {
+            "Country code": "PH",
+            "Country name": "Philippines",
+            "CPC mainstream": 0.023,
+            "CPM mainstream": 0.039,
+            "CPC adult": 0.009,
+            "CPM adult": 0.004
+        },
+        {
+            "Country code": "TR",
+            "Country name": "Turkey",
+            "CPC mainstream": 0.05,
+            "CPM mainstream": 0.06,
+            "CPC adult": 0.017,
+            "CPM adult": 0.009
+        },
+        {
+            "Country code": "VN",
+            "Country name": "Viet Nam",
+            "CPC mainstream": 0.033,
+            "CPM mainstream": 0.022,
+            "CPC adult": 0.024,
+            "CPM adult": 0.003
+        },
+        {
+            "Country code": "BR",
+            "Country name": "Brazil",
+            "CPC mainstream": 0.019,
+            "CPM mainstream": 0.045,
+            "CPC adult": 0.017,
+            "CPM adult": 0.007
+        },
+        {
+            "Country code": "US",
+            "Country name": "United States of America",
+            "CPC mainstream": 0.131,
+            "CPM mainstream": 0.028,
+            "CPC adult": 0.045,
+            "CPM adult": 0.012
+        },
+        {
+            "Country code": "ES",
+            "Country name": "Spain",
+            "CPC mainstream": 0.05,
+            "CPM mainstream": 0.051,
+            "CPC adult": 0.021,
+            "CPM adult": 0.008
+        },
+        {
+            "Country code": "KZ",
+            "Country name": "Kazakhstan",
+            "CPC mainstream": 0.047,
+            "CPM mainstream": 0.016,
+            "CPC adult": 0.024,
+            "CPM adult": 0.012
+        },
+        {
+            "Country code": "CZ",
+            "Country name": "Czech Republic",
+            "CPC mainstream": 0.073,
+            "CPM mainstream": 0.12,
+            "CPC adult": 0.104,
+            "CPM adult": 0.143
+        },
+        {
+            "Country code": "AZ",
+            "Country name": "Azerbaijan",
+            "CPC mainstream": 0.097,
+            "CPM mainstream": 0.073,
+            "CPC adult": 0.04,
+            "CPM adult": 0.033
+        },
+        {
+            "Country code": "UA",
+            "Country name": "Ukraine",
+            "CPC mainstream": 0.046,
+            "CPM mainstream": 0.023,
+            "CPC adult": 0.051,
+            "CPM adult": 0.013
+        },
+        {
+            "Country code": "TH",
+            "Country name": "Thailand",
+            "CPC mainstream": 0.059,
+            "CPM mainstream": 0.012,
+            "CPC adult": 0.029,
+            "CPM adult": 0.007
+        },
+        {
+            "Country code": "FR",
+            "Country name": "France",
+            "CPC mainstream": 0.052,
+            "CPM mainstream": 0.046,
+            "CPC adult": 0.042,
+            "CPM adult": 0.011
+        },
+        {
+            "Country code": "UZ",
+            "Country name": "Uzbekistan",
+            "CPC mainstream": 0.032,
+            "CPM mainstream": 0.038,
+            "CPC adult": 0.01,
+            "CPM adult": 0.008
+        },
+        {
+            "Country code": "CO",
+            "Country name": "Colombia",
+            "CPC mainstream": 0.009,
+            "CPM mainstream": 0.041,
+            "CPC adult": 0.003,
+            "CPM adult": 0.001
+        },
+        {
+            "Country code": "AM",
+            "Country name": "Armenia",
+            "CPC mainstream": 0.055,
+            "CPM mainstream": 0.064,
+            "CPC adult": 0.024,
+            "CPM adult": 0.013
+        },
+        {
+            "Country code": "CI",
+            "Country name": "Côte d'Ivoire",
+            "CPC mainstream": 0.014,
+            "CPM mainstream": 0.022,
+            "CPC adult": 0.014,
+            "CPM adult": 0.006
+        },
+        {
+            "Country code": "BD",
+            "Country name": "Bangladesh",
+            "CPC mainstream": 0.008,
+            "CPM mainstream": 0.011,
+            "CPC adult": 0.004,
+            "CPM adult": 0.006
+        },
+        {
+            "Country code": "JP",
+            "Country name": "Japan",
+            "CPC mainstream": 0.088,
+            "CPM mainstream": 0.033,
+            "CPC adult": 0.061,
+            "CPM adult": 0.015
+        },
+        {
+            "Country code": "TJ",
+            "Country name": "Tajikistan",
+            "CPC mainstream": 0.018,
+            "CPM mainstream": 0.017,
+            "CPC adult": 0.069,
+            "CPM adult": 0.03
+        },
+        {
+            "Country code": "KR",
+            "Country name": "Korea (Republic of)",
+            "CPC mainstream": 0.051,
+            "CPM mainstream": 0.026,
+            "CPC adult": 0.021,
+            "CPM adult": 0.008
+        },
+        {
+            "Country code": "PL",
+            "Country name": "Poland",
+            "CPC mainstream": 0.035,
+            "CPM mainstream": 0.014,
+            "CPC adult": 0.033,
+            "CPM adult": 0.009
+        },
+        {
+            "Country code": "PK",
+            "Country name": "Pakistan",
+            "CPC mainstream": 0.004,
+            "CPM mainstream": 0.008,
+            "CPC adult": 0.002,
+            "CPM adult": 0.004
+        },
+        {
+            "Country code": "DE",
+            "Country name": "Germany",
+            "CPC mainstream": 0.045,
+            "CPM mainstream": 0.018,
+            "CPC adult": 0.034,
+            "CPM adult": 0.016
+        },
+        {
+            "Country code": "MX",
+            "Country name": "Mexico",
+            "CPC mainstream": 0.009,
+            "CPM mainstream": 0.012,
+            "CPC adult": 0.006,
+            "CPM adult": 0.005
+        },
+        {
+            "Country code": "ZA",
+            "Country name": "South Africa",
+            "CPC mainstream": 0.012,
+            "CPM mainstream": 0.041,
+            "CPC adult": 0.009,
+            "CPM adult": 0.009
+        },
+        {
+            "Country code": "CM",
+            "Country name": "Cameroon",
+            "CPC mainstream": 0.046,
+            "CPM mainstream": 0.027,
+            "CPC adult": 0.03,
+            "CPM adult": 0.012
+        },
+        {
+            "Country code": "IR",
+            "Country name": "Iran (Islamic Republic of)",
+            "CPC mainstream": 0.045,
+            "CPM mainstream": 0.026,
+            "CPC adult": 0.011,
+            "CPM adult": 0.007
+        },
+        {
+            "Country code": "EG",
+            "Country name": "Egypt",
+            "CPC mainstream": 0.006,
+            "CPM mainstream": 0.007,
+            "CPC adult": 0.004,
+            "CPM adult": 0.004
+        },
+        {
+            "Country code": "ET",
+            "Country name": "Ethiopia",
+            "CPC mainstream": 0.004,
+            "CPM mainstream": 0.015,
+            "CPC adult": 0.003,
+            "CPM adult": 0.006
+        },
+        {
+            "Country code": "MA",
+            "Country name": "Morocco",
+            "CPC mainstream": 0.006,
+            "CPM mainstream": 0.017,
+            "CPC adult": 0.003,
+            "CPM adult": 0.003
+        },
+        {
+            "Country code": "NL",
+            "Country name": "Netherlands",
+            "CPC mainstream": 0.019,
+            "CPM mainstream": 0.019,
+            "CPC adult": 0.014,
+            "CPM adult": 0.007
+        },
+        {
+            "Country code": "RO",
+            "Country name": "Romania",
+            "CPC mainstream": 0.02,
+            "CPM mainstream": 0.007,
+            "CPC adult": 0.013,
+            "CPM adult": 0.002
+        },
+        {
+            "Country code": "SA",
+            "Country name": "Saudi Arabia",
+            "CPC mainstream": 0.007,
+            "CPM mainstream": 0.013,
+            "CPC adult": 0.008,
+            "CPM adult": 0.007
+        },
+        {
+            "Country code": "IT",
+            "Country name": "Italy",
+            "CPC mainstream": 0.011,
+            "CPM mainstream": 0.005,
+            "CPC adult": 0.016,
+            "CPM adult": 0.004
+        },
+        {
+            "Country code": "TW",
+            "Country name": "Taiwan, Province of China[a]",
+            "CPC mainstream": 0.019,
+            "CPM mainstream": 0.011,
+            "CPC adult": 0.012,
+            "CPM adult": 0.003
+        },
+        {
+            "Country code": "HU",
+            "Country name": "Hungary",
+            "CPC mainstream": 0.022,
+            "CPM mainstream": 0.007,
+            "CPC adult": 0.026,
+            "CPM adult": 0.006
+        },
+        {
+            "Country code": "NG",
+            "Country name": "Nigeria",
+            "CPC mainstream": 0.009,
+            "CPM mainstream": 0.018,
+            "CPC adult": 0.005,
+            "CPM adult": 0.005
+        },
+        {
+            "Country code": "AU",
+            "Country name": "Australia",
+            "CPC mainstream": 0.092,
+            "CPM mainstream": 0.067,
+            "CPC adult": 0.045,
+            "CPM adult": 0.038
+        },
+        {
+            "Country code": "CA",
+            "Country name": "Canada",
+            "CPC mainstream": 0.055,
+            "CPM mainstream": 0.077,
+            "CPC adult": 0.058,
+            "CPM adult": 0.03
+        },
+        {
+            "Country code": "MY",
+            "Country name": "Malaysia",
+            "CPC mainstream": 0.012,
+            "CPM mainstream": 0.019,
+            "CPC adult": 0.008,
+            "CPM adult": 0.003
+        },
+        {
+            "Country code": "RS",
+            "Country name": "Serbia",
+            "CPC mainstream": 0.015,
+            "CPM mainstream": 0.011,
+            "CPC adult": 0.007,
+            "CPM adult": 0.004
+        },
+        {
+            "Country code": "LK",
+            "Country name": "Sri Lanka",
+            "CPC mainstream": 0.023,
+            "CPM mainstream": 0.03,
+            "CPC adult": 0.005,
+            "CPM adult": 0.003
+        },
+        {
+            "Country code": "PT",
+            "Country name": "Portugal",
+            "CPC mainstream": 0.01,
+            "CPM mainstream": 0.014,
+            "CPC adult": 0.022,
+            "CPM adult": 0.008
+        },
+        {
+            "Country code": "GB",
+            "Country name": "United Kingdom of Great Britain and Northern Ireland",
+            "CPC mainstream": 0.021,
+            "CPM mainstream": 0.022,
+            "CPC adult": 0.031,
+            "CPM adult": 0.022
+        },
+        {
+            "Country code": "GR",
+            "Country name": "Greece",
+            "CPC mainstream": 0.066,
+            "CPM mainstream": 0.08,
+            "CPC adult": 0.013,
+            "CPM adult": 0.003
+        },
+        {
+            "Country code": "SD",
+            "Country name": "Sudan",
+            "CPC mainstream": 0.009,
+            "CPM mainstream": 0.012,
+            "CPC adult": 0.004,
+            "CPM adult": 0.006
+        },
+        {
+            "Country code": "SK",
+            "Country name": "Slovakia",
+            "CPC mainstream": 0.055,
+            "CPM mainstream": 0.046,
+            "CPC adult": 0.039,
+            "CPM adult": 0.016
+        }
+    ],
+    "inPage": [
+        {
+            "Country code": "US",
+            "Country name": "United States of America",
+            "CPC": 0.03,
+            "CPM": 0.2404
+        },
+        {
+            "Country code": "IN",
+            "Country name": "India",
+            "CPC": 0.0004,
+            "CPM": 0.033
+        },
+        {
+            "Country code": "IT",
+            "Country name": "Italy",
+            "CPC": 0.0204,
+            "CPM": 0.46
+        },
+        {
+            "Country code": "DE",
+            "Country name": "Germany",
+            "CPC": 0.0068,
+            "CPM": 0.2164
+        },
+        {
+            "Country code": "ID",
+            "Country name": "Indonesia",
+            "CPC": 0.0058,
+            "CPM": 0.115
+        },
+        {
+            "Country code": "PL",
+            "Country name": "Poland",
+            "CPC": 0.0142,
+            "CPM": 0.4388
+        },
+        {
+            "Country code": "GB",
+            "Country name": "United Kingdom of Great Britain and Northern Ireland",
+            "CPC": 0.0078,
+            "CPM": 0.2096
+        },
+        {
+            "Country code": "FR",
+            "Country name": "France",
+            "CPC": 0.0046,
+            "CPM": 0.137
+        },
+        {
+            "Country code": "CN",
+            "Country name": "China",
+            "CPC": 0.0082,
+            "CPM": 0.2956
+        },
+        {
+            "Country code": "CA",
+            "Country name": "Canada",
+            "CPC": 0.0106,
+            "CPM": 0.1976
+        },
+        {
+            "Country code": "TH",
+            "Country name": "Thailand",
+            "CPC": 0.0016,
+            "CPM": 0.1508
+        },
+        {
+            "Country code": "MY",
+            "Country name": "Malaysia",
+            "CPC": 0.004,
+            "CPM": 0.1148
+        },
+        {
+            "Country code": "JP",
+            "Country name": "Japan",
+            "CPC": 0.0186,
+            "CPM": 0.14
+        },
+        {
+            "Country code": "ES",
+            "Country name": "Spain",
+            "CPC": 0.0048,
+            "CPM": 0.1136
+        },
+        {
+            "Country code": "BR",
+            "Country name": "Brazil",
+            "CPC": 0.001,
+            "CPM": 0.073
+        },
+        {
+            "Country code": "RU",
+            "Country name": "Russian Federation",
+            "CPC": 0.0022,
+            "CPM": 0.1128
+        },
+        {
+            "Country code": "AU",
+            "Country name": "Australia",
+            "CPC": 0.0146,
+            "CPM": 0.2596
+        },
+        {
+            "Country code": "SE",
+            "Country name": "Sweden",
+            "CPC": 0.0076,
+            "CPM": 0.2192
+        },
+        {
+            "Country code": "MX",
+            "Country name": "Mexico",
+            "CPC": 0.0014,
+            "CPM": 0.0594
+        },
+        {
+            "Country code": "NL",
+            "Country name": "Netherlands",
+            "CPC": 0.007,
+            "CPM": 0.197
+        },
+        {
+            "Country code": "PK",
+            "Country name": "Pakistan",
+            "CPC": 0.0004,
+            "CPM": 0.0606
+        },
+        {
+            "Country code": "PH",
+            "Country name": "Philippines",
+            "CPC": 0.0016,
+            "CPM": 0.0236
+        },
+        {
+            "Country code": "IQ",
+            "Country name": "Iraq",
+            "CPC": 0.001,
+            "CPM": 0.029
+        },
+        {
+            "Country code": "CZ",
+            "Country name": "Czech Republic",
+            "CPC": 0.008,
+            "CPM": 0.095
+        },
+        {
+            "Country code": "SK",
+            "Country name": "Slovakia",
+            "CPC": 0.016,
+            "CPM": 0.1198
+        },
+        {
+            "Country code": "NO",
+            "Country name": "Norway",
+            "CPC": 0.017,
+            "CPM": 0.3316
+        },
+        {
+            "Country code": "BE",
+            "Country name": "Belgium",
+            "CPC": 0.01,
+            "CPM": 0.2
+        },
+        {
+            "Country code": "TW",
+            "Country name": "Taiwan, Province of China[a]",
+            "CPC": 0.0024,
+            "CPM": 0.1228
+        },
+        {
+            "Country code": "NG",
+            "Country name": "Nigeria",
+            "CPC": 0.0032,
+            "CPM": 0.1246
+        },
+        {
+            "Country code": "BD",
+            "Country name": "Bangladesh",
+            "CPC": 0.001,
+            "CPM": 0.0426
+        },
+        {
+            "Country code": "ZA",
+            "Country name": "South Africa",
+            "CPC": 0.0032,
+            "CPM": 0.1372
+        },
+        {
+            "Country code": "TR",
+            "Country name": "Turkey",
+            "CPC": 0.0014,
+            "CPM": 0.0558
+        },
+        {
+            "Country code": "VN",
+            "Country name": "Viet Nam",
+            "CPC": 0.0002,
+            "CPM": 0.0112
+        },
+        {
+            "Country code": "RO",
+            "Country name": "Romania",
+            "CPC": 0.0044,
+            "CPM": 0.1272
+        },
+        {
+            "Country code": "DZ",
+            "Country name": "Algeria",
+            "CPC": 0.001,
+            "CPM": 0.0234
+        },
+        {
+            "Country code": "KE",
+            "Country name": "Kenya",
+            "CPC": 0.0074,
+            "CPM": 0.2518
+        },
+        {
+            "Country code": "EG",
+            "Country name": "Egypt",
+            "CPC": 0.0006,
+            "CPM": 0.0146
+        },
+        {
+            "Country code": "CO",
+            "Country name": "Colombia",
+            "CPC": 0.0014,
+            "CPM": 0.0644
+        },
+        {
+            "Country code": "CH",
+            "Country name": "Switzerland",
+            "CPC": 0.005,
+            "CPM": 0.156
+        },
+        {
+            "Country code": "GR",
+            "Country name": "Greece",
+            "CPC": 0.0042,
+            "CPM": 0.1306
+        },
+        {
+            "Country code": "NZ",
+            "Country name": "New Zealand",
+            "CPC": 0.0118,
+            "CPM": 0.2398
+        },
+        {
+            "Country code": "IE",
+            "Country name": "Ireland",
+            "CPC": 0.0064,
+            "CPM": 0.1328
+        },
+        {
+            "Country code": "CL",
+            "Country name": "Chile",
+            "CPC": 0.0022,
+            "CPM": 0.0578
+        },
+        {
+            "Country code": "PE",
+            "Country name": "Peru",
+            "CPC": 0.0012,
+            "CPM": 0.0628
+        },
+        {
+            "Country code": "PT",
+            "Country name": "Portugal",
+            "CPC": 0.0032,
+            "CPM": 0.054
+        },
+        {
+            "Country code": "AZ",
+            "Country name": "Azerbaijan",
+            "CPC": 0.0028,
+            "CPM": 0.1062
+        },
+        {
+            "Country code": "UA",
+            "Country name": "Ukraine",
+            "CPC": 0.0028,
+            "CPM": 0.0962
+        },
+        {
+            "Country code": "MA",
+            "Country name": "Morocco",
+            "CPC": 0.001,
+            "CPM": 0.0384
+        },
+        {
+            "Country code": "CI",
+            "Country name": "Côte d'Ivoire",
+            "CPC": 0.004,
+            "CPM": 0.208
+        },
+        {
+            "Country code": "AR",
+            "Country name": "Argentina",
+            "CPC": 0.001,
+            "CPM": 0.0302
+        }
+    ],
+    "pop": [
+        {
+            "Country code": "CN",
+            "Country name": "China",
+            "CPM": 0.8269500000000001
+        },
+        {
+            "Country code": "ID",
+            "Country name": "Indonesia",
+            "CPM": 0.17745
+        },
+        {
+            "Country code": "US",
+            "Country name": "United States of America",
+            "CPM": 0.09584999999999999
+        },
+        {
+            "Country code": "IN",
+            "Country name": "India",
+            "CPM": 0.05745
+        },
+        {
+            "Country code": "TR",
+            "Country name": "Turkey",
+            "CPM": 0.312
+        },
+        {
+            "Country code": "RU",
+            "Country name": "Russian Federation",
+            "CPM": 0.02655
+        },
+        {
+            "Country code": "VN",
+            "Country name": "Viet Nam",
+            "CPM": 0.04365
+        },
+        {
+            "Country code": "PH",
+            "Country name": "Philippines",
+            "CPM": 0.1581
+        },
+        {
+            "Country code": "MY",
+            "Country name": "Malaysia",
+            "CPM": 0.51645
+        },
+        {
+            "Country code": "FR",
+            "Country name": "France",
+            "CPM": 0.05805
+        },
+        {
+            "Country code": "GB",
+            "Country name": "United Kingdom of Great Britain and Northern Ireland",
+            "CPM": 0.1236
+        },
+        {
+            "Country code": "DE",
+            "Country name": "Germany",
+            "CPM": 0.03555
+        },
+        {
+            "Country code": "TH",
+            "Country name": "Thailand",
+            "CPM": 0.0528
+        },
+        {
+            "Country code": "BR",
+            "Country name": "Brazil",
+            "CPM": 0.014100000000000001
+        },
+        {
+            "Country code": "JP",
+            "Country name": "Japan",
+            "CPM": 0.3045
+        },
+        {
+            "Country code": "UA",
+            "Country name": "Ukraine",
+            "CPM": 0.3954
+        },
+        {
+            "Country code": "BD",
+            "Country name": "Bangladesh",
+            "CPM": 0.04245
+        },
+        {
+            "Country code": "PL",
+            "Country name": "Poland",
+            "CPM": 0.03315
+        },
+        {
+            "Country code": "AU",
+            "Country name": "Australia",
+            "CPM": 0.35715
+        },
+        {
+            "Country code": "ES",
+            "Country name": "Spain",
+            "CPM": 0.03975
+        },
+        {
+            "Country code": "IT",
+            "Country name": "Italy",
+            "CPM": 0.03855
+        },
+        {
+            "Country code": "AT",
+            "Country name": "Austria",
+            "CPM": 0.0354
+        },
+        {
+            "Country code": "SN",
+            "Country name": "Senegal",
+            "CPM": 1.37745
+        },
+        {
+            "Country code": "NL",
+            "Country name": "Netherlands",
+            "CPM": 0.01215
+        },
+        {
+            "Country code": "CH",
+            "Country name": "Switzerland",
+            "CPM": 0.40005
+        },
+        {
+            "Country code": "BF",
+            "Country name": "Burkina Faso",
+            "CPM": 3.0357000000000003
+        },
+        {
+            "Country code": "AZ",
+            "Country name": "Azerbaijan",
+            "CPM": 0.1689
+        },
+        {
+            "Country code": "MM",
+            "Country name": "Myanmar",
+            "CPM": 0.3945
+        },
+        {
+            "Country code": "PK",
+            "Country name": "Pakistan",
+            "CPM": 0.0049499999999999995
+        },
+        {
+            "Country code": "CA",
+            "Country name": "Canada",
+            "CPM": 0.0339
+        },
+        {
+            "Country code": "CL",
+            "Country name": "Chile",
+            "CPM": 0.05295
+        },
+        {
+            "Country code": "MX",
+            "Country name": "Mexico",
+            "CPM": 0.027749999999999997
+        },
+        {
+            "Country code": "BE",
+            "Country name": "Belgium",
+            "CPM": 0.1989
+        },
+        {
+            "Country code": "KE",
+            "Country name": "Kenya",
+            "CPM": 0.0129
+        },
+        {
+            "Country code": "PT",
+            "Country name": "Portugal",
+            "CPM": 0.061200000000000004
+        },
+        {
+            "Country code": "NG",
+            "Country name": "Nigeria",
+            "CPM": 0.0138
+        },
+        {
+            "Country code": "MZ",
+            "Country name": "Mozambique",
+            "CPM": 0.12240000000000001
+        },
+        {
+            "Country code": "UZ",
+            "Country name": "Uzbekistan",
+            "CPM": 0.3555
+        },
+        {
+            "Country code": "ZA",
+            "Country name": "South Africa",
+            "CPM": 0.013049999999999999
+        },
+        {
+            "Country code": "KH",
+            "Country name": "Cambodia",
+            "CPM": 0.00315
+        },
+        {
+            "Country code": "IR",
+            "Country name": "Iran (Islamic Republic of)",
+            "CPM": 0.0081
+        },
+        {
+            "Country code": "NO",
+            "Country name": "Norway",
+            "CPM": 0.165
+        },
+        {
+            "Country code": "EG",
+            "Country name": "Egypt",
+            "CPM": 0.01515
+        },
+        {
+            "Country code": "CI",
+            "Country name": "Côte d'Ivoire",
+            "CPM": 1.0786499999999999
+        },
+        {
+            "Country code": "CZ",
+            "Country name": "Czech Republic",
+            "CPM": 0.0072
+        },
+        {
+            "Country code": "MA",
+            "Country name": "Morocco",
+            "CPM": 0.03495
+        },
+        {
+            "Country code": "RO",
+            "Country name": "Romania",
+            "CPM": 0.0225
+        },
+        {
+            "Country code": "NP",
+            "Country name": "Nepal",
+            "CPM": 0.0063
+        },
+        {
+            "Country code": "TZ",
+            "Country name": "Tanzania, United Republic of",
+            "CPM": 0.027899999999999998
+        }
+    ],
+    "native": [
+        {
+            "Country code": "IN",
+            "Country name": "India",
+            "CPC": 0.008,
+            "CPM": 0.022000000000000002
+        },
+        {
+            "Country code": "VN",
+            "Country name": "Viet Nam",
+            "CPC": 0.002,
+            "CPM": 0.028
+        },
+        {
+            "Country code": "US",
+            "Country name": "United States of America",
+            "CPC": 0.032,
+            "CPM": 0.05
+        },
+        {
+            "Country code": "CN",
+            "Country name": "China",
+            "CPC": 0.02,
+            "CPM": 0.144
+        },
+        {
+            "Country code": "DE",
+            "Country name": "Germany",
+            "CPC": 0.004,
+            "CPM": 0.026
+        },
+        {
+            "Country code": "ID",
+            "Country name": "Indonesia",
+            "CPC": 0.026,
+            "CPM": 0.038
+        },
+        {
+            "Country code": "FR",
+            "Country name": "France",
+            "CPC": 0.002,
+            "CPM": 0.02
+        },
+        {
+            "Country code": "BR",
+            "Country name": "Brazil",
+            "CPC": 0.01,
+            "CPM": 0.036
+        },
+        {
+            "Country code": "GB",
+            "Country name": "United Kingdom of Great Britain and Northern Ireland",
+            "CPC": 0.004,
+            "CPM": 0.023999999999999997
+        },
+        {
+            "Country code": "ES",
+            "Country name": "Spain",
+            "CPC": 0.004,
+            "CPM": 0.02
+        },
+        {
+            "Country code": "NL",
+            "Country name": "Netherlands",
+            "CPC": 0.06799999999999999,
+            "CPM": 0.15
+        },
+        {
+            "Country code": "MX",
+            "Country name": "Mexico",
+            "CPC": 0.056,
+            "CPM": 0.05
+        },
+        {
+            "Country code": "SG",
+            "Country name": "Singapore",
+            "CPC": 0.06799999999999999,
+            "CPM": 0.124
+        },
+        {
+            "Country code": "CZ",
+            "Country name": "Czech Republic",
+            "CPC": 0.008,
+            "CPM": 0.022000000000000002
+        },
+        {
+            "Country code": "IQ",
+            "Country name": "Iraq",
+            "CPC": 0.011999999999999999,
+            "CPM": 0.057999999999999996
+        },
+        {
+            "Country code": "SK",
+            "Country name": "Slovakia",
+            "CPC": 0.023999999999999997,
+            "CPM": 0.02
+        },
+        {
+            "Country code": "IT",
+            "Country name": "Italy",
+            "CPC": 0.004,
+            "CPM": 0.02
+        },
+        {
+            "Country code": "PL",
+            "Country name": "Poland",
+            "CPC": 0.01,
+            "CPM": 0.022000000000000002
+        },
+        {
+            "Country code": "MY",
+            "Country name": "Malaysia",
+            "CPC": 0.01,
+            "CPM": 0.022000000000000002
+        },
+        {
+            "Country code": "AU",
+            "Country name": "Australia",
+            "CPC": 0.036,
+            "CPM": 0.064
+        }
+    ]
 }
