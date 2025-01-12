@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
         jsonData = await response.json();
-        console.log('Данные успешно загружены:', jsonData); // Проверяем загруженные данные
+        console.log('Данные успешно загружены:', JSON.stringify(jsonData, null, 2)); // Проверяем загруженные данные
     } catch (error) {
         console.error('Ошибка при загрузке данных:', error); // Показываем ошибку, если она есть
     }
