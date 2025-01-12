@@ -3,37 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Разделы с кнопками</title>
-    <style>
-        .content-section {
-            display: none;
-        }
-    </style>
+    <title>Data Table</title>
 </head>
 <body>
-    <!-- Кнопки для каждого раздела -->
-    <button id="pushBtn">Push</button>
-    <button id="inPageBtn">In-Page</button>
-    <button id="popBtn">Pop</button>
-    <button id="nativeBtn">Native</button>
-
-    <!-- Разделы контента -->
-    <div id="pushSection" class="content-section">
-        <h2>Push Section</h2>
-        <p>Контент для Push раздела.</p>
-    </div>
-    <div id="inPageSection" class="content-section">
-        <h2>In-Page Section</h2>
-        <p>Контент для In-Page раздела.</p>
-    </div>
-    <div id="popSection" class="content-section">
-        <h2>Pop Section</h2>
-        <p>Контент для Pop раздела.</p>
-    </div>
-    <div id="nativeSection" class="content-section">
-        <h2>Native Section</h2>
-        <p>Контент для Native раздела.</p>
-    </div>
+    <table id="data-table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Age</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Строки данных будут добавляться сюда -->
+        </tbody>
+    </table>
 
     <script src="script.js"></script>
 </body>
