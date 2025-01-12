@@ -62,7 +62,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             jsonData = await response.json();
             console.log('Данные успешно загружены:', JSON.stringify(jsonData, null, 2));
-            console.log('Доступные ключи в jsonData:', Object.keys(jsonData));
+            console.log('Ключи в jsonData:', Object.keys(jsonData)); // Проверяем доступные ключи
         } catch (error) {
             console.error('Ошибка при загрузке данных:', error);
         }
@@ -84,11 +84,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Очищаем старый контент и добавляем новый
                 section.innerHTML = `<h2>${jsonKey} Section</h2>`;
                 if (jsonData[jsonKey]) {
-                    console.log(`Данные для ${jsonKey}:`, jsonData[jsonKey]);
+                    console.log(`Данные найдены для ключа: ${jsonKey}`, jsonData[jsonKey]);
                     const table = createTable(jsonData[jsonKey]);
                     section.appendChild(table);
                 } else {
-                    console.warn(`Нет данных для формата ${jsonKey}`);
+                    console.warn(`Нет данных для формата: ${jsonKey}`);
                     section.innerHTML += '<p>Нет данных для этого раздела.</p>';
                 }
             });
