@@ -17,18 +17,26 @@ document.addEventListener('DOMContentLoaded', () => {
         native: document.getElementById('nativeSection')
     };
 
+    // Заголовки для каждого формата
+    const headersMap = {
+        push: ['Country code', 'Country name', 'CPC mainstream', 'CPM mainstream', 'CPC adult', 'CPM adult'],
+        inPage: ['Country code', 'Country name', 'CPC', 'CPM'],
+        native: ['Country code', 'Country name', 'CPC', 'CPM'],
+        pop: ['Country code', 'Country name', 'CPM']
+    };
+
     // Скрываем все разделы
     function hideAllSections() {
         Object.values(sections).forEach(section => section.classList.remove('active'));
     }
 
     // Создаем таблицу для отображения данных
-    function createTable(data) {
+    function createTable(data, format) {
+        const headers = headersMap[format] || []; // Получаем заголовки для текущего формата
         const table = document.createElement('table');
         table.classList.add('data-table');
 
         // Заголовки таблицы
-        const headers = ['Country code', 'Country name', 'CPC mainstream', 'CPM mainstream', 'CPC adult', 'CPM adult'];
         const headerRow = document.createElement('tr');
         headers.forEach(header => {
             const th = document.createElement('th');
@@ -79,11 +87,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 console.log(`Активный формат: ${format}`);
 
-                // Используем ключи из JSON напрямую
+                // Проверяем наличие данных
                 if (jsonData[format]) {
                     console.log(`Данные найдены для ключа: ${format}`, jsonData[format]);
                     section.innerHTML = `<h2>${format} Section</h2>`;
-                    const table = createTable(jsonData[format]);
+                    const table = createTable(jsonData[format], format); // Передаём формат
                     section.appendChild(table);
                 } else {
                     console.warn(`Нет данных для формата: ${format}`);
