@@ -1,90 +1,100 @@
-Content-Type: application/json; charset=utf-8
-
-/* General styles */
+/* Базовые стили */
 body {
-    font-family: 'Roboto', sans-serif;
+    font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background: linear-gradient(to right, #f4f4f9, #e0eafc);
+    background-color: #f4f4f9;
     color: #333;
-    line-height: 1.6;
 }
 
-header {
-    background: linear-gradient(to right, #4CAF50, #3b8d40);
-    color: white;
+.container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background: #fff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+/* Заголовок */
+h1 {
     text-align: center;
-    padding: 1.5em 0;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    margin-bottom: 20px;
+    color: #26C0A9;
 }
 
-header h1 {
-    margin: 0;
-    font-size: 2.5em;
-    letter-spacing: 2px;
-    text-transform: uppercase;
+/* Стили для кнопок */
+.buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
 }
 
-main {
-    padding: 2em;
-    max-width: 1200px;
-    margin: 0 auto;
-    background: white;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+.format-btn {
+    padding: 10px 20px;
+    border: none;
+    background-color: #26C0A9;
+    color: white;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
 }
 
-/* Table styles */
-table {
+.format-btn:hover {
+    background-color: #1ea890;
+    transform: scale(1.05);
+}
+
+/* Скрытые разделы */
+.content-section {
+    display: none;
+    margin-top: 20px;
+}
+
+.content-section h2 {
+    margin-bottom: 10px;
+    color: #26C0A9;
+}
+
+.content-section table {
     width: 100%;
     border-collapse: collapse;
-    margin: 2em 0;
-    background-color: white;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    margin-top: 10px;
 }
 
-table thead {
-    background: linear-gradient(to right, #4CAF50, #3b8d40);
-    color: white;
-    text-transform: uppercase;
-    font-size: 0.9em;
-}
-
-table th, table td {
-    padding: 15px;
-    text-align: left;
+.content-section th, .content-section td {
     border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
 }
 
-table th {
-    position: sticky;
-    top: 0;
-    z-index: 2;
+.content-section th {
+    background-color: #26C0A9;
+    color: white;
+    font-weight: bold;
+    text-transform: capitalize;
 }
 
-/* Table hover and zebra styles */
-table tbody tr:hover {
-    background-color: #f1f1f1;
-    cursor: pointer;
-}
-
-table tbody tr:nth-child(even) {
+.content-section td {
     background-color: #f9f9f9;
+    color: #333;
 }
 
-/* Responsive design */
-@media (max-width: 768px) {
-    table {
-        font-size: 0.9em;
-    }
+.content-section tr:nth-child(even) td {
+    background-color: #e6f8f5;
+}
 
-    header h1 {
-        font-size: 2em;
-    }
+/* Показываем текущий раздел */
+.content-section.active {
+    display: block;
+}
 
-    main {
-        padding: 1em;
-    }
+/* Добавляем акцент на активную кнопку */
+.format-btn.active {
+    background-color: #1ea890;
+    color: #fff;
+    font-weight: bold;
+    box-shadow: 0 0 10px rgba(38, 192, 169, 0.5);
 }
