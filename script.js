@@ -77,10 +77,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 const section = sections[format];
                 section.classList.add('active'); // Показываем текущий раздел
 
-                // Используем ключи из JSON напрямую
                 console.log(`Активный формат: ${format}`);
 
-                // Проверяем наличие данных
+                // Используем ключи из JSON напрямую
                 if (jsonData[format]) {
                     console.log(`Данные найдены для ключа: ${format}`, jsonData[format]);
                     section.innerHTML = `<h2>${format} Section</h2>`;
