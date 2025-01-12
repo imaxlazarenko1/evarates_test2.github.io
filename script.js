@@ -25,6 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Создаем таблицу для отображения данных
     function createTable(data) {
         const table = document.createElement('table');
+        table.classList.add('data-table');
 
         // Заголовки таблицы
         const headers = ['Country code', 'Country name', 'CPC mainstream', 'CPM mainstream', 'CPC adult', 'CPM adult'];
