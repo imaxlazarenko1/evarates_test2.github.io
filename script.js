@@ -50,7 +50,15 @@ document.addEventListener('DOMContentLoaded', () => {
             const tr = document.createElement('tr');
             headers.forEach(header => {
                 const td = document.createElement('td');
-                td.textContent = row[header] || '-';
+                const value = row[header];
+
+                // Проверяем, является ли значение числом
+                if (typeof value === 'number') {
+                    td.textContent = value.toFixed(3); // Округляем до 3 знаков
+                } else {
+                    td.textContent = value || '-'; // Выводим текстовые значения или "-"
+                }
+
                 tr.appendChild(td);
             });
             table.appendChild(tr);
