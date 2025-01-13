@@ -69,7 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Создаём заголовки таблицы с кнопками для сортировки
         const headerRow = document.createElement('tr');
-        headers.forEach((header, columnIndex) => {
+        headers.forEach((header) => {
             const th = document.createElement('th');
             th.textContent = header;
             th.style.cursor = 'pointer';
@@ -101,11 +101,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (isNumeric) {
                         const numA = parseFloat(a[header]) || 0;
                         const numB = parseFloat(b[header]) || 0;
-                        return currentOrder === 'asc' ? numA - numB : numB - numA;
+                        return currentOrder === 'asc' ? numB - numA : numA - numB;
                     } else {
                         return currentOrder === 'asc'
-                            ? a[header].localeCompare(b[header])
-                            : b[header].localeCompare(a[header]);
+                            ? b[header].localeCompare(a[header])
+                            : a[header].localeCompare(b[header]);
                     }
                 });
 
