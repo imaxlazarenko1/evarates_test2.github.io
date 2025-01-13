@@ -1,0 +1,9 @@
+{
+  "name": "sorting-and-logging",
+  "version": "1.0.0",
+  "main": "server.js",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "express": "^4.18.2"
+  }
+}
