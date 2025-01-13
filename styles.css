@@ -119,3 +119,20 @@ h1 {
 .footer a:hover {
     color: #d9fff5; /* Светлый оттенок для наведения */
 }
+
+.sort-icon {
+    margin-left: 10px;
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.sort-icon.asc {
+    background-image: url('/images/sort.svg'); /* Замените на путь к значку для возрастания */
+}
+
+.sort-icon.desc {
+    background-image: url('path-to-desc-icon.png'); /* Замените на путь к значку для убывания */
+}
