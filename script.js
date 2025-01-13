@@ -9,6 +9,9 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             // Получаем IP пользователя через внешний API
             const ipResponse = await fetch('https://api.ipify.org?format=json');
+            if (!ipResponse.ok) {
+                throw new Error('Ошибка получения IP');
+            }
             const ipData = await ipResponse.json();
             const userIp = ipData.ip;
 
@@ -20,13 +23,17 @@ document.addEventListener('DOMContentLoaded', () => {
             };
 
             // Отправляем данные на сервер
-            await fetch('/save-log', {
+            const response = await fetch('/save-log', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(logEntry)
             });
+
+            if (!response.ok) {
+                throw new Error(`Ошибка сохранения лога: ${response.statusText}`);
+            }
 
             console.log('Информация о пользователе записана:', logEntry);
         } catch (error) {
