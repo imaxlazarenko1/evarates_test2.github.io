@@ -93,12 +93,12 @@ document.addEventListener('DOMContentLoaded', () => {
                         // Сортировка чисел
                         const numA = parseFloat(a[header]) || 0;
                         const numB = parseFloat(b[header]) || 0;
-                        return currentOrder === 'asc' ? numB - numA : numA - numB;
+                        return currentOrder === 'asc' ? numA - numB : numB - numA;
                     } else {
                         // Сортировка строк
                         return currentOrder === 'asc'
-                            ? b[header].localeCompare(a[header])
-                            : a[header].localeCompare(b[header]);
+                            ? a[header].localeCompare(b[header])
+                            : b[header].localeCompare(a[header]);
                     }
                 });
 
