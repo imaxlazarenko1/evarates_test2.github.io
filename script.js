@@ -76,20 +76,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Создаём значок сортировки
             const sortIcon = document.createElement('span');
-            sortIcon.classList.add('sort-icon'); // Начальное состояние без сортировки
+            sortIcon.classList.add('sort-icon');
             th.appendChild(sortIcon);
 
             // Добавляем обработчик клика для сортировки
             th.addEventListener('click', () => {
-                // Определяем текущий порядок сортировки
-                const currentOrder = sortIcon.classList.contains('asc') ? 'asc' : 'desc';
-
                 // Убираем классы сортировки у всех столбцов
                 headerRow.querySelectorAll('th .sort-icon').forEach(icon => {
                     icon.classList.remove('asc', 'desc');
                 });
 
-                // Устанавливаем новый порядок сортировки для текущего столбца
+                // Определяем текущий порядок сортировки
+                const currentOrder = sortIcon.classList.contains('asc') ? 'asc' : 'desc';
+
+                // Устанавливаем новый порядок сортировки
                 sortIcon.classList.toggle('asc', currentOrder === 'desc');
                 sortIcon.classList.toggle('desc', currentOrder === 'asc');
 
