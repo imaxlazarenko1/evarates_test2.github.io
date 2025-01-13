@@ -70,11 +70,39 @@ document.addEventListener('DOMContentLoaded', () => {
         const table = document.createElement('table');
         table.classList.add('data-table');
 
-        // Создаём заголовки таблицы
+        // Создаём заголовки таблицы с кнопками для сортировки
         const headerRow = document.createElement('tr');
-        headers.forEach(header => {
+        headers.forEach((header, index) => {
             const th = document.createElement('th');
             th.textContent = header;
+            th.style.cursor = 'pointer'; // Указываем, что заголовок кликабельный
+
+            // Добавляем обработчик клика для сортировки
+            th.addEventListener('click', () => {
+                const isNumeric = !['Country code', 'Country name'].includes(header);
+                const sortedData = [...data].sort((a, b) => {
+                    if (isNumeric) {
+                        // Сортировка чисел
+                        const numA = parseFloat(a[header]) || 0;
+                        const numB = parseFloat(b[header]) || 0;
+                        return th.dataset.order === 'desc' ? numA - numB : numB - numA;
+                    } else {
+                        // Сортировка строк
+                        return th.dataset.order === 'desc'
+                            ? a[header].localeCompare(b[header])
+                            : b[header].localeCompare(a[header]);
+                    }
+                });
+
+                // Меняем порядок сортировки
+                th.dataset.order = th.dataset.order === 'desc' ? 'asc' : 'desc';
+
+                // Перерисовываем таблицу
+                const newTable = createTable(sortedData, format);
+                table.replaceWith(newTable);
+            });
+
+            th.dataset.order = 'desc'; // Начальный порядок сортировки
             headerRow.appendChild(th);
         });
         table.appendChild(headerRow);
@@ -88,7 +116,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 if (!isNaN(value)) {
                     const numericValue = parseFloat(value);
-                    td.textContent = numericValue.toFixed(3);
+                    td.textContent = numericValue.toLocaleString('ru-RU', {
+                        minimumFractionDigits: 3,
+                        maximumFractionDigits: 3
+                    });
                 } else {
                     td.textContent = value || '-';
                 }
