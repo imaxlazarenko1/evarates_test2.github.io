@@ -3,48 +3,6 @@ document.addEventListener('DOMContentLoaded', () => {
     let jsonData = {}; // Для хранения загруженных данных
 
     /**
-     * Функция для записи информации о дате, времени и IP пользователя
-     */
-    async function logUserInfo() {
-        try {
-            // Получаем IP пользователя через внешний API
-            const ipResponse = await fetch('https://api.ipify.org?format=json');
-            if (!ipResponse.ok) {
-                throw new Error('Ошибка получения IP');
-            }
-            const ipData = await ipResponse.json();
-            const userIp = ipData.ip;
-
-            // Создаём запись с текущими данными
-            const now = new Date();
-            const logEntry = {
-                date: now.toISOString(),
-                ip: userIp
-            };
-
-            // Отправляем данные на сервер
-            const response = await fetch('/save-log', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(logEntry)
-            });
-
-            if (!response.ok) {
-                throw new Error(`Ошибка сохранения лога: ${response.statusText}`);
-            }
-
-            console.log('Информация о пользователе записана:', logEntry);
-        } catch (error) {
-            console.error('Ошибка при записи информации о пользователе:', error);
-        }
-    }
-
-    // Вызываем функцию для записи информации о пользователе
-    logUserInfo();
-
-    /**
      * Скрывает все разделы
      */
     function hideAllSections() {
@@ -75,27 +33,31 @@ document.addEventListener('DOMContentLoaded', () => {
         headers.forEach((header, index) => {
             const th = document.createElement('th');
             th.textContent = header;
-            th.style.cursor = 'pointer'; // Указываем, что заголовок кликабельный
+            th.style.cursor = 'pointer';
+
+            // Создаём контейнер для значка сортировки
+            const sortIcon = document.createElement('span');
+            sortIcon.classList.add('sort-icon', 'asc'); // По умолчанию иконка сортировки по возрастанию
+            th.appendChild(sortIcon);
 
             // Добавляем обработчик клика для сортировки
             th.addEventListener('click', () => {
                 const isNumeric = !['Country code', 'Country name'].includes(header);
                 const sortedData = [...data].sort((a, b) => {
                     if (isNumeric) {
-                        // Сортировка чисел
                         const numA = parseFloat(a[header]) || 0;
                         const numB = parseFloat(b[header]) || 0;
-                        return th.dataset.order === 'desc' ? numA - numB : numB - numA;
+                        return sortIcon.classList.contains('asc') ? numB - numA : numA - numB;
                     } else {
-                        // Сортировка строк
-                        return th.dataset.order === 'desc'
-                            ? a[header].localeCompare(b[header])
-                            : b[header].localeCompare(a[header]);
+                        return sortIcon.classList.contains('asc')
+                            ? b[header].localeCompare(a[header])
+                            : a[header].localeCompare(b[header]);
                     }
                 });
 
-                // Меняем порядок сортировки
-                th.dataset.order = th.dataset.order === 'desc' ? 'asc' : 'desc';
+                // Переключение направления сортировки
+                sortIcon.classList.toggle('asc');
+                sortIcon.classList.toggle('desc');
 
                 // Перерисовываем таблицу
                 const newTable = createTable(sortedData, format);
