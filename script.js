@@ -3,6 +3,45 @@ document.addEventListener('DOMContentLoaded', () => {
     let jsonData = {}; // Для хранения загруженных данных
 
     /**
+     * Функция для записи информации о дате, времени и IP пользователя
+     */
+    async function logUserInfo() {
+        try {
+            const ipResponse = await fetch('https://api.ipify.org?format=json');
+            if (!ipResponse.ok) {
+                throw new Error('Ошибка получения IP');
+            }
+            const ipData = await ipResponse.json();
+            const userIp = ipData.ip;
+
+            const now = new Date();
+            const logEntry = {
+                date: now.toISOString(),
+                ip: userIp
+            };
+
+            const response = await fetch('/save-log', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(logEntry)
+            });
+
+            if (!response.ok) {
+                throw new Error(`Ошибка сохранения лога: ${response.statusText}`);
+            }
+
+            console.log('Информация о пользователе записана:', logEntry);
+        } catch (error) {
+            console.error('Ошибка при записи информации о пользователе:', error);
+        }
+    }
+
+    // Вызываем функцию для записи информации о пользователе
+    logUserInfo();
+
+    /**
      * Скрывает все разделы
      */
     function hideAllSections() {
@@ -30,32 +69,40 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Создаём заголовки таблицы с кнопками для сортировки
         const headerRow = document.createElement('tr');
-        headers.forEach((header, index) => {
+        headers.forEach((header) => {
             const th = document.createElement('th');
             th.textContent = header;
             th.style.cursor = 'pointer';
 
-            // Создаём контейнер для значка сортировки
+            // Создаём значок сортировки
             const sortIcon = document.createElement('span');
-            sortIcon.classList.add('sort-icon', 'asc'); // По умолчанию иконка сортировки по возрастанию
+            sortIcon.classList.add('sort-icon', 'asc'); // По умолчанию сортировка по возрастанию
             th.appendChild(sortIcon);
 
             // Добавляем обработчик клика для сортировки
             th.addEventListener('click', () => {
+                // Определяем, строковый или числовой столбец
                 const isNumeric = !['Country code', 'Country name'].includes(header);
+
+                // Определяем текущий порядок сортировки
+                const currentOrder = sortIcon.classList.contains('asc') ? 'asc' : 'desc';
+
+                // Сортируем данные
                 const sortedData = [...data].sort((a, b) => {
                     if (isNumeric) {
+                        // Сортировка чисел
                         const numA = parseFloat(a[header]) || 0;
                         const numB = parseFloat(b[header]) || 0;
-                        return sortIcon.classList.contains('asc') ? numB - numA : numA - numB;
+                        return currentOrder === 'asc' ? numB - numA : numA - numB;
                     } else {
-                        return sortIcon.classList.contains('asc')
+                        // Сортировка строк
+                        return currentOrder === 'asc'
                             ? b[header].localeCompare(a[header])
                             : a[header].localeCompare(b[header]);
                     }
                 });
 
-                // Переключение направления сортировки
+                // Переключаем порядок сортировки
                 sortIcon.classList.toggle('asc');
                 sortIcon.classList.toggle('desc');
 
@@ -64,7 +111,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 table.replaceWith(newTable);
             });
 
-            th.dataset.order = 'desc'; // Начальный порядок сортировки
             headerRow.appendChild(th);
         });
         table.appendChild(headerRow);
