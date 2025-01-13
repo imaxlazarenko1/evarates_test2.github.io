@@ -1,3 +1,48 @@
+const express = require('express');
+const fs = require('fs');
+const requestIp = require('request-ip'); // Для получения IP-адреса клиента
+
+const app = express();
+const PORT = 3000; // Вы можете изменить порт при необходимости
+
+// Маршрут для фиксации даты, времени и IP
+app.get('/', (req, res) => {
+    // Получение IP клиента
+    const clientIp = requestIp.getClientIp(req);
+
+    // Получение текущей даты и времени
+    const now = new Date();
+    const logEntry = {
+        date: now.toISOString(),
+        ip: clientIp
+    };
+
+    // Чтение текущего содержимого info.json
+    const filePath = './info.json';
+    fs.readFile(filePath, (err, data) => {
+        let logs = [];
+        if (!err && data.length > 0) {
+            logs = JSON.parse(data); // Если файл существует, добавляем в него данные
+        }
+        logs.push(logEntry);
+
+        // Запись обновленного содержимого в info.json
+        fs.writeFile(filePath, JSON.stringify(logs, null, 2), (err) => {
+            if (err) {
+                console.error('Ошибка записи в файл:', err);
+                return res.status(500).send('Ошибка сервера');
+            }
+            res.send('Данные успешно сохранены!');
+        });
+    });
+});
+
+// Запуск сервера
+app.listen(PORT, () => {
+    console.log(`Сервер запущен на evarates.online`);
+});
+
+
 document.addEventListener('DOMContentLoaded', () => {
     const jsonUrl = './data.json'; // Путь к JSON файлу
     let jsonData = {}; // Для хранения загруженных данных
