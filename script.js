@@ -69,42 +69,45 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Создаём заголовки таблицы с кнопками для сортировки
         const headerRow = document.createElement('tr');
-        headers.forEach((header) => {
+        headers.forEach((header, columnIndex) => {
             const th = document.createElement('th');
             th.textContent = header;
             th.style.cursor = 'pointer';
 
             // Создаём значок сортировки
             const sortIcon = document.createElement('span');
-            sortIcon.classList.add('sort-icon', 'asc'); // По умолчанию сортировка по возрастанию
+            sortIcon.classList.add('sort-icon'); // Начальное состояние без сортировки
             th.appendChild(sortIcon);
 
             // Добавляем обработчик клика для сортировки
             th.addEventListener('click', () => {
-                // Определяем, строковый или числовой столбец
-                const isNumeric = !['Country code', 'Country name'].includes(header);
-
                 // Определяем текущий порядок сортировки
                 const currentOrder = sortIcon.classList.contains('asc') ? 'asc' : 'desc';
+
+                // Убираем классы сортировки у всех столбцов
+                headerRow.querySelectorAll('th .sort-icon').forEach(icon => {
+                    icon.classList.remove('asc', 'desc');
+                });
+
+                // Устанавливаем новый порядок сортировки для текущего столбца
+                sortIcon.classList.toggle('asc', currentOrder === 'desc');
+                sortIcon.classList.toggle('desc', currentOrder === 'asc');
+
+                // Определяем, строковый или числовой столбец
+                const isNumeric = !['Country code', 'Country name'].includes(header);
 
                 // Сортируем данные
                 const sortedData = [...data].sort((a, b) => {
                     if (isNumeric) {
-                        // Сортировка чисел
                         const numA = parseFloat(a[header]) || 0;
                         const numB = parseFloat(b[header]) || 0;
                         return currentOrder === 'asc' ? numA - numB : numB - numA;
                     } else {
-                        // Сортировка строк
                         return currentOrder === 'asc'
                             ? a[header].localeCompare(b[header])
                             : b[header].localeCompare(a[header]);
                     }
                 });
-
-                // Переключаем порядок сортировки
-                sortIcon.classList.toggle('asc');
-                sortIcon.classList.toggle('desc');
 
                 // Перерисовываем таблицу
                 const newTable = createTable(sortedData, format);
