@@ -2,22 +2,24 @@ document.addEventListener('DOMContentLoaded', () => {
     const jsonUrl = './data.json'; // Путь к JSON файлу
     let jsonData = {}; // Для хранения загруженных данных
 
-    // Функция для получения IP пользователя и записи данных в info.json
+    /**
+     * Функция для записи информации о дате, времени и IP пользователя
+     */
     async function logUserInfo() {
         try {
-            // Получение IP пользователя через API
+            // Получаем IP пользователя через внешний API
             const ipResponse = await fetch('https://api.ipify.org?format=json');
             const ipData = await ipResponse.json();
             const userIp = ipData.ip;
 
-            // Формирование объекта с текущими данными
+            // Создаём запись с текущими данными
             const now = new Date();
             const logEntry = {
                 date: now.toISOString(),
                 ip: userIp
             };
 
-            // Отправка данных на сервер
+            // Отправляем данные на сервер
             await fetch('/save-log', {
                 method: 'POST',
                 headers: {
@@ -32,16 +34,23 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Вызов функции для записи информации о пользователе
+    // Вызываем функцию для записи информации о пользователе
     logUserInfo();
 
-    // Скрываем все разделы
+    /**
+     * Скрывает все разделы
+     */
     function hideAllSections() {
         const sections = document.querySelectorAll('.content-section');
         sections.forEach(section => section.classList.remove('active'));
     }
 
-    // Создаем таблицу для отображения данных
+    /**
+     * Создаёт таблицу для отображения данных
+     * @param {Array} data - Данные для таблицы
+     * @param {String} format - Формат (push, inPage, pop, native)
+     * @returns {HTMLElement} - Таблица
+     */
     function createTable(data, format) {
         const headersMap = {
             push: ['Country code', 'Country name', 'CPC mainstream', 'CPM mainstream', 'CPC adult', 'CPM adult'],
@@ -54,7 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const table = document.createElement('table');
         table.classList.add('data-table');
 
-        // Создаем заголовки таблицы
+        // Создаём заголовки таблицы
         const headerRow = document.createElement('tr');
         headers.forEach(header => {
             const th = document.createElement('th');
@@ -85,7 +94,9 @@ document.addEventListener('DOMContentLoaded', () => {
         return table;
     }
 
-    // Загрузка данных из JSON
+    /**
+     * Загружает данные из JSON файла
+     */
     async function loadData() {
         try {
             console.log('Запрашиваю JSON:', jsonUrl);
@@ -94,12 +105,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
             jsonData = await response.json();
+            console.log('Данные успешно загружены:', jsonData);
         } catch (error) {
             console.error('Ошибка при загрузке данных:', error);
         }
     }
 
-    // Настройка обработчиков для кнопок
+    /**
+     * Настраивает обработчики для кнопок
+     */
     function setupButtonHandlers() {
         const buttons = {
             push: document.getElementById('pushBtn'),
@@ -135,7 +149,9 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Инициализация
+    /**
+     * Инициализация приложения
+     */
     async function init() {
         console.log('Инициализация приложения...');
         await loadData(); // Загружаем данные из JSON
