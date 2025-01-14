@@ -1,4 +1,4 @@
-2document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', () => {
     const jsonUrl = './data.json'; // Путь к JSON файлу
     let jsonData = {}; // Для хранения загруженных данных
 
