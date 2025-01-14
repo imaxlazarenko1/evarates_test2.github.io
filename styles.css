@@ -130,9 +130,9 @@ h1 {
 }
 
 .sort-icon.asc {
-    background-image: url('/images/sort.svg'); /* Замените на путь к значку для возрастания */
+    background-image: url('./images/sortdown.svg'); /* Замените на путь к значку для возрастания */
 }
 
 .sort-icon.desc {
-    background-image: url('path-to-desc-icon.png'); /* Замените на путь к значку для убывания */
+    background-image: url('./images/sort.svg'); /* Замените на путь к значку для убывания */
 }
