@@ -1,48 +1,9 @@
-document.addEventListener('DOMContentLoaded', () => {
+2document.addEventListener('DOMContentLoaded', () => {
     const jsonUrl = './data.json'; // Путь к JSON файлу
     let jsonData = {}; // Для хранения загруженных данных
 
-    /**
-     * Функция для записи информации о дате, времени и IP пользователя
-     */
-    async function logUserInfo() {
-        try {
-            const ipResponse = await fetch('https://api.ipify.org?format=json');
-            if (!ipResponse.ok) {
-                throw new Error('Ошибка получения IP');
-            }
-            const ipData = await ipResponse.json();
-            const userIp = ipData.ip;
-
-            const now = new Date();
-            const logEntry = {
-                date: now.toISOString(),
-                ip: userIp
-            };
-
-            const response = await fetch('/save-log', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(logEntry)
-            });
-
-            if (!response.ok) {
-                throw new Error(`Ошибка сохранения лога: ${response.statusText}`);
-            }
-
-            console.log('Информация о пользователе записана:', logEntry);
-        } catch (error) {
-            console.error('Ошибка при записи информации о пользователе:', error);
-        }
-    }
-
-    // Вызываем функцию для записи информации о пользователе
-    logUserInfo();
-
-    /**
-     * Скрывает все разделы
+    /** 
+     * Функция скрывает все секции
      */
     function hideAllSections() {
         const sections = document.querySelectorAll('.content-section');
@@ -51,9 +12,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     /**
      * Создаёт таблицу для отображения данных
-     * @param {Array} data - Данные для таблицы
-     * @param {String} format - Формат (push, inPage, pop, native)
-     * @returns {HTMLElement} - Таблица
      */
     function createTable(data, format) {
         const headersMap = {
@@ -67,51 +25,36 @@ document.addEventListener('DOMContentLoaded', () => {
         const table = document.createElement('table');
         table.classList.add('data-table');
 
-        // Создаём заголовки таблицы с кнопками для сортировки
+        // Создаём заголовки таблицы
         const headerRow = document.createElement('tr');
         headers.forEach((header) => {
             const th = document.createElement('th');
             th.textContent = header;
             th.style.cursor = 'pointer';
 
-            // Создаём значок сортировки
+            // Сортировка
             const sortIcon = document.createElement('span');
             sortIcon.classList.add('sort-icon');
             th.appendChild(sortIcon);
 
-            // Добавляем обработчик клика для сортировки
             th.addEventListener('click', () => {
-                // Убираем классы сортировки у всех столбцов
-                headerRow.querySelectorAll('th .sort-icon').forEach(icon => {
-                    icon.classList.remove('asc', 'desc');
-                });
-
-                // Определяем текущий порядок сортировки
                 const currentOrder = sortIcon.classList.contains('asc') ? 'asc' : 'desc';
-
-                // Устанавливаем новый порядок сортировки
                 sortIcon.classList.toggle('asc', currentOrder === 'desc');
                 sortIcon.classList.toggle('desc', currentOrder === 'asc');
 
-                // Определяем, строковый или числовой столбец
                 const isNumeric = !['Country code', 'Country name'].includes(header);
-
-                // Сортируем данные
                 const sortedData = [...data].sort((a, b) => {
                     if (isNumeric) {
-                        const numA = parseFloat(a[header]) || 0;
-                        const numB = parseFloat(b[header]) || 0;
-                        return currentOrder === 'asc' ? numA - numB : numB - numA;
-                    } else {
-                        const strA = a[header] || '';
-                        const strB = b[header] || '';
                         return currentOrder === 'asc'
-                            ? strA.localeCompare(strB)
-                            : strB.localeCompare(strA);
+                            ? parseFloat(a[header]) - parseFloat(b[header])
+                            : parseFloat(b[header]) - parseFloat(a[header]);
+                    } else {
+                        return currentOrder === 'asc'
+                            ? a[header].localeCompare(b[header])
+                            : b[header].localeCompare(a[header]);
                     }
                 });
 
-                // Перерисовываем таблицу
                 const newTable = createTable(sortedData, format);
                 table.replaceWith(newTable);
             });
@@ -120,23 +63,12 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         table.appendChild(headerRow);
 
-        // Заполняем строки данными
+        // Заполняем строки
         data.forEach(row => {
             const tr = document.createElement('tr');
             headers.forEach(header => {
                 const td = document.createElement('td');
-                const value = row[header];
-
-                if (!isNaN(value)) {
-                    const numericValue = parseFloat(value);
-                    td.textContent = numericValue.toLocaleString('ru-RU', {
-                        minimumFractionDigits: 3,
-                        maximumFractionDigits: 3
-                    });
-                } else {
-                    td.textContent = value || '-';
-                }
-
+                td.textContent = row[header] || '-';
                 tr.appendChild(td);
             });
             table.appendChild(tr);
@@ -146,24 +78,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /**
-     * Загружает данные из JSON файла
-     */
-    async function loadData() {
-        try {
-            console.log('Запрашиваю JSON:', jsonUrl);
-            const response = await fetch(jsonUrl);
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            jsonData = await response.json();
-            console.log('Данные успешно загружены:', jsonData);
-        } catch (error) {
-            console.error('Ошибка при загрузке данных:', error);
-        }
-    }
-
-    /**
-     * Настраивает обработчики для кнопок
+     * Настраивает кнопки
      */
     function setupButtonHandlers() {
         const buttons = {
@@ -183,11 +98,8 @@ document.addEventListener('DOMContentLoaded', () => {
         Object.keys(buttons).forEach(format => {
             buttons[format].addEventListener('click', () => {
                 hideAllSections();
-
                 const section = sections[format];
                 section.classList.add('active');
-
-                console.log(`Активный формат: ${format}`);
 
                 if (jsonData[format]) {
                     section.innerHTML = `<h2>${format} Section</h2>`;
@@ -201,12 +113,24 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /**
+     * Загружает JSON данные
+     */
+    async function loadData() {
+        try {
+            const response = await fetch(jsonUrl);
+            if (!response.ok) throw new Error(`Ошибка загрузки JSON: ${response.status}`);
+            jsonData = await response.json();
+        } catch (error) {
+            console.error('Ошибка загрузки JSON:', error);
+        }
+    }
+
+    /**
      * Инициализация приложения
      */
     async function init() {
-        console.log('Инициализация приложения...');
-        await loadData(); // Загружаем данные из JSON
-        setupButtonHandlers(); // Настраиваем кнопки
+        await loadData();
+        setupButtonHandlers();
     }
 
     init();
