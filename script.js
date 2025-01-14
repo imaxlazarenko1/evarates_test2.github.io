@@ -101,11 +101,13 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (isNumeric) {
                         const numA = parseFloat(a[header]) || 0;
                         const numB = parseFloat(b[header]) || 0;
-                        return currentOrder === 'asc' ? numB - numA : numA - numB;
+                        return currentOrder === 'asc' ? numA - numB : numB - numA;
                     } else {
+                        const strA = a[header] || '';
+                        const strB = b[header] || '';
                         return currentOrder === 'asc'
-                            ? b[header].localeCompare(a[header])
-                            : a[header].localeCompare(b[header]);
+                            ? strA.localeCompare(strB)
+                            : strB.localeCompare(strA);
                     }
                 });
 
