@@ -123,9 +123,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 const section = sections[format];
                 section.classList.add('active');
 
-                // Изменяем заголовок, чтобы показывалось слово "information"
-                const sectionTitle = format.charAt(0).toUpperCase() + format.slice(1) + ' information';
-                section.innerHTML = `<h2>${sectionTitle}</h2>`;
+                // Заменяем слово "Section" на "Information" в заголовке
+                const sectionTitle = format.charAt(0).toUpperCase() + format.slice(1) + ' Information';
+                section.innerHTML = `<h2>${sectionTitle}</h2>`;  // Это место отвечает за заголовок, заменяется слово Section на Information
 
                 if (jsonData[format]) {
                     const table = createTable(jsonData[format], format);
