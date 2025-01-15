@@ -1,145 +1,162 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const jsonUrl = 'data.json'; // Укажите путь к JSON-файлу
-    let jsonData = {}; // Хранение загруженных данных
-    let currentSort = { column: null, order: 'asc' }; // Текущая сортировка
+document.addEventListener("DOMContentLoaded", () => {
+    const dataFilePath = "./data.json"; // Путь к JSON-файлу с данными
+    const tableContainer = document.getElementById("tableContainer");
+    const buttons = document.querySelectorAll(".format-btn");
+    let currentData = [];
+    let currentSortColumn = null;
+    let currentSortDirection = 1; // 1 - по возрастанию, -1 - по убыванию
 
-    const buttons = {
-        push: document.getElementById('pushBtn'),
-        inPage: document.getElementById('inPageBtn'),
-        pop: document.getElementById('popBtn'),
-        native: document.getElementById('nativeBtn'),
-    };
-
-    const sections = {
-        push: document.getElementById('pushSection'),
-        inPage: document.getElementById('inPageSection'),
-        pop: document.getElementById('popSection'),
-        native: document.getElementById('nativeSection'),
-    };
-
-    const tableHeaders = {
-        push: ['Country Code', 'Country Name', 'CPC Mainstream', 'CPM Mainstream', 'CPC Adult', 'CPM Adult'],
-        inPage: ['Country Code', 'Country Name', 'CPC', 'CPM'],
-        pop: ['Country Code', 'Country Name', 'CPM'],
-        native: ['Country Code', 'Country Name', 'CPC', 'CPM'],
-    };
-
-    function hideAllSections() {
-        Object.values(sections).forEach((section) => section.classList.remove('active'));
-    }
-
-    function isNumeric(value) {
-        return !isNaN(parseFloat(value)) && isFinite(value);
-    }
-
-    function processNumber(value) {
-        if (isNumeric(value)) {
-            const num = parseFloat(value); // Преобразование строки в число
-            return num.toFixed(3).replace('.', ','); // Округляем до 3 знаков и заменяем точку на запятую
+    // Загрузка данных из JSON
+    async function loadData() {
+        try {
+            const response = await fetch(dataFilePath);
+            if (!response.ok) throw new Error("Не удалось загрузить данные");
+            return await response.json();
+        } catch (error) {
+            console.error("Ошибка загрузки данных:", error);
+            return [];
         }
-        return value; // Возврат исходного значения, если не число
     }
 
-    function sortData(data, column, order) {
-        return data.sort((a, b) => {
-            const valA = isNumeric(a[column]) ? parseFloat(a[column]) : a[column];
-            const valB = isNumeric(b[column]) ? parseFloat(b[column]) : b[column];
+    // Форматирование чисел: запятая вместо точки, округление до 3 знаков
+    function formatNumber(value) {
+        if (typeof value === "number") {
+            return value.toFixed(3).replace(".", ",");
+        }
+        return value;
+    }
 
-            if (order === 'asc') {
-                return valA > valB ? 1 : valA < valB ? -1 : 0;
-            } else {
-                return valA < valB ? 1 : valA > valB ? -1 : 0;
-            }
+    // Создание таблицы на основе данных
+    function createTable(data, headers) {
+        const table = document.createElement("table");
+        table.className = "data-table";
+
+        // Создание заголовка таблицы
+        const thead = document.createElement("thead");
+        const headerRow = document.createElement("tr");
+        headers.forEach((header, index) => {
+            const th = document.createElement("th");
+            th.textContent = header.label;
+            th.dataset.column = header.key;
+            th.style.cursor = "pointer";
+
+            // Добавление обработчика сортировки
+            th.addEventListener("click", () => sortTable(header.key));
+            headerRow.appendChild(th);
         });
-    }
+        thead.appendChild(headerRow);
+        table.appendChild(thead);
 
-    function createTableRows(data, table, format) {
-        const tbody = table.querySelector('tbody');
-        if (!tbody) {
-            console.error("Table body (tbody) не найден.");
-            return;
-        }
-
-        tbody.innerHTML = ''; // Очистка таблицы
-
-        data.forEach((row) => {
-            const tr = document.createElement('tr');
-            tableHeaders[format].forEach((key) => {
-                const td = document.createElement('td');
-                td.textContent = processNumber(row[key] || '-'); // Применяем обработку числа
+        // Создание тела таблицы
+        const tbody = document.createElement("tbody");
+        data.forEach(row => {
+            const tr = document.createElement("tr");
+            headers.forEach(header => {
+                const td = document.createElement("td");
+                td.textContent = formatNumber(row[header.key] ?? "-");
                 tr.appendChild(td);
             });
             tbody.appendChild(tr);
         });
+        table.appendChild(tbody);
+
+        return table;
     }
 
-    function attachSortHandlers(table, format) {
-        const headers = table.querySelectorAll('thead th');
-        headers.forEach((header, index) => {
-            header.addEventListener('click', () => {
-                const column = tableHeaders[format][index];
-                const order =
-                    currentSort.column === column && currentSort.order === 'asc'
-                        ? 'desc'
-                        : 'asc';
-
-                currentSort = { column, order };
-
-                const sortedData = sortData(jsonData[format], column, order);
-                createTableRows(sortedData, table, format);
-            });
-        });
-    }
-
-    async function loadData() {
-        try {
-            const response = await fetch(jsonUrl);
-            if (!response.ok) {
-                throw new Error(`Ошибка загрузки JSON: ${response.status}`);
-            }
-            jsonData = await response.json();
-        } catch (error) {
-            console.error('Ошибка загрузки JSON:', error);
+    // Сортировка таблицы
+    function sortTable(columnKey) {
+        if (currentSortColumn === columnKey) {
+            currentSortDirection *= -1; // Меняем направление сортировки
+        } else {
+            currentSortColumn = columnKey;
+            currentSortDirection = 1; // Устанавливаем сортировку по возрастанию
         }
+
+        currentData.sort((a, b) => {
+            const valueA = typeof a[columnKey] === "number" ? a[columnKey] : parseFloat(a[columnKey]?.replace(",", "."));
+            const valueB = typeof b[columnKey] === "number" ? b[columnKey] : parseFloat(b[columnKey]?.replace(",", "."));
+            return (valueA - valueB) * currentSortDirection;
+        });
+
+        renderTable();
     }
 
-    function setupButtons() {
-        Object.keys(buttons).forEach((format) => {
-            buttons[format].addEventListener('click', () => {
-                hideAllSections();
-                const section = sections[format];
-                section.classList.add('active');
+    // Отображение таблицы
+    function renderTable() {
+        tableContainer.innerHTML = ""; // Очистка контейнера
 
-                const table = section.querySelector('table');
-                if (!table) {
-                    console.error(`Таблица для формата "${format}" не найдена.`);
-                    return;
-                }
+        const formatHeaders = {
+            push: [
+                { key: "countryCode", label: "Country Code" },
+                { key: "countryName", label: "Country Name" },
+                { key: "cpcMainstream", label: "CPC Mainstream" },
+                { key: "cpmMainstream", label: "CPM Mainstream" },
+                { key: "cpcAdult", label: "CPC Adult" },
+                { key: "cpmAdult", label: "CPM Adult" }
+            ],
+            inPage: [
+                { key: "countryCode", label: "Country Code" },
+                { key: "countryName", label: "Country Name" },
+                { key: "cpc", label: "CPC" },
+                { key: "cpm", label: "CPM" }
+            ],
+            pop: [
+                { key: "countryCode", label: "Country Code" },
+                { key: "countryName", label: "Country Name" },
+                { key: "cpm", label: "CPM" }
+            ],
+            native: [
+                { key: "countryCode", label: "Country Code" },
+                { key: "countryName", label: "Country Name" },
+                { key: "cpc", label: "CPC" },
+                { key: "cpm", label: "CPM" }
+            ]
+        };
 
-                if (jsonData[format]) {
-                    const sortedData = sortData(
-                        jsonData[format],
-                        currentSort.column || tableHeaders[format][0],
-                        currentSort.order
-                    );
-                    createTableRows(sortedData, table, format);
-                    attachSortHandlers(table, format); // Добавляем обработчики сортировки
-                } else {
-                    console.warn(`Нет данных для формата: ${format}`);
-                    const tbody = table.querySelector('tbody');
-                    if (tbody) {
-                        tbody.innerHTML = `<tr><td colspan="${tableHeaders[format].length}">Нет данных для отображения</td></tr>`;
-                    }
-                }
+        const activeFormat = document.querySelector(".format-btn.active").id.replace("Btn", "").toLowerCase();
+        const headers = formatHeaders[activeFormat];
+        const table = createTable(currentData, headers);
+        tableContainer.appendChild(table);
+    }
+
+    // Установка данных для конкретного формата
+    function setFormatData(format) {
+        currentData = []; // Очистка текущих данных
+        switch (format) {
+            case "push":
+                currentData = data.push || [];
+                break;
+            case "inPage":
+                currentData = data.inPage || [];
+                break;
+            case "pop":
+                currentData = data.pop || [];
+                break;
+            case "native":
+                currentData = data.native || [];
+                break;
+            default:
+                console.error("Неизвестный формат:", format);
+        }
+        renderTable();
+    }
+
+    // Загрузка данных и инициализация
+    let data = {};
+    loadData().then(loadedData => {
+        data = loadedData;
+
+        buttons.forEach(button => {
+            button.addEventListener("click", () => {
+                buttons.forEach(btn => btn.classList.remove("active"));
+                button.classList.add("active");
+
+                const format = button.id.replace("Btn", "").toLowerCase();
+                setFormatData(format);
             });
         });
-    }
 
-    async function init() {
-        await loadData();
-        setupButtons();
-        buttons.push.click(); // По умолчанию показывается Push
-    }
-
-    init();
+        // Установка формата по умолчанию
+        buttons[0].click();
+    });
 });
