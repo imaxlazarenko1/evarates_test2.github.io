@@ -32,12 +32,13 @@ document.addEventListener('DOMContentLoaded', () => {
         return !isNaN(parseFloat(value)) && isFinite(value);
     }
 
-    function formatNumber(value) {
+    function processNumber(value) {
         if (isNumeric(value)) {
-            // Округление до 3 знаков, замена точки на запятую
-            return parseFloat(value).toFixed(3).replace('.', ',');
+            const num = parseFloat(value); // Преобразование строки в число
+            const rounded = num.toFixed(3); // Округление до 3 знаков
+            return rounded.replace('.', ','); // Замена точки на запятую
         }
-        return value;
+        return value; // Возврат исходного значения, если не число
     }
 
     function sortData(data, column, order) {
@@ -66,7 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const tr = document.createElement('tr');
             tableHeaders[format].forEach((key) => {
                 const td = document.createElement('td');
-                td.textContent = formatNumber(row[key] || '-'); // Если данных нет, вывод "-"
+                td.textContent = processNumber(row[key] || '-'); // Применяем обработку числа
                 tr.appendChild(td);
             });
             tbody.appendChild(tr);
