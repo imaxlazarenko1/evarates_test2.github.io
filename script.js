@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const jsonUrl = './data.json'; // Путь к JSON файлу
     let jsonData = {}; // Для хранения загруженных данных
 
+    // Кнопки для переключения форматов
     const buttons = {
         push: document.getElementById('pushBtn'),
         inPage: document.getElementById('inPageBtn'),
@@ -9,6 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
         native: document.getElementById('nativeBtn')
     };
 
+    // Секции для отображения информации
     const sections = {
         push: document.getElementById('pushSection'),
         inPage: document.getElementById('inPageSection'),
@@ -24,121 +26,28 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /**
-     * Форматирует число: заменяет точки на запятые и округляет до 3 знаков
+     * Создаёт строки для таблицы на основе данных
      */
-    function formatNumber(value) {
-        if (typeof value === 'number') {
-            return value.toFixed(3).replace('.', ','); // Округление до 3 знаков и замена точки на запятую
+    function createTableRows(data, table) {
+        const tbody = table.querySelector('tbody');
+        if (!tbody) {
+            console.error("Table body (tbody) не найден.");
+            return;
         }
-        return value;
-    }
-
-    /**
-     * Создаёт таблицу для отображения данных
-     */
-    function createTable(data, format) {
-        const headersMap = {
-            push: ['Country code', 'Country name', 'CPC mainstream', 'CPM mainstream', 'CPC adult', 'CPM adult'],
-            inPage: ['Country code', 'Country name', 'CPC', 'CPM'],
-            native: ['Country code', 'Country name', 'CPC', 'CPM'],
-            pop: ['Country code', 'Country name', 'CPM']
-        };
-
-        const headers = headersMap[format] || [];
-        const table = document.createElement('table');
-        table.classList.add('data-table');
-
-        // Создаём заголовки таблицы
-        const headerRow = document.createElement('tr');
-        headers.forEach((header, index) => {
-            const th = document.createElement('th');
-            th.textContent = header;
-            th.style.cursor = 'pointer';
-
-            // Инициализация порядка сортировки
-            let sortOrder = 'asc';
-
-            th.addEventListener('click', () => {
-                // Переключение порядка сортировки
-                sortOrder = sortOrder === 'asc' ? 'desc' : 'asc';
-                updateTableRows(data, sortOrder, header, format, table);
-            });
-
-            headerRow.appendChild(th);
-        });
-        table.appendChild(headerRow);
-
-        // Заполняем строки
-        updateTableRows(data, 'asc', headers[0], format, table);
-
-        return table;
-    }
-
-    /**
-     * Обновление строк таблицы с учетом порядка сортировки
-     */
-    function updateTableRows(data, sortOrder, header, format, table = null) {
-        const isNumeric = !['Country code', 'Country name'].includes(header);
-        const sortedData = [...data].sort((a, b) => {
-            if (isNumeric) {
-                const aValue = parseFloat(a[header]);
-                const bValue = parseFloat(b[header]);
-                return sortOrder === 'asc'
-                    ? aValue - bValue
-                    : bValue - aValue;
-            } else {
-                const aValue = a[header] ? a[header].toString() : '';
-                const bValue = b[header] ? b[header].toString() : '';
-                return sortOrder === 'asc'
-                    ? aValue.localeCompare(bValue)
-                    : bValue.localeCompare(aValue);
-            }
-        });
-
-        // Обновление строк таблицы
-        const tbody = table ? table.querySelector('tbody') : document.createElement('tbody');
-        tbody.innerHTML = '';
-        sortedData.forEach(row => {
+        tbody.innerHTML = ''; // Очистка таблицы перед заполнением
+        data.forEach(row => {
             const tr = document.createElement('tr');
-            Object.values(row).forEach((value) => {
+            Object.values(row).forEach(value => {
                 const td = document.createElement('td');
-                td.textContent = formatNumber(value) || '-';
+                td.textContent = value || '-'; // Если данных нет, выводится "-"
                 tr.appendChild(td);
             });
             tbody.appendChild(tr);
         });
-
-        if (table) {
-            table.appendChild(tbody);
-        }
     }
 
     /**
-     * Настраивает кнопки
-     */
-    function setupButtonHandlers() {
-        Object.keys(buttons).forEach(format => {
-            buttons[format].addEventListener('click', () => {
-                hideAllSections();
-                const section = sections[format];
-                section.classList.add('active');
-
-                // Заменяем слово "Section" на "Information" в заголовке
-                const sectionTitle = format.charAt(0).toUpperCase() + format.slice(1) + ' Information';
-                section.innerHTML = `<h2>${sectionTitle}</h2>`;  // Это место отвечает за заголовок, заменяется слово Section на Information
-
-                if (jsonData[format]) {
-                    const table = createTable(jsonData[format], format);
-                    section.appendChild(table);
-                } else {
-                    section.innerHTML = `<h2>${sectionTitle}</h2><p>Нет данных для этого раздела.</p>`;
-                }
-            });
-        });
-    }
-
-    /**
-     * Загружает JSON данные
+     * Загружает данные из JSON файла
      */
     async function loadData() {
         try {
@@ -151,11 +60,42 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /**
+     * Настраивает обработчики событий для кнопок
+     */
+    function setupButtons() {
+        Object.keys(buttons).forEach(format => {
+            buttons[format].addEventListener('click', () => {
+                hideAllSections();
+                const section = sections[format];
+                section.classList.add('active');
+
+                const table = section.querySelector('table');
+                if (!table) {
+                    console.error(`Таблица для формата "${format}" не найдена.`);
+                    return;
+                }
+
+                if (jsonData[format]) {
+                    createTableRows(jsonData[format], table);
+                } else {
+                    console.warn(`Нет данных для формата: ${format}`);
+                    const tbody = table.querySelector('tbody');
+                    if (tbody) {
+                        tbody.innerHTML = `<tr><td colspan="3">Нет данных для отображения</td></tr>`;
+                    }
+                }
+            });
+        });
+    }
+
+    /**
      * Инициализация приложения
      */
     async function init() {
-        await loadData();
-        setupButtonHandlers();
+        await loadData(); // Загружаем данные из JSON
+        setupButtons(); // Настраиваем кнопки
+        // Активируем первый раздел (Push) по умолчанию
+        buttons.push.click();
     }
 
     init();
