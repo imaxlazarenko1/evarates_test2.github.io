@@ -11,6 +11,16 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /**
+     * Форматирует число: заменяет точки на запятые и округляет до 3 знаков
+     */
+    function formatNumber(value) {
+        if (typeof value === 'number') {
+            return value.toFixed(3).replace('.', ',');
+        }
+        return value;
+    }
+
+    /**
      * Создаёт таблицу для отображения данных
      */
     function createTable(data, format) {
@@ -37,24 +47,32 @@ document.addEventListener('DOMContentLoaded', () => {
             sortIcon.classList.add('sort-icon');
             th.appendChild(sortIcon);
 
-            th.addEventListener('click', () => {
-                const currentOrder = sortIcon.classList.contains('asc') ? 'asc' : 'desc';
-                sortIcon.classList.toggle('asc', currentOrder === 'desc');
-                sortIcon.classList.toggle('desc', currentOrder === 'asc');
+            // Инициализация порядка сортировки
+            let sortOrder = 'asc';
 
+            th.addEventListener('click', () => {
+                // Переключение порядка сортировки
+                sortOrder = sortOrder === 'asc' ? 'desc' : 'asc';
+                sortIcon.classList.toggle('asc', sortOrder === 'asc');
+                sortIcon.classList.toggle('desc', sortOrder === 'desc');
+
+                // Определение типа данных
                 const isNumeric = !['Country code', 'Country name'].includes(header);
+
+                // Сортировка данных
                 const sortedData = [...data].sort((a, b) => {
                     if (isNumeric) {
-                        return currentOrder === 'asc'
+                        return sortOrder === 'asc'
                             ? parseFloat(a[header]) - parseFloat(b[header])
                             : parseFloat(b[header]) - parseFloat(a[header]);
                     } else {
-                        return currentOrder === 'asc'
+                        return sortOrder === 'asc'
                             ? a[header].localeCompare(b[header])
                             : b[header].localeCompare(a[header]);
                     }
                 });
 
+                // Перестраиваем таблицу
                 const newTable = createTable(sortedData, format);
                 table.replaceWith(newTable);
             });
@@ -68,7 +86,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const tr = document.createElement('tr');
             headers.forEach(header => {
                 const td = document.createElement('td');
-                td.textContent = row[header] || '-';
+                td.textContent = formatNumber(row[header]) || '-';
                 tr.appendChild(td);
             });
             table.appendChild(tr);
