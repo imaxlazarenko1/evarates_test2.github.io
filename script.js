@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const jsonUrl = './data.json'; // Путь к JSON-файлу
-    let jsonData = {}; // Для хранения загруженных данных
+    const jsonUrl = './data.json'; // Укажите путь к JSON-файлу
+    let jsonData = {}; // Хранение загруженных данных
     let currentSort = { column: null, order: 'asc' }; // Текущая сортировка
 
     const buttons = {
@@ -25,9 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     function hideAllSections() {
-        Object.values(sections).forEach((section) =>
-            section.classList.remove('active')
-        );
+        Object.values(sections).forEach((section) => section.classList.remove('active'));
     }
 
     function isNumeric(value) {
