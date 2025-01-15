@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     const jsonUrl = './data.json'; // Путь к JSON-файлу
     let jsonData = {}; // Для хранения загруженных данных
+    let currentSort = { column: null, order: 'asc' }; // Текущая сортировка
 
     const buttons = {
         push: document.getElementById('pushBtn'),
@@ -29,6 +30,18 @@ document.addEventListener('DOMContentLoaded', () => {
         );
     }
 
+    function sortData(data, column, order) {
+        return data.sort((a, b) => {
+            const valA = a[column] || '';
+            const valB = b[column] || '';
+            if (order === 'asc') {
+                return valA > valB ? 1 : valA < valB ? -1 : 0;
+            } else {
+                return valA < valB ? 1 : valA > valB ? -1 : 0;
+            }
+        });
+    }
+
     function createTableRows(data, table, format) {
         const tbody = table.querySelector('tbody');
         if (!tbody) {
@@ -46,6 +59,24 @@ document.addEventListener('DOMContentLoaded', () => {
                 tr.appendChild(td);
             });
             tbody.appendChild(tr);
+        });
+    }
+
+    function attachSortHandlers(table, format) {
+        const headers = table.querySelectorAll('thead th');
+        headers.forEach((header, index) => {
+            header.addEventListener('click', () => {
+                const column = tableHeaders[format][index];
+                const order =
+                    currentSort.column === column && currentSort.order === 'asc'
+                        ? 'desc'
+                        : 'asc';
+
+                currentSort = { column, order };
+
+                const sortedData = sortData(jsonData[format], column, order);
+                createTableRows(sortedData, table, format);
+            });
         });
     }
 
@@ -75,7 +106,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
 
                 if (jsonData[format]) {
-                    createTableRows(jsonData[format], table, format);
+                    const sortedData = sortData(
+                        jsonData[format],
+                        currentSort.column || tableHeaders[format][0],
+                        currentSort.order
+                    );
+                    createTableRows(sortedData, table, format);
+                    attachSortHandlers(table, format); // Добавляем обработчики сортировки
                 } else {
                     console.warn(`Нет данных для формата: ${format}`);
                     const tbody = table.querySelector('tbody');
