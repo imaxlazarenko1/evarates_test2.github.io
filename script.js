@@ -78,17 +78,14 @@ document.addEventListener('DOMContentLoaded', () => {
         headers.forEach((header, index) => {
             header.addEventListener('click', () => {
                 const column = tableHeaders[format][index];
-                
-                // Переключение направления сортировки
-                if (currentSort.column === column) {
-                    currentSort.order = currentSort.order === 'asc' ? 'desc' : 'asc';
-                } else {
-                    currentSort.column = column;
-                    currentSort.order = 'asc';
-                }
+                const order =
+                    currentSort.column === column && currentSort.order === 'asc'
+                        ? 'desc'
+                        : 'asc';
 
-                // Сортировка данных
-                const sortedData = sortData(jsonData[format], column, currentSort.order);
+                currentSort = { column, order };
+
+                const sortedData = sortData(jsonData[format], column, order);
                 createTableRows(sortedData, table, format);
             });
         });
