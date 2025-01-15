@@ -35,8 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function processNumber(value) {
         if (isNumeric(value)) {
             const num = parseFloat(value); // Преобразование строки в число
-            const rounded = num.toFixed(3); // Округление до 3 знаков
-            return rounded.replace('.', ','); // Замена точки на запятую
+            return num.toFixed(3).replace('.', ','); // Округляем до 3 знаков и заменяем точку на запятую
         }
         return value; // Возврат исходного значения, если не число
     }
