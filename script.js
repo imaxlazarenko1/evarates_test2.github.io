@@ -27,8 +27,8 @@ document.addEventListener('DOMContentLoaded', () => {
      * Форматирует число: заменяет точки на запятые и округляет до 3 знаков
      */
     function formatNumber(value) {
-        if (typeof value === 'number') {
-            return value.toFixed(3).replace('.', ','); // Округление до 3 знаков и замена точки на запятую
+        if (typeof value === 'number' || !isNaN(parseFloat(value))) {
+            return parseFloat(value).toFixed(3).replace('.', ','); // Округление до 3 знаков и замена точки на запятую
         }
         return value;
     }
@@ -78,31 +78,43 @@ document.addEventListener('DOMContentLoaded', () => {
      * Обновление строк таблицы с учетом порядка сортировки
      */
     function updateTableRows(data, sortOrder, header, format, table = null) {
-        const isNumeric = !['Country code', 'Country name'].includes(header);
+        const headersMap = {
+            push: ['Country code', 'Country name', 'CPC mainstream', 'CPM mainstream', 'CPC adult', 'CPM adult'],
+            inPage: ['Country code', 'Country name', 'CPC', 'CPM'],
+            native: ['Country code', 'Country name', 'CPC', 'CPM'],
+            pop: ['Country code', 'Country name', 'CPM']
+        };
+
+        const headers = headersMap[format] || [];
+        const headerIndex = headers.indexOf(header);
+
+        if (headerIndex === -1) return; // Если заголовок не найден, пропускаем
+
+        const isNumeric = headerIndex > 1; // Считаем числовыми все столбцы после 1-го и 2-го
         const sortedData = [...data].sort((a, b) => {
+            const aValue = a[headers[headerIndex]];
+            const bValue = b[headers[headerIndex]];
+
             if (isNumeric) {
-                const aValue = parseFloat(a[header]);
-                const bValue = parseFloat(b[header]);
                 return sortOrder === 'asc'
-                    ? aValue - bValue
-                    : bValue - aValue;
+                    ? parseFloat(aValue) - parseFloat(bValue)
+                    : parseFloat(bValue) - parseFloat(aValue);
             } else {
-                const aValue = a[header] ? a[header].toString() : '';
-                const bValue = b[header] ? b[header].toString() : '';
                 return sortOrder === 'asc'
                     ? aValue.localeCompare(bValue)
                     : bValue.localeCompare(aValue);
             }
         });
 
-        // Обновление строк таблицы
         const tbody = table ? table.querySelector('tbody') : document.createElement('tbody');
         tbody.innerHTML = '';
+
         sortedData.forEach(row => {
             const tr = document.createElement('tr');
-            Object.values(row).forEach((value) => {
+            headers.forEach((key, idx) => {
                 const td = document.createElement('td');
-                td.textContent = formatNumber(value) || '-';
+                const value = row[key];
+                td.textContent = isNumeric && idx > 1 ? formatNumber(value) : value || '-';
                 tr.appendChild(td);
             });
             tbody.appendChild(tr);
