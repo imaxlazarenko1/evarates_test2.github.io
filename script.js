@@ -27,8 +27,8 @@ document.addEventListener('DOMContentLoaded', () => {
      * Форматирует число: заменяет точки на запятые и округляет до 3 знаков
      */
     function formatNumber(value) {
-        if (!isNaN(parseFloat(value))) {
-            return parseFloat(value).toFixed(3).replace('.', ',');
+        if (typeof value === 'number') {
+            return value.toFixed(3).replace('.', ','); // Округление до 3 знаков и замена точки на запятую
         }
         return value;
     }
@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Создаём заголовки таблицы
         const headerRow = document.createElement('tr');
-        headers.forEach(header => {
+        headers.forEach((header, index) => {
             const th = document.createElement('th');
             th.textContent = header;
             th.style.cursor = 'pointer';
@@ -59,6 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
             let sortOrder = 'asc';
 
             th.addEventListener('click', () => {
+                // Переключение порядка сортировки
                 sortOrder = sortOrder === 'asc' ? 'desc' : 'asc';
                 updateTableRows(data, sortOrder, header, format, table);
             });
@@ -76,49 +77,39 @@ document.addEventListener('DOMContentLoaded', () => {
     /**
      * Обновление строк таблицы с учетом порядка сортировки
      */
-    function updateTableRows(data, sortOrder, header, format, table) {
-        const headersMap = {
-            push: ['Country code', 'Country name', 'CPC mainstream', 'CPM mainstream', 'CPC adult', 'CPM adult'],
-            inPage: ['Country code', 'Country name', 'CPC', 'CPM'],
-            native: ['Country code', 'Country name', 'CPC', 'CPM'],
-            pop: ['Country code', 'Country name', 'CPM']
-        };
-
-        const headers = headersMap[format];
-        const headerIndex = headers.indexOf(header);
-
-        if (headerIndex === -1) return;
-
-        const isNumeric = headerIndex > 1; // Числовые столбцы начинаются с 2-го индекса
+    function updateTableRows(data, sortOrder, header, format, table = null) {
+        const isNumeric = !['Country code', 'Country name'].includes(header);
         const sortedData = [...data].sort((a, b) => {
-            const aValue = a[headers[headerIndex]];
-            const bValue = b[headers[headerIndex]];
-
             if (isNumeric) {
+                const aValue = parseFloat(a[header]);
+                const bValue = parseFloat(b[header]);
                 return sortOrder === 'asc'
-                    ? parseFloat(aValue) - parseFloat(bValue)
-                    : parseFloat(bValue) - parseFloat(aValue);
+                    ? aValue - bValue
+                    : bValue - aValue;
             } else {
+                const aValue = a[header] ? a[header].toString() : '';
+                const bValue = b[header] ? b[header].toString() : '';
                 return sortOrder === 'asc'
-                    ? (aValue || '').localeCompare(bValue || '')
-                    : (bValue || '').localeCompare(aValue || '');
+                    ? aValue.localeCompare(bValue)
+                    : bValue.localeCompare(aValue);
             }
         });
 
+        // Создание tbody если его нет
         let tbody = table.querySelector('tbody');
         if (!tbody) {
             tbody = document.createElement('tbody');
             table.appendChild(tbody);
         }
-
+        
+        // Очистка tbody перед обновлением данных
         tbody.innerHTML = '';
 
         sortedData.forEach(row => {
             const tr = document.createElement('tr');
-            headers.forEach((key, index) => {
+            Object.values(row).forEach((value) => {
                 const td = document.createElement('td');
-                const value = row[key];
-                td.textContent = isNumeric && index > 1 ? formatNumber(value) : value || '-';
+                td.textContent = formatNumber(value) || '-';
                 tr.appendChild(td);
             });
             tbody.appendChild(tr);
