@@ -5,21 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Evarates</title>
     <link rel="stylesheet" href="styles.css">
-
-    <!-- Добавление favicon -->
-    <!-- Основной favicon -->
     <link rel="icon" href="./images/favicon.ico" type="image/x-icon">
-    <!-- Альтернативный favicon для PNG -->
     <link rel="icon" href="./images/favicon.png" sizes="48x48" type="image/png">
-    <!-- iOS и Android -->
     <link rel="apple-touch-icon" href="./images/favicon.png">
     <meta name="theme-color" content="#ffffff">
-
-    <!-- SEO мета-теги -->
     <meta name="description" content="Evadav rates: информация о форматах Push, In-Page, Pop, и Native рекламы.">
     <meta name="author" content="Evadav">
     <meta name="robots" content="index, follow">
-
 </head>
 <body>
     <header class="header">
@@ -31,7 +23,6 @@
     </header>
 
     <main class="container">
-        <!-- Кнопки для выбора раздела -->
         <div class="buttons">
             <button id="pushBtn" class="format-btn">Push</button>
             <button id="inPageBtn" class="format-btn">In-Page</button>
@@ -41,28 +32,63 @@
 
         <!-- Разделы для отображения данных -->
         <section id="pushSection" class="content-section">
-            <h2>Push</h2>
-            <p>Здесь будет отображаться информация для формата Push.</p>
+            <h2>Push Information</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Country</th>
+                        <th>CPC</th>
+                        <th>CPM</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
         </section>
         <section id="inPageSection" class="content-section">
-            <h2>In-Page push</h2>
-            <p>Здесь будет отображаться информация для формата In-Page.</p>
+            <h2>In-Page Information</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Country</th>
+                        <th>CPC</th>
+                        <th>CPM</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
         </section>
         <section id="popSection" class="content-section">
-            <h2>Popunder</h2>
-            <p>Здесь будет отображаться информация для формата Pop.</p>
+            <h2>Pop Information</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Country</th>
+                        <th>CPM</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
         </section>
         <section id="nativeSection" class="content-section">
-            <h2>Native</h2>
-            <p>Здесь будет отображаться информация для формата Native.</p>
+            <h2>Native Information</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Country</th>
+                        <th>CPC</th>
+                        <th>CPM</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
         </section>
     </main>
 
-   <footer class="footer">
-    <p>
-    <a href="https://refadav.com/?ref=NVsHhZcakGUooYQQvYsYBHsdbVurWNNu" target="_blank" rel="noopener noreferrer">evadav.com</a>
-    </p>
-</footer>
+    <footer class="footer">
+        <p>
+            <a href="https://refadav.com/?ref=NVsHhZcakGUooYQQvYsYBHsdbVurWNNu" target="_blank" rel="noopener noreferrer">evadav.com</a>
+        </p>
+    </footer>
 
     <script src="script.js"></script>
 </body>
