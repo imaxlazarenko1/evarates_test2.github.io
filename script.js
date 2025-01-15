@@ -34,7 +34,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function formatNumber(value) {
         if (isNumeric(value)) {
-            return parseFloat(value).toFixed(3).replace('.', ','); // Округляем до 3 знаков и заменяем точку на запятую
+            // Округление до 3 знаков, замена точки на запятую
+            return parseFloat(value).toFixed(3).replace('.', ',');
         }
         return value;
     }
