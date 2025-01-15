@@ -2,6 +2,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const jsonUrl = './data.json'; // Путь к JSON файлу
     let jsonData = {}; // Для хранения загруженных данных
 
+    /**
+     * Функция для записи информации о дате, времени и IP пользователя
+     */
     async function logUserInfo() {
         try {
             const ipResponse = await fetch('https://api.ipify.org?format=json');
@@ -28,10 +31,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
     logUserInfo();
 
+    /**
+     * Скрывает все разделы
+     */
     function hideAllSections() {
         document.querySelectorAll('.content-section').forEach(section => section.classList.remove('active'));
     }
 
+    /**
+     * Создаёт таблицу для отображения данных
+     * @param {Array} data - Данные для таблицы
+     * @param {String} format - Формат (push, inPage, pop, native)
+     * @returns {HTMLElement} - Таблица
+     */
     function createTable(data, format) {
         const headersMap = {
             push: ['Country code', 'Country name', 'CPC mainstream', 'CPM mainstream', 'CPC adult', 'CPM adult'],
@@ -45,36 +57,45 @@ document.addEventListener('DOMContentLoaded', () => {
         table.classList.add('data-table');
 
         const headerRow = document.createElement('tr');
-        headers.forEach(header => {
+
+        headers.forEach((header) => {
             const th = document.createElement('th');
             th.textContent = header;
             th.style.cursor = 'pointer';
 
             const sortIcon = document.createElement('span');
-            sortIcon.classList.add('sort-icon', 'asc');
+            sortIcon.classList.add('sort-icon', 'asc'); // По умолчанию сортировка по возрастанию
             th.appendChild(sortIcon);
 
+            // Добавляем обработчик клика для сортировки
             th.addEventListener('click', () => {
                 const isNumeric = !['Country code', 'Country name'].includes(header);
+
+                // Определяем текущий порядок сортировки
                 const currentOrder = sortIcon.classList.contains('asc') ? 'asc' : 'desc';
 
+                // Сортируем данные
                 const sortedData = [...data].sort((a, b) => {
                     if (isNumeric) {
+                        // Преобразуем к числам, заменяя запятые на точки
                         const numA = parseFloat(String(a[header]).replace(',', '.')) || 0;
                         const numB = parseFloat(String(b[header]).replace(',', '.')) || 0;
-                        return currentOrder === 'asc' ? numB - numA : numA - numB;
+                        return currentOrder === 'asc' ? numA - numB : numB - numA;
                     } else {
+                        // Приводим к строкам и сравниваем
                         const valA = String(a[header] || '').toLowerCase();
                         const valB = String(b[header] || '').toLowerCase();
                         return currentOrder === 'asc'
-                            ? valB.localeCompare(valA)
-                            : valA.localeCompare(valB);
+                            ? valA.localeCompare(valB)
+                            : valB.localeCompare(valA);
                     }
                 });
 
+                // Переключаем порядок сортировки
                 sortIcon.classList.toggle('asc');
                 sortIcon.classList.toggle('desc');
 
+                // Перерисовываем таблицу
                 const newTable = createTable(sortedData, format);
                 table.replaceWith(newTable);
             });
@@ -105,6 +126,9 @@ document.addEventListener('DOMContentLoaded', () => {
         return table;
     }
 
+    /**
+     * Загружает данные из JSON файла
+     */
     async function loadData() {
         try {
             const response = await fetch(jsonUrl);
@@ -116,6 +140,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    /**
+     * Настраивает обработчики для кнопок
+     */
     function setupButtonHandlers() {
         const buttons = {
             push: document.getElementById('pushBtn'),
