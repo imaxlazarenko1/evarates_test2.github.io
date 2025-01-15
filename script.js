@@ -27,8 +27,8 @@ document.addEventListener('DOMContentLoaded', () => {
      * Форматирует число: заменяет точки на запятые и округляет до 3 знаков
      */
     function formatNumber(value) {
-        if (typeof value === 'number' || !isNaN(parseFloat(value))) {
-            return parseFloat(value).toFixed(3).replace('.', ','); // Округление до 3 знаков и замена точки на запятую
+        if (!isNaN(parseFloat(value))) {
+            return parseFloat(value).toFixed(3).replace('.', ',');
         }
         return value;
     }
@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Создаём заголовки таблицы
         const headerRow = document.createElement('tr');
-        headers.forEach((header, index) => {
+        headers.forEach(header => {
             const th = document.createElement('th');
             th.textContent = header;
             th.style.cursor = 'pointer';
@@ -59,7 +59,6 @@ document.addEventListener('DOMContentLoaded', () => {
             let sortOrder = 'asc';
 
             th.addEventListener('click', () => {
-                // Переключение порядка сортировки
                 sortOrder = sortOrder === 'asc' ? 'desc' : 'asc';
                 updateTableRows(data, sortOrder, header, format, table);
             });
@@ -77,7 +76,7 @@ document.addEventListener('DOMContentLoaded', () => {
     /**
      * Обновление строк таблицы с учетом порядка сортировки
      */
-    function updateTableRows(data, sortOrder, header, format, table = null) {
+    function updateTableRows(data, sortOrder, header, format, table) {
         const headersMap = {
             push: ['Country code', 'Country name', 'CPC mainstream', 'CPM mainstream', 'CPC adult', 'CPM adult'],
             inPage: ['Country code', 'Country name', 'CPC', 'CPM'],
@@ -85,12 +84,12 @@ document.addEventListener('DOMContentLoaded', () => {
             pop: ['Country code', 'Country name', 'CPM']
         };
 
-        const headers = headersMap[format] || [];
+        const headers = headersMap[format];
         const headerIndex = headers.indexOf(header);
 
-        if (headerIndex === -1) return; // Если заголовок не найден, пропускаем
+        if (headerIndex === -1) return;
 
-        const isNumeric = headerIndex > 1; // Считаем числовыми все столбцы после 1-го и 2-го
+        const isNumeric = headerIndex > 1; // Числовые столбцы начинаются с 2-го индекса
         const sortedData = [...data].sort((a, b) => {
             const aValue = a[headers[headerIndex]];
             const bValue = b[headers[headerIndex]];
@@ -101,28 +100,29 @@ document.addEventListener('DOMContentLoaded', () => {
                     : parseFloat(bValue) - parseFloat(aValue);
             } else {
                 return sortOrder === 'asc'
-                    ? aValue.localeCompare(bValue)
-                    : bValue.localeCompare(aValue);
+                    ? (aValue || '').localeCompare(bValue || '')
+                    : (bValue || '').localeCompare(aValue || '');
             }
         });
 
-        const tbody = table ? table.querySelector('tbody') : document.createElement('tbody');
+        let tbody = table.querySelector('tbody');
+        if (!tbody) {
+            tbody = document.createElement('tbody');
+            table.appendChild(tbody);
+        }
+
         tbody.innerHTML = '';
 
         sortedData.forEach(row => {
             const tr = document.createElement('tr');
-            headers.forEach((key, idx) => {
+            headers.forEach((key, index) => {
                 const td = document.createElement('td');
                 const value = row[key];
-                td.textContent = isNumeric && idx > 1 ? formatNumber(value) : value || '-';
+                td.textContent = isNumeric && index > 1 ? formatNumber(value) : value || '-';
                 tr.appendChild(td);
             });
             tbody.appendChild(tr);
         });
-
-        if (table) {
-            table.appendChild(tbody);
-        }
     }
 
     /**
