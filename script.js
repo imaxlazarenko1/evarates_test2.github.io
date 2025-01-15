@@ -68,7 +68,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         table.appendChild(headerRow);
 
-        // Создаем tbody, если его нет
+        // Создаём tbody, если его нет
         let tbody = table.querySelector('tbody');
         if (!tbody) {
             tbody = document.createElement('tbody');
@@ -76,7 +76,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // Заполняем строки
-        updateTableRows(data, 'asc', headers[0], format, table);
+        updateTableRows(data, 'asc', headers[0], format, tbody);
 
         return table;
     }
@@ -84,7 +84,7 @@ document.addEventListener('DOMContentLoaded', () => {
     /**
      * Обновление строк таблицы с учетом порядка сортировки
      */
-    function updateTableRows(data, sortOrder, header, format, table) {
+    function updateTableRows(data, sortOrder, header, format, tbody) {
         const isNumeric = !['Country code', 'Country name'].includes(header);
         const sortedData = [...data].sort((a, b) => {
             if (isNumeric) {
@@ -102,8 +102,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        const tbody = table.querySelector('tbody');
-        tbody.innerHTML = ''; // Очищаем tbody перед вставкой новых строк
+        tbody.innerHTML = ''; // Очищаем tbody перед добавлением новых строк
 
         sortedData.forEach(row => {
             const tr = document.createElement('tr');
