@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const jsonUrl = './data.json'; // Укажите путь к JSON-файлу
+    const jsonUrl = 'data.json'; // Укажите путь к JSON-файлу
     let jsonData = {}; // Хранение загруженных данных
     let currentSort = { column: null, order: 'asc' }; // Текущая сортировка
 
