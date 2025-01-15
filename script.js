@@ -123,14 +123,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 const section = sections[format];
                 section.classList.add('active');
 
-                // Изменение заголовка, чтобы отображалось слово "information"
-                section.innerHTML = `<h2>${format} information</h2>`;
+                // Изменяем заголовок, чтобы показывалось слово "information"
+                const sectionTitle = format.charAt(0).toUpperCase() + format.slice(1) + ' information';
+                section.innerHTML = `<h2>${sectionTitle}</h2>`;
 
                 if (jsonData[format]) {
                     const table = createTable(jsonData[format], format);
                     section.appendChild(table);
                 } else {
-                    section.innerHTML = `<h2>${format} information</h2><p>Нет данных для этого раздела.</p>`;
+                    section.innerHTML = `<h2>${sectionTitle}</h2><p>Нет данных для этого раздела.</p>`;
                 }
             });
         });
