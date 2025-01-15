@@ -68,15 +68,8 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         table.appendChild(headerRow);
 
-        // Создаём tbody, если его нет
-        let tbody = table.querySelector('tbody');
-        if (!tbody) {
-            tbody = document.createElement('tbody');
-            table.appendChild(tbody);
-        }
-
         // Заполняем строки
-        updateTableRows(data, 'asc', headers[0], format, tbody);
+        updateTableRows(data, 'asc', headers[0], format, table);
 
         return table;
     }
@@ -84,7 +77,7 @@ document.addEventListener('DOMContentLoaded', () => {
     /**
      * Обновление строк таблицы с учетом порядка сортировки
      */
-    function updateTableRows(data, sortOrder, header, format, tbody) {
+    function updateTableRows(data, sortOrder, header, format, table = null) {
         const isNumeric = !['Country code', 'Country name'].includes(header);
         const sortedData = [...data].sort((a, b) => {
             if (isNumeric) {
@@ -102,8 +95,9 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        tbody.innerHTML = ''; // Очищаем tbody перед добавлением новых строк
-
+        // Обновление строк таблицы
+        const tbody = table ? table.querySelector('tbody') : document.createElement('tbody');
+        tbody.innerHTML = '';
         sortedData.forEach(row => {
             const tr = document.createElement('tr');
             Object.values(row).forEach((value) => {
@@ -113,6 +107,10 @@ document.addEventListener('DOMContentLoaded', () => {
             });
             tbody.appendChild(tr);
         });
+
+        if (table) {
+            table.appendChild(tbody);
+        }
     }
 
     /**
@@ -125,12 +123,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 const section = sections[format];
                 section.classList.add('active');
 
+                // Изменение заголовка, чтобы отображалось слово "information"
+                section.innerHTML = `<h2>${format} information</h2>`;
+
                 if (jsonData[format]) {
-                    section.innerHTML = `<h2>${format} Section</h2>`;
                     const table = createTable(jsonData[format], format);
                     section.appendChild(table);
                 } else {
-                    section.innerHTML = `<h2>${format} Section</h2><p>Нет данных для этого раздела.</p>`;
+                    section.innerHTML = `<h2>${format} information</h2><p>Нет данных для этого раздела.</p>`;
                 }
             });
         });
