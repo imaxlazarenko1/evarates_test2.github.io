@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const isNumeric = !['Country code', 'Country name'].includes(header);
 
                 // Определяем текущий порядок сортировки
-                const currentOrder = sortIcon.classList.contains('asc') ? 'asc' : 'desc';
+                const currentOrder = sortIcon.dataset.order || 'asc';
 
                 // Сортируем данные
                 const sortedData = [...data].sort((a, b) => {
@@ -92,8 +92,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
 
                 // Переключаем порядок сортировки
-                sortIcon.classList.toggle('asc');
-                sortIcon.classList.toggle('desc');
+                sortIcon.dataset.order = currentOrder === 'asc' ? 'desc' : 'asc';
 
                 // Перерисовываем таблицу
                 const newTable = createTable(sortedData, format);
