@@ -27,7 +27,10 @@ document.addEventListener('DOMContentLoaded', () => {
      * Форматирует число: заменяет точки на запятые и округляет до 3 знаков
      */
     function formatNumber(value) {
-        return typeof value === 'number' ? value.toFixed(3).replace('.', ',') : value;
+        if (typeof value === 'number') {
+            return value.toFixed(3).replace('.', ','); // Округление до 3 знаков и замена точки на запятую
+        }
+        return value;
     }
 
     /**
@@ -58,7 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
             th.addEventListener('click', () => {
                 // Переключение порядка сортировки
                 sortOrder = sortOrder === 'asc' ? 'desc' : 'asc';
-                updateTableRows(data, sortOrder, header, format);
+                updateTableRows(data, sortOrder, header, format, table);
             });
 
             headerRow.appendChild(th);
@@ -78,13 +81,17 @@ document.addEventListener('DOMContentLoaded', () => {
         const isNumeric = !['Country code', 'Country name'].includes(header);
         const sortedData = [...data].sort((a, b) => {
             if (isNumeric) {
+                const aValue = parseFloat(a[header]);
+                const bValue = parseFloat(b[header]);
                 return sortOrder === 'asc'
-                    ? parseFloat(a[header]) - parseFloat(b[header])
-                    : parseFloat(b[header]) - parseFloat(a[header]);
+                    ? aValue - bValue
+                    : bValue - aValue;
             } else {
+                const aValue = a[header] ? a[header].toString() : '';
+                const bValue = b[header] ? b[header].toString() : '';
                 return sortOrder === 'asc'
-                    ? a[header].localeCompare(b[header])
-                    : b[header].localeCompare(a[header]);
+                    ? aValue.localeCompare(bValue)
+                    : bValue.localeCompare(aValue);
             }
         });
 
