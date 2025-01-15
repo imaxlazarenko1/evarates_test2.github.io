@@ -1,183 +1,147 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const jsonUrl = './data.json'; // Путь к JSON файлу
-    let jsonData = {}; // Для хранения загруженных данных
+    const jsonUrl = './data.json'; // Укажите путь к JSON-файлу
+    let jsonData = {}; // Хранение загруженных данных
+    let currentSort = { column: null, order: 'asc' }; // Текущая сортировка
 
-    /**
-     * Функция для записи информации о дате, времени и IP пользователя
-     */
-    async function logUserInfo() {
-        try {
-            const ipResponse = await fetch('https://api.ipify.org?format=json');
-            if (!ipResponse.ok) throw new Error('Ошибка получения IP');
-            const ipData = await ipResponse.json();
+    const buttons = {
+        push: document.getElementById('pushBtn'),
+        inPage: document.getElementById('inPageBtn'),
+        pop: document.getElementById('popBtn'),
+        native: document.getElementById('nativeBtn'),
+    };
 
-            const logEntry = {
-                date: new Date().toISOString(),
-                ip: ipData.ip
-            };
+    const sections = {
+        push: document.getElementById('pushSection'),
+        inPage: document.getElementById('inPageSection'),
+        pop: document.getElementById('popSection'),
+        native: document.getElementById('nativeSection'),
+    };
 
-            const response = await fetch('/save-log', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(logEntry)
-            });
+    const tableHeaders = {
+        push: ['Country Code', 'Country Name', 'CPC Mainstream', 'CPM Mainstream', 'CPC Adult', 'CPM Adult'],
+        inPage: ['Country Code', 'Country Name', 'CPC', 'CPM'],
+        pop: ['Country Code', 'Country Name', 'CPM'],
+        native: ['Country Code', 'Country Name', 'CPC', 'CPM'],
+    };
 
-            if (!response.ok) throw new Error(`Ошибка сохранения лога: ${response.statusText}`);
-            console.log('Лог сохранён:', logEntry);
-        } catch (error) {
-            console.error('Ошибка записи лога:', error);
-        }
-    }
-
-    logUserInfo();
-
-    /**
-     * Скрывает все разделы
-     */
     function hideAllSections() {
-        document.querySelectorAll('.content-section').forEach(section => section.classList.remove('active'));
+        Object.values(sections).forEach((section) => section.classList.remove('active'));
     }
 
-    /**
-     * Создаёт таблицу для отображения данных
-     * @param {Array} data - Данные для таблицы
-     * @param {String} format - Формат (push, inPage, pop, native)
-     * @returns {HTMLElement} - Таблица
-     */
-    function createTable(data, format) {
-        const headersMap = {
-            push: ['Country code', 'Country name', 'CPC mainstream', 'CPM mainstream', 'CPC adult', 'CPM adult'],
-            inPage: ['Country code', 'Country name', 'CPC', 'CPM'],
-            native: ['Country code', 'Country name', 'CPC', 'CPM'],
-            pop: ['Country code', 'Country name', 'CPM']
-        };
+    function isNumeric(value) {
+        return !isNaN(parseFloat(value)) && isFinite(value);
+    }
 
-        const headers = headersMap[format] || [];
-        const table = document.createElement('table');
-        table.classList.add('data-table');
+    function processNumber(value) {
+        if (isNumeric(value)) {
+            const num = parseFloat(value); // Преобразование строки в число
+            return num.toFixed(3).replace('.', ','); // Округляем до 3 знаков и заменяем точку на запятую
+        }
+        return value; // Возврат исходного значения, если не число
+    }
 
-        const headerRow = document.createElement('tr');
+    function sortData(data, column, order) {
+        return data.sort((a, b) => {
+            const valA = isNumeric(a[column]) ? parseFloat(a[column]) : a[column];
+            const valB = isNumeric(b[column]) ? parseFloat(b[column]) : b[column];
 
-        headers.forEach((header) => {
-            const th = document.createElement('th');
-            th.textContent = header;
-            th.style.cursor = 'pointer';
-
-            const sortIcon = document.createElement('span');
-            sortIcon.classList.add('sort-icon', 'asc'); // По умолчанию сортировка по возрастанию
-            th.appendChild(sortIcon);
-
-            // Добавляем обработчик клика для сортировки
-            th.addEventListener('click', () => {
-                const isNumeric = !['Country code', 'Country name'].includes(header);
-
-                // Определяем текущий порядок сортировки
-                const currentOrder = sortIcon.dataset.order || 'asc';
-
-                // Сортируем данные
-                const sortedData = [...data].sort((a, b) => {
-                    if (isNumeric) {
-                        // Преобразуем к числам, заменяя запятые на точки
-                        const numA = parseFloat(String(a[header]).replace(',', '.')) || 0;
-                        const numB = parseFloat(String(b[header]).replace(',', '.')) || 0;
-                        return currentOrder === 'asc' ? numA - numB : numB - numA;
-                    } else {
-                        // Приводим к строкам и сравниваем
-                        const valA = String(a[header] || '').toLowerCase();
-                        const valB = String(b[header] || '').toLowerCase();
-                        return currentOrder === 'asc'
-                            ? valA.localeCompare(valB)
-                            : valB.localeCompare(valA);
-                    }
-                });
-
-                // Переключаем порядок сортировки
-                sortIcon.dataset.order = currentOrder === 'asc' ? 'desc' : 'asc';
-
-                // Перерисовываем таблицу
-                const newTable = createTable(sortedData, format);
-                table.replaceWith(newTable);
-            });
-
-            headerRow.appendChild(th);
+            if (order === 'asc') {
+                return valA > valB ? 1 : valA < valB ? -1 : 0;
+            } else {
+                return valA < valB ? 1 : valA > valB ? -1 : 0;
+            }
         });
-        table.appendChild(headerRow);
+    }
 
-        data.forEach(row => {
+    function createTableRows(data, table, format) {
+        const tbody = table.querySelector('tbody');
+        if (!tbody) {
+            console.error("Table body (tbody) не найден.");
+            return;
+        }
+
+        tbody.innerHTML = ''; // Очистка таблицы
+
+        data.forEach((row) => {
             const tr = document.createElement('tr');
-            headers.forEach(header => {
+            tableHeaders[format].forEach((key) => {
                 const td = document.createElement('td');
-                const value = row[header];
-
-                if (!isNaN(value) && value !== null && value !== undefined) {
-                    td.textContent = parseFloat(value)
-                        .toLocaleString('ru-RU', { minimumFractionDigits: 3 })
-                        .replace('.', ',');
-                } else {
-                    td.textContent = value || '-';
-                }
-
+                td.textContent = processNumber(row[key] || '-'); // Применяем обработку числа
                 tr.appendChild(td);
             });
-            table.appendChild(tr);
+            tbody.appendChild(tr);
         });
-
-        return table;
     }
 
-    /**
-     * Загружает данные из JSON файла
-     */
+    function attachSortHandlers(table, format) {
+        const headers = table.querySelectorAll('thead th');
+        headers.forEach((header, index) => {
+            header.addEventListener('click', () => {
+                const column = tableHeaders[format][index];
+                
+                // Переключение направления сортировки
+                if (currentSort.column === column) {
+                    currentSort.order = currentSort.order === 'asc' ? 'desc' : 'asc';
+                } else {
+                    currentSort.column = column;
+                    currentSort.order = 'asc';
+                }
+
+                // Сортировка данных
+                const sortedData = sortData(jsonData[format], column, currentSort.order);
+                createTableRows(sortedData, table, format);
+            });
+        });
+    }
+
     async function loadData() {
         try {
             const response = await fetch(jsonUrl);
-            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+            if (!response.ok) {
+                throw new Error(`Ошибка загрузки JSON: ${response.status}`);
+            }
             jsonData = await response.json();
-            console.log('Данные загружены:', jsonData);
         } catch (error) {
-            console.error('Ошибка загрузки данных:', error);
+            console.error('Ошибка загрузки JSON:', error);
         }
     }
 
-    /**
-     * Настраивает обработчики для кнопок
-     */
-    function setupButtonHandlers() {
-        const buttons = {
-            push: document.getElementById('pushBtn'),
-            inPage: document.getElementById('inPageBtn'),
-            pop: document.getElementById('popBtn'),
-            native: document.getElementById('nativeBtn')
-        };
-
-        const sections = {
-            push: document.getElementById('pushSection'),
-            inPage: document.getElementById('inPageSection'),
-            pop: document.getElementById('popSection'),
-            native: document.getElementById('nativeSection')
-        };
-
-        Object.keys(buttons).forEach(format => {
+    function setupButtons() {
+        Object.keys(buttons).forEach((format) => {
             buttons[format].addEventListener('click', () => {
                 hideAllSections();
                 const section = sections[format];
                 section.classList.add('active');
 
+                const table = section.querySelector('table');
+                if (!table) {
+                    console.error(`Таблица для формата "${format}" не найдена.`);
+                    return;
+                }
+
                 if (jsonData[format]) {
-                    section.innerHTML = `<h2>${format} information</h2>`;
-                    const table = createTable(jsonData[format], format);
-                    section.appendChild(table);
+                    const sortedData = sortData(
+                        jsonData[format],
+                        currentSort.column || tableHeaders[format][0],
+                        currentSort.order
+                    );
+                    createTableRows(sortedData, table, format);
+                    attachSortHandlers(table, format); // Добавляем обработчики сортировки
                 } else {
-                    section.innerHTML = `<h2>${format} information</h2><p>Нет данных для этого раздела.</p>`;
+                    console.warn(`Нет данных для формата: ${format}`);
+                    const tbody = table.querySelector('tbody');
+                    if (tbody) {
+                        tbody.innerHTML = `<tr><td colspan="${tableHeaders[format].length}">Нет данных для отображения</td></tr>`;
+                    }
                 }
             });
         });
     }
 
     async function init() {
-        console.log('Инициализация приложения...');
         await loadData();
-        setupButtonHandlers();
+        setupButtons();
+        buttons.push.click(); // По умолчанию показывается Push
     }
 
     init();
