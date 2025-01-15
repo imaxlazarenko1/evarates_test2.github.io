@@ -1,69 +1,68 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const jsonUrl = './data.json'; // Путь к JSON файлу
+    const jsonUrl = './data.json'; // Путь к JSON-файлу
     let jsonData = {}; // Для хранения загруженных данных
 
-    // Кнопки для переключения форматов
     const buttons = {
         push: document.getElementById('pushBtn'),
         inPage: document.getElementById('inPageBtn'),
         pop: document.getElementById('popBtn'),
-        native: document.getElementById('nativeBtn')
+        native: document.getElementById('nativeBtn'),
     };
 
-    // Секции для отображения информации
     const sections = {
         push: document.getElementById('pushSection'),
         inPage: document.getElementById('inPageSection'),
         pop: document.getElementById('popSection'),
-        native: document.getElementById('nativeSection')
+        native: document.getElementById('nativeSection'),
     };
 
-    /**
-     * Функция скрывает все секции
-     */
+    const tableHeaders = {
+        push: ['Country Code', 'Country Name', 'CPC Mainstream', 'CPM Mainstream', 'CPC Adult', 'CPM Adult'],
+        inPage: ['Country Code', 'Country Name', 'CPC', 'CPM'],
+        pop: ['Country Code', 'Country Name', 'CPM'],
+        native: ['Country Code', 'Country Name', 'CPC', 'CPM'],
+    };
+
     function hideAllSections() {
-        Object.values(sections).forEach(section => section.classList.remove('active'));
+        Object.values(sections).forEach((section) =>
+            section.classList.remove('active')
+        );
     }
 
-    /**
-     * Создаёт строки для таблицы на основе данных
-     */
-    function createTableRows(data, table) {
+    function createTableRows(data, table, format) {
         const tbody = table.querySelector('tbody');
         if (!tbody) {
             console.error("Table body (tbody) не найден.");
             return;
         }
-        tbody.innerHTML = ''; // Очистка таблицы перед заполнением
-        data.forEach(row => {
+
+        tbody.innerHTML = ''; // Очистка таблицы
+
+        data.forEach((row) => {
             const tr = document.createElement('tr');
-            Object.values(row).forEach(value => {
+            tableHeaders[format].forEach((key) => {
                 const td = document.createElement('td');
-                td.textContent = value || '-'; // Если данных нет, выводится "-"
+                td.textContent = row[key] || '-'; // Если данных нет, вывод "-"
                 tr.appendChild(td);
             });
             tbody.appendChild(tr);
         });
     }
 
-    /**
-     * Загружает данные из JSON файла
-     */
     async function loadData() {
         try {
             const response = await fetch(jsonUrl);
-            if (!response.ok) throw new Error(`Ошибка загрузки JSON: ${response.status}`);
+            if (!response.ok) {
+                throw new Error(`Ошибка загрузки JSON: ${response.status}`);
+            }
             jsonData = await response.json();
         } catch (error) {
             console.error('Ошибка загрузки JSON:', error);
         }
     }
 
-    /**
-     * Настраивает обработчики событий для кнопок
-     */
     function setupButtons() {
-        Object.keys(buttons).forEach(format => {
+        Object.keys(buttons).forEach((format) => {
             buttons[format].addEventListener('click', () => {
                 hideAllSections();
                 const section = sections[format];
@@ -76,26 +75,22 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
 
                 if (jsonData[format]) {
-                    createTableRows(jsonData[format], table);
+                    createTableRows(jsonData[format], table, format);
                 } else {
                     console.warn(`Нет данных для формата: ${format}`);
                     const tbody = table.querySelector('tbody');
                     if (tbody) {
-                        tbody.innerHTML = `<tr><td colspan="3">Нет данных для отображения</td></tr>`;
+                        tbody.innerHTML = `<tr><td colspan="${tableHeaders[format].length}">Нет данных для отображения</td></tr>`;
                     }
                 }
             });
         });
     }
 
-    /**
-     * Инициализация приложения
-     */
     async function init() {
-        await loadData(); // Загружаем данные из JSON
-        setupButtons(); // Настраиваем кнопки
-        // Активируем первый раздел (Push) по умолчанию
-        buttons.push.click();
+        await loadData();
+        setupButtons();
+        buttons.push.click(); // По умолчанию показывается Push
     }
 
     init();
