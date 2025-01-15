@@ -30,10 +30,22 @@ document.addEventListener('DOMContentLoaded', () => {
         );
     }
 
+    function isNumeric(value) {
+        return !isNaN(parseFloat(value)) && isFinite(value);
+    }
+
+    function formatNumber(value) {
+        if (isNumeric(value)) {
+            return value.toString().replace('.', ','); // Заменяем точку на запятую
+        }
+        return value;
+    }
+
     function sortData(data, column, order) {
         return data.sort((a, b) => {
-            const valA = a[column] || '';
-            const valB = b[column] || '';
+            const valA = isNumeric(a[column]) ? parseFloat(a[column]) : a[column];
+            const valB = isNumeric(b[column]) ? parseFloat(b[column]) : b[column];
+
             if (order === 'asc') {
                 return valA > valB ? 1 : valA < valB ? -1 : 0;
             } else {
@@ -55,7 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const tr = document.createElement('tr');
             tableHeaders[format].forEach((key) => {
                 const td = document.createElement('td');
-                td.textContent = row[key] || '-'; // Если данных нет, вывод "-"
+                td.textContent = formatNumber(row[key] || '-'); // Если данных нет, вывод "-"
                 tr.appendChild(td);
             });
             tbody.appendChild(tr);
