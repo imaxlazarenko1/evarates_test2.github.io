@@ -91,8 +91,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 const sortedData = [...data].sort((a, b) => {
                     if (isNumeric) {
                         // Сортировка чисел
-                        const numA = parseFloat(a[header].replace(',', '.')) || 0;
-                        const numB = parseFloat(b[header].replace(',', '.')) || 0;
+                        const numA = parseFloat(String(a[header]).replace(',', '.')) || 0;
+                        const numB = parseFloat(String(b[header]).replace(',', '.')) || 0;
                         return currentOrder === 'asc' ? numB - numA : numA - numB;
                     } else {
                         // Сортировка строк
@@ -162,40 +162,40 @@ document.addEventListener('DOMContentLoaded', () => {
     /**
      * Настраивает обработчики для кнопок
      */
-    function setupButtonHandlers() {
-        const buttons = {
-            push: document.getElementById('pushBtn'),
-            inPage: document.getElementById('inPageBtn'),
-            pop: document.getElementById('popBtn'),
-            native: document.getElementById('nativeBtn')
-        };
+   function setupButtonHandlers() {
+    const buttons = {
+        push: document.getElementById('pushBtn'),
+        inPage: document.getElementById('inPageBtn'),
+        pop: document.getElementById('popBtn'),
+        native: document.getElementById('nativeBtn')
+    };
 
-        const sections = {
-            push: document.getElementById('pushSection'),
-            inPage: document.getElementById('inPageSection'),
-            pop: document.getElementById('popSection'),
-            native: document.getElementById('nativeSection')
-        };
+    const sections = {
+        push: document.getElementById('pushSection'),
+        inPage: document.getElementById('inPageSection'),
+        pop: document.getElementById('popSection'),
+        native: document.getElementById('nativeSection')
+    };
 
-        Object.keys(buttons).forEach(format => {
-            buttons[format].addEventListener('click', () => {
-                hideAllSections();
+    Object.keys(buttons).forEach(format => {
+        buttons[format].addEventListener('click', () => {
+            hideAllSections();
 
-                const section = sections[format];
-                section.classList.add('active');
+            const section = sections[format];
+            section.classList.add('active');
 
-                console.log(`Активный формат: ${format}`);
+            console.log(`Активный формат: ${format}`);
 
-                if (jsonData[format]) {
-                    section.innerHTML = `<h2>${format} Section</h2>`;
-                    const table = createTable(jsonData[format], format);
-                    section.appendChild(table);
-                } else {
-                    section.innerHTML = `<h2>${format} Section</h2><p>Нет данных для этого раздела.</p>`;
-                }
-            });
+            if (jsonData[format]) {
+                section.innerHTML = `<h2>${format} information</h2>`;
+                const table = createTable(jsonData[format], format);
+                section.appendChild(table);
+            } else {
+                section.innerHTML = `<h2>${format} information</h2><p>Нет данных для этого раздела.</p>`;
+            }
         });
-    }
+    });
+}
 
     /**
      * Инициализация приложения
