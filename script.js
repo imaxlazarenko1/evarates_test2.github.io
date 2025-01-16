@@ -1,22 +1,50 @@
-document.addEventListener('DOMContentLoaded', async () => {
-    const jsonUrl = './data.json'; // Путь к JSON-файлу
-    let jsonData = {}; // Данные из JSON
+document.addEventListener('DOMContentLoaded', () => {
+    const jsonUrl = './data.json'; // Путь к JSON файлу
+    let jsonData = {}; // Для хранения загруженных данных
 
+    /**
+     * Функция для записи информации о дате, времени и IP пользователя
+     */
+    async function logUserInfo() {
+        try {
+            const ipResponse = await fetch('https://api.ipify.org?format=json');
+            if (!ipResponse.ok) throw new Error('Ошибка получения IP');
+            const ipData = await ipResponse.json();
+
+            const logEntry = {
+                date: new Date().toISOString(),
+                ip: ipData.ip
+            };
+
+            const response = await fetch('/save-log', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(logEntry)
+            });
+
+            if (!response.ok) throw new Error(`Ошибка сохранения лога: ${response.statusText}`);
+            console.log('Лог сохранён:', logEntry);
+        } catch (error) {
+            console.error('Ошибка записи лога:', error);
+        }
+    }
+
+    logUserInfo();
+
+    /**
+     * Скрывает все разделы
+     */
     function hideAllSections() {
         document.querySelectorAll('.content-section').forEach(section => section.classList.remove('active'));
     }
 
-    function getSafeData(data) {
-        if (!Array.isArray(data)) {
-            console.warn("Ожидался массив, но получено:", data);
-            return [];
-        }
-        return [...data]; // Создаем копию массива
-    }
-
+    /**
+     * Создаёт таблицу для отображения данных
+     * @param {Array} data - Данные для таблицы
+     * @param {String} format - Формат (push, inPage, pop, native)
+     * @returns {HTMLElement} - Таблица
+     */
     function createTable(data, format) {
-        data = getSafeData(data);
-
         const headersMap = {
             push: ['Country code', 'Country name', 'CPC mainstream', 'CPM mainstream', 'CPC adult', 'CPM adult'],
             inPage: ['Country code', 'Country name', 'CPC', 'CPM'],
@@ -28,7 +56,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         const table = document.createElement('table');
         table.classList.add('data-table');
 
-        const thead = document.createElement('thead');
         const headerRow = document.createElement('tr');
 
         headers.forEach((header) => {
@@ -37,108 +64,84 @@ document.addEventListener('DOMContentLoaded', async () => {
             th.style.cursor = 'pointer';
 
             const sortIcon = document.createElement('span');
-            sortIcon.classList.add('sort-icon');
+            sortIcon.classList.add('sort-icon', 'asc'); // По умолчанию сортировка по возрастанию
             th.appendChild(sortIcon);
 
-            th.addEventListener('click', () => sortTable(table, getSafeData(data), format, header, th, sortIcon));
+            // Добавляем обработчик клика для сортировки
+            th.addEventListener('click', () => {
+                const isNumeric = !['Country code', 'Country name'].includes(header);
+
+                // Определяем текущий порядок сортировки
+                const currentOrder = sortIcon.dataset.order || 'asc';
+
+                // Сортируем данные
+                const sortedData = [...data].sort((a, b) => {
+                    if (isNumeric) {
+                        // Преобразуем к числам, заменяя запятые на точки
+                        const numA = parseFloat(String(a[header]).replace(',', '.')) || 0;
+                        const numB = parseFloat(String(b[header]).replace(',', '.')) || 0;
+                        return currentOrder === 'asc' ? numA - numB : numB - numA;
+                    } else {
+                        // Приводим к строкам и сравниваем
+                        const valA = String(a[header] || '').toLowerCase();
+                        const valB = String(b[header] || '').toLowerCase();
+                        return currentOrder === 'asc'
+                            ? valA.localeCompare(valB)
+                            : valB.localeCompare(valA);
+                    }
+                });
+
+                // Переключаем порядок сортировки
+                sortIcon.dataset.order = currentOrder === 'asc' ? 'desc' : 'asc';
+
+                // Перерисовываем таблицу
+                const newTable = createTable(sortedData, format);
+                table.replaceWith(newTable);
+            });
 
             headerRow.appendChild(th);
         });
-
-        thead.appendChild(headerRow);
-        table.appendChild(thead);
-
-        const tbody = document.createElement('tbody');
-        fillTableBody(tbody, data, headers);
-        table.appendChild(tbody);
-
-        return table;
-    }
-
-    function fillTableBody(tbody, data, headers) {
-        data = getSafeData(data); // Проверяем, что data - массив
-
-        tbody.innerHTML = ''; // Очищаем перед обновлением
-        
-        if (data.length === 0) {
-            console.warn("Предупреждение: передан пустой массив данных.");
-            return;
-        }
+        table.appendChild(headerRow);
 
         data.forEach(row => {
-            if (!row || typeof row !== 'object') {
-                console.warn("Ошибка: строка таблицы не является объектом", row);
-                return;
-            }
-
             const tr = document.createElement('tr');
             headers.forEach(header => {
                 const td = document.createElement('td');
                 const value = row[header];
 
-                td.textContent = (!isNaN(value) && value !== null && value !== undefined)
-                    ? parseFloat(value).toLocaleString('ru-RU', { minimumFractionDigits: 3 }).replace('.', ',')
-                    : value || '-';
+                if (!isNaN(value) && value !== null && value !== undefined) {
+                    td.textContent = parseFloat(value)
+                        .toLocaleString('ru-RU', { minimumFractionDigits: 3 })
+                        .replace('.', ',');
+                } else {
+                    td.textContent = value || '-';
+                }
 
                 tr.appendChild(td);
             });
-            tbody.appendChild(tr);
-        });
-    }
-
-    function sortTable(table, data, format, column, th, sortIcon) {
-        data = getSafeData(data); 
-
-        if (data.length === 0) {
-            console.warn("Попытка сортировки пустого массива.");
-            return;
-        }
-
-        const isNumeric = !['Country code', 'Country name'].includes(column);
-        const tbody = table.querySelector('tbody');
-
-        const currentOrder = th.dataset.order === 'asc' ? 'desc' : 'asc';
-        th.dataset.order = currentOrder;
-
-        document.querySelectorAll('.sort-icon').forEach(icon => icon.textContent = '');
-        sortIcon.textContent = currentOrder === 'asc' ? ' ▲' : ' ▼';
-
-        data.sort((a, b) => {
-            if (isNumeric) {
-                const numA = parseFloat(String(a[column]).replace(',', '.')) || 0;
-                const numB = parseFloat(String(b[column]).replace(',', '.')) || 0;
-                return currentOrder === 'asc' ? numA - numB : numB - numA;
-            } else {
-                return currentOrder === 'asc'
-                    ? String(a[column] || '').localeCompare(String(b[column] || ''))
-                    : String(b[column] || '').localeCompare(String(a[column] || ''));
-            }
+            table.appendChild(tr);
         });
 
-        fillTableBody(tbody, data);
+        return table;
     }
 
+    /**
+     * Загружает данные из JSON файла
+     */
     async function loadData() {
         try {
             const response = await fetch(jsonUrl);
-            if (!response.ok) throw new Error(`Ошибка загрузки данных: ${response.status}`);
+            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
             jsonData = await response.json();
-
-            console.log("Загруженные данные JSON:", jsonData); // Дебаг проверка
-
-            Object.keys(jsonData).forEach(key => {
-                if (!Array.isArray(jsonData[key])) {
-                    console.warn(`Ошибка: jsonData[${key}] не массив, заменяем на пустой массив`, jsonData[key]);
-                    jsonData[key] = []; // Подставляем пустой массив
-                }
-            });
-
+            console.log('Данные загружены:', jsonData);
         } catch (error) {
-            console.error('Ошибка загрузки:', error);
-            jsonData = {}; // Если данные не загружены, сбрасываем объект
+            console.error('Ошибка загрузки данных:', error);
         }
     }
 
+    /**
+     * Настраивает обработчики для кнопок
+     */
     function setupButtonHandlers() {
         const buttons = {
             push: document.getElementById('pushBtn'),
@@ -160,9 +163,9 @@ document.addEventListener('DOMContentLoaded', async () => {
                 const section = sections[format];
                 section.classList.add('active');
 
-                if (Array.isArray(jsonData[format])) {
+                if (jsonData[format]) {
                     section.innerHTML = `<h2>${format} information</h2>`;
-                    const table = createTable(getSafeData(jsonData[format]), format);
+                    const table = createTable(jsonData[format], format);
                     section.appendChild(table);
                 } else {
                     section.innerHTML = `<h2>${format} information</h2><p>Нет данных для этого раздела.</p>`;
@@ -172,6 +175,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     async function init() {
+        console.log('Инициализация приложения...');
         await loadData();
         setupButtonHandlers();
     }
