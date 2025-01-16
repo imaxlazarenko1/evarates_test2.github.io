@@ -23,7 +23,7 @@ h1 {
     color: #26C0A9;
 }
 
-/* Кнопки */
+/* Стили для кнопок */
 .buttons {
     display: flex;
     justify-content: center;
@@ -47,52 +47,94 @@ h1 {
     transform: scale(1.05);
 }
 
-/* Контейнер с секциями */
-#dataContainer {
-    width: 100%;
-    text-align: center;
+/* Стили для активных кнопок */
+.format-btn.active {
+    background-color: #1ea890;
+    color: #fff;
+    font-weight: bold;
+    box-shadow: 0 0 10px rgba(38, 192, 169, 0.5);
 }
 
-/* Секции */
+/* Разделы */
 .content-section {
     display: none;
     margin-top: 20px;
-    width: 100%;
 }
 
-.content-section.active {
-    display: block;
+.content-section h2 {
+    margin-bottom: 10px;
+    color: #26C0A9;
 }
 
-/* Таблица */
-table {
+.content-section table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 10px;
 }
 
-th, td {
+.content-section th, .content-section td {
     border: 1px solid #ddd;
     padding: 8px;
     text-align: left;
 }
 
-th {
+.content-section th {
     background-color: #26C0A9;
     color: white;
-    cursor: pointer;
+    font-weight: bold;
+    text-transform: capitalize;
 }
 
-/* Сортировка */
+.content-section td {
+    background-color: #f9f9f9;
+    color: #333;
+}
+
+.content-section tr:nth-child(even) td {
+    background-color: #e6f8f5;
+}
+
+/* Показываем текущий раздел */
+.content-section.active {
+    display: block;
+}
+
+/* Добавляем акцент на активную кнопку */
+.footer {
+    text-align: center;
+    background-color: #26C0A9;
+    color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.footer a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.2rem;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+.footer a:hover {
+    color: #d9fff5;
+}
+
+/* Иконки для сортировки */
 .sort-icon {
     margin-left: 10px;
-    font-weight: bold;
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    background-size: contain;
+    background-repeat: no-repeat;
 }
 
-.sort-icon.asc::after {
-    content: " ▲";
+.sort-icon.asc {
+    background-image: url('./images/sortdown.svg'); /* Путь к значку для возрастания */
 }
 
-.sort-icon.desc::after {
-    content: " ▼";
+.sort-icon.desc {
+    background-image: url('./images/sort.svg'); /* Путь к значку для убывания */
 }
