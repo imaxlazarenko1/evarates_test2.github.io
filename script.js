@@ -1,48 +1,18 @@
 document.addEventListener('DOMContentLoaded', () => {
     const jsonUrl = './data.json'; // Путь к JSON файлу
-    let jsonData = {}; // Для хранения загруженных данных
+    let jsonData = {}; // Данные из JSON
 
     /**
-     * Функция для записи информации о дате, времени и IP пользователя
-     */
-    async function logUserInfo() {
-        try {
-            const ipResponse = await fetch('https://api.ipify.org?format=json');
-            if (!ipResponse.ok) throw new Error('Ошибка получения IP');
-            const ipData = await ipResponse.json();
-
-            const logEntry = {
-                date: new Date().toISOString(),
-                ip: ipData.ip
-            };
-
-            const response = await fetch('/save-log', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(logEntry)
-            });
-
-            if (!response.ok) throw new Error(`Ошибка сохранения лога: ${response.statusText}`);
-            console.log('Лог сохранён:', logEntry);
-        } catch (error) {
-            console.error('Ошибка записи лога:', error);
-        }
-    }
-
-    logUserInfo();
-
-    /**
-     * Скрывает все разделы
+     * Функция скрытия всех разделов
      */
     function hideAllSections() {
         document.querySelectorAll('.content-section').forEach(section => section.classList.remove('active'));
     }
 
     /**
-     * Создаёт таблицу для отображения данных
-     * @param {Array} data - Данные для таблицы
-     * @param {String} format - Формат (push, inPage, pop, native)
-     * @returns {HTMLElement} - Таблица
+     * Функция создания таблицы
+     * @param {Array} data - Данные
+     * @param {String} format - Тип данных
      */
     function createTable(data, format) {
         const headersMap = {
@@ -56,6 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const table = document.createElement('table');
         table.classList.add('data-table');
 
+        const thead = document.createElement('thead');
         const headerRow = document.createElement('tr');
 
         headers.forEach((header) => {
@@ -64,83 +35,94 @@ document.addEventListener('DOMContentLoaded', () => {
             th.style.cursor = 'pointer';
 
             const sortIcon = document.createElement('span');
-            sortIcon.classList.add('sort-icon', 'asc'); // По умолчанию сортировка по возрастанию
+            sortIcon.classList.add('sort-icon');
             th.appendChild(sortIcon);
 
-            // Добавляем обработчик клика для сортировки
-            th.addEventListener('click', () => {
-                const isNumeric = !['Country code', 'Country name'].includes(header);
-
-                // Определяем текущий порядок сортировки
-                const currentOrder = sortIcon.dataset.order || 'asc';
-
-                // Сортируем данные
-                const sortedData = [...data].sort((a, b) => {
-                    if (isNumeric) {
-                        // Преобразуем к числам, заменяя запятые на точки
-                        const numA = parseFloat(String(a[header]).replace(',', '.')) || 0;
-                        const numB = parseFloat(String(b[header]).replace(',', '.')) || 0;
-                        return currentOrder === 'asc' ? numA - numB : numB - numA;
-                    } else {
-                        // Приводим к строкам и сравниваем
-                        const valA = String(a[header] || '').toLowerCase();
-                        const valB = String(b[header] || '').toLowerCase();
-                        return currentOrder === 'asc'
-                            ? valA.localeCompare(valB)
-                            : valB.localeCompare(valA);
-                    }
-                });
-
-                // Переключаем порядок сортировки
-                sortIcon.dataset.order = currentOrder === 'asc' ? 'desc' : 'asc';
-
-                // Перерисовываем таблицу
-                const newTable = createTable(sortedData, format);
-                table.replaceWith(newTable);
-            });
+            th.addEventListener('click', () => sortTable(table, data, format, header, th, sortIcon));
 
             headerRow.appendChild(th);
         });
-        table.appendChild(headerRow);
 
+        thead.appendChild(headerRow);
+        table.appendChild(thead);
+
+        const tbody = document.createElement('tbody');
+        fillTableBody(tbody, data, headers);
+        table.appendChild(tbody);
+
+        return table;
+    }
+
+    /**
+     * Функция заполнения тела таблицы
+     */
+    function fillTableBody(tbody, data, headers) {
+        tbody.innerHTML = ''; // Очищаем тело перед обновлением
         data.forEach(row => {
             const tr = document.createElement('tr');
             headers.forEach(header => {
                 const td = document.createElement('td');
                 const value = row[header];
 
-                if (!isNaN(value) && value !== null && value !== undefined) {
-                    td.textContent = parseFloat(value)
-                        .toLocaleString('ru-RU', { minimumFractionDigits: 3 })
-                        .replace('.', ',');
-                } else {
-                    td.textContent = value || '-';
-                }
+                td.textContent = (!isNaN(value) && value !== null && value !== undefined) 
+                    ? parseFloat(value).toLocaleString('ru-RU', { minimumFractionDigits: 3 }).replace('.', ',') 
+                    : value || '-';
 
                 tr.appendChild(td);
             });
-            table.appendChild(tr);
+            tbody.appendChild(tr);
         });
-
-        return table;
     }
 
     /**
-     * Загружает данные из JSON файла
+     * Функция сортировки таблицы
+     */
+    function sortTable(table, data, format, column, th, sortIcon) {
+        const isNumeric = !['Country code', 'Country name'].includes(column);
+        const tbody = table.querySelector('tbody');
+
+        // Определяем текущий порядок сортировки
+        const currentOrder = th.dataset.order === 'asc' ? 'desc' : 'asc';
+
+        // Очищаем старые иконки
+        document.querySelectorAll('.sort-icon').forEach(icon => icon.className = 'sort-icon');
+
+        // Устанавливаем активную иконку
+        sortIcon.classList.add(currentOrder === 'asc' ? 'asc' : 'desc');
+        th.dataset.order = currentOrder;
+
+        // Сортируем данные
+        data.sort((a, b) => {
+            if (isNumeric) {
+                const numA = parseFloat(String(a[column]).replace(',', '.')) || 0;
+                const numB = parseFloat(String(b[column]).replace(',', '.')) || 0;
+                return currentOrder === 'asc' ? numA - numB : numB - numA;
+            } else {
+                return currentOrder === 'asc'
+                    ? String(a[column] || '').localeCompare(String(b[column] || ''))
+                    : String(b[column] || '').localeCompare(String(a[column] || ''));
+            }
+        });
+
+        // Заполняем таблицу новыми данными
+        fillTableBody(tbody, data);
+    }
+
+    /**
+     * Функция загрузки данных
      */
     async function loadData() {
         try {
             const response = await fetch(jsonUrl);
-            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+            if (!response.ok) throw new Error(`Ошибка загрузки данных: ${response.status}`);
             jsonData = await response.json();
-            console.log('Данные загружены:', jsonData);
         } catch (error) {
-            console.error('Ошибка загрузки данных:', error);
+            console.error('Ошибка загрузки:', error);
         }
     }
 
     /**
-     * Настраивает обработчики для кнопок
+     * Настройка кнопок и обработчиков
      */
     function setupButtonHandlers() {
         const buttons = {
@@ -175,7 +157,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     async function init() {
-        console.log('Инициализация приложения...');
         await loadData();
         setupButtonHandlers();
     }
