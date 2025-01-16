@@ -6,11 +6,12 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelectorAll('.content-section').forEach(section => section.classList.remove('active'));
     }
 
+    function getSafeData(data) {
+        return Array.isArray(data) ? [...data] : []; // Безопасное копирование массива
+    }
+
     function createTable(data, format) {
-        if (!Array.isArray(data)) {
-            console.error("Ошибка: данные для таблицы не являются массивом", data);
-            return document.createElement('table'); // Возвращаем пустую таблицу
-        }
+        data = getSafeData(data);
 
         const headersMap = {
             push: ['Country code', 'Country name', 'CPC mainstream', 'CPM mainstream', 'CPC adult', 'CPM adult'],
@@ -35,7 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
             sortIcon.classList.add('sort-icon');
             th.appendChild(sortIcon);
 
-            th.addEventListener('click', () => sortTable(table, [...data], format, header, th, sortIcon));
+            th.addEventListener('click', () => sortTable(table, data, format, header, th, sortIcon));
 
             headerRow.appendChild(th);
         });
@@ -51,10 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function fillTableBody(tbody, data, headers) {
-        if (!Array.isArray(data)) {
-            console.error("Ошибка: переданные данные в fillTableBody не являются массивом", data);
-            return;
-        }
+        data = getSafeData(data);
 
         tbody.innerHTML = ''; // Очищаем перед обновлением
         data.forEach(row => {
@@ -74,10 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function sortTable(table, data, format, column, th, sortIcon) {
-        if (!Array.isArray(data)) {
-            console.error("Ошибка: данные для сортировки не являются массивом", data);
-            return;
-        }
+        data = getSafeData(data);
 
         const isNumeric = !['Country code', 'Country name'].includes(column);
         const tbody = table.querySelector('tbody');
@@ -145,7 +140,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 if (Array.isArray(jsonData[format])) {
                     section.innerHTML = `<h2>${format} information</h2>`;
-                    const table = createTable(structuredClone ? structuredClone(jsonData[format]) : [...jsonData[format]], format);
+                    const table = createTable(getSafeData(jsonData[format]), format);
                     section.appendChild(table);
                 } else {
                     section.innerHTML = `<h2>${format} information</h2><p>Нет данных для этого раздела.</p>`;
