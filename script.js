@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const jsonUrl = './data.json'; // Путь к JSON файлу
+    const jsonUrl = './data.json'; // Путь к JSON-файлу
     let jsonData = {}; // Данные из JSON
 
     function hideAllSections() {
@@ -47,10 +47,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function fillTableBody(tbody, data, headers) {
         if (!Array.isArray(data)) {
-            console.error("Ошибка: Переданные данные не являются массивом", data);
+            console.error("Ошибка: данные для таблицы не являются массивом", data);
             return;
         }
-        
+
         tbody.innerHTML = ''; // Очищаем перед обновлением
         data.forEach(row => {
             const tr = document.createElement('tr');
@@ -58,8 +58,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 const td = document.createElement('td');
                 const value = row[header];
 
-                td.textContent = (!isNaN(value) && value !== null && value !== undefined) 
-                    ? parseFloat(value).toLocaleString('ru-RU', { minimumFractionDigits: 3 }).replace('.', ',') 
+                td.textContent = (!isNaN(value) && value !== null && value !== undefined)
+                    ? parseFloat(value).toLocaleString('ru-RU', { minimumFractionDigits: 3 }).replace('.', ',')
                     : value || '-';
 
                 tr.appendChild(td);
@@ -78,10 +78,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const tbody = table.querySelector('tbody');
 
         const currentOrder = th.dataset.order === 'asc' ? 'desc' : 'asc';
-
-        document.querySelectorAll('.sort-icon').forEach(icon => icon.className = 'sort-icon');
-        sortIcon.classList.add(currentOrder === 'asc' ? 'asc' : 'desc');
         th.dataset.order = currentOrder;
+
+        document.querySelectorAll('.sort-icon').forEach(icon => icon.textContent = '');
+        sortIcon.textContent = currentOrder === 'asc' ? ' ▲' : ' ▼';
 
         data.sort((a, b) => {
             if (isNumeric) {
