@@ -51,6 +51,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
             const sortIcon = document.createElement('span');
             sortIcon.classList.add('sort-icon');
+            sortIcon.textContent = ' ▲';
             th.appendChild(sortIcon);
 
             th.addEventListener('click', () => {
