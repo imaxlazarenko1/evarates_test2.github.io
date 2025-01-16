@@ -8,10 +8,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function getSafeData(data) {
         if (!Array.isArray(data)) {
-            console.warn("Предупреждение: Ожидался массив, но получено", data);
+            console.warn("Ожидался массив, но получено:", data);
             return [];
         }
-        return [...data]; // Создаем копию массива, чтобы не менять оригинал
+        return [...data]; // Гарантируем, что data - массив
     }
 
     function createTable(data, format) {
@@ -56,7 +56,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function fillTableBody(tbody, data, headers) {
-        data = getSafeData(data); // Проверяем, что data - массив
+        if (!Array.isArray(data)) {
+            console.error("Ошибка: переданы некорректные данные в fillTableBody", data);
+            data = [];
+        }
 
         tbody.innerHTML = ''; // Очищаем перед обновлением
         
@@ -66,7 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         data.forEach(row => {
-            if (typeof row !== 'object' || row === null) {
+            if (!row || typeof row !== 'object') {
                 console.warn("Ошибка: строка таблицы не является объектом", row);
                 return;
             }
@@ -90,7 +93,7 @@ document.addEventListener('DOMContentLoaded', () => {
         data = getSafeData(data); 
 
         if (data.length === 0) {
-            console.warn("Предупреждение: попытка сортировки пустого массива.");
+            console.warn("Попытка сортировки пустого массива.");
             return;
         }
 
@@ -134,6 +137,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         } catch (error) {
             console.error('Ошибка загрузки:', error);
+            jsonData = {}; // Если данные не загружены, сбрасываем объект
         }
     }
 
