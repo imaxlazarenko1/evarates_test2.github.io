@@ -74,6 +74,9 @@ document.addEventListener('DOMContentLoaded', async () => {
                     return currentSortOrder === 'asc' ? (valA > valB ? 1 : -1) : (valA < valB ? 1 : -1);
                 });
 
+                document.querySelectorAll('.sort-icon').forEach(icon => icon.textContent = '');
+                sortIcon.textContent = currentSortOrder === 'asc' ? ' ▲' : ' ▼';
+
                 table.replaceWith(createTable(sortedData, format));
             });
 
