@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function getSafeData(data) {
-        return Array.isArray(data) ? [...data] : []; // Безопасное копирование массива
+        return Array.isArray(data) ? [...data] : []; // Возвращаем копию массива или пустой массив
     }
 
     function createTable(data, format) {
@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
             sortIcon.classList.add('sort-icon');
             th.appendChild(sortIcon);
 
-            th.addEventListener('click', () => sortTable(table, data, format, header, th, sortIcon));
+            th.addEventListener('click', () => sortTable(table, getSafeData(data), format, header, th, sortIcon));
 
             headerRow.appendChild(th);
         });
@@ -52,9 +52,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function fillTableBody(tbody, data, headers) {
-        data = getSafeData(data);
-
+        data = getSafeData(data); // Гарантируем, что data - массив
         tbody.innerHTML = ''; // Очищаем перед обновлением
+        
+        if (data.length === 0) {
+            console.warn("Предупреждение: Переданный массив данных пуст.");
+            return;
+        }
+
         data.forEach(row => {
             const tr = document.createElement('tr');
             headers.forEach(header => {
@@ -72,7 +77,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function sortTable(table, data, format, column, th, sortIcon) {
-        data = getSafeData(data);
+        data = getSafeData(data); // Гарантируем, что data - массив
+
+        if (data.length === 0) {
+            console.warn("Предупреждение: Попытка сортировки пустого массива.");
+            return;
+        }
 
         const isNumeric = !['Country code', 'Country name'].includes(column);
         const tbody = table.querySelector('tbody');
@@ -104,11 +114,11 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!response.ok) throw new Error(`Ошибка загрузки данных: ${response.status}`);
             jsonData = await response.json();
 
-            // Проверяем, действительно ли jsonData содержит нужные массивы
+            // Проверяем, действительно ли jsonData содержит массивы
             Object.keys(jsonData).forEach(key => {
                 if (!Array.isArray(jsonData[key])) {
-                    console.warn(`Ошибка: jsonData[${key}] не массив`, jsonData[key]);
-                    jsonData[key] = []; // Подставляем пустой массив, чтобы избежать ошибок
+                    console.warn(`Ошибка: jsonData[${key}] не массив, заменяем на пустой массив`, jsonData[key]);
+                    jsonData[key] = []; // Подставляем пустой массив
                 }
             });
 
