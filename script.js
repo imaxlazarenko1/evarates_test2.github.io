@@ -51,7 +51,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 
             const sortIcon = document.createElement('span');
             sortIcon.classList.add('sort-icon');
-            sortIcon.textContent = ' ▲';
             th.appendChild(sortIcon);
 
             th.addEventListener('click', () => {
@@ -80,6 +79,10 @@ document.addEventListener('DOMContentLoaded', async () => {
 
                 table.replaceWith(createTable(sortedData, format));
             });
+
+            if (currentSortColumn === header) {
+                sortIcon.textContent = currentSortOrder === 'asc' ? ' ▲' : ' ▼';
+            }
 
             headerRow.appendChild(th);
         });
