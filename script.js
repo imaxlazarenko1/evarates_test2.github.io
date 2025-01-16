@@ -7,9 +7,9 @@ const inPageBtn = document.getElementById('inPageBtn');
 const popBtn = document.getElementById('popBtn');
 const nativeBtn = document.getElementById('nativeBtn');
 
-// Функция для скрытия текущего контента
+// Функция для скрытия текущего контента (очистка контейнера)
 function hideAllSections() {
-    tableContainer.innerHTML = ''; // Очистка контейнера
+    tableContainer.innerHTML = ''; // Удаляет содержимое контейнера
 }
 
 // Функция для создания таблицы
@@ -47,7 +47,7 @@ function createTable(headers, rows) {
     return table;
 }
 
-// Функции для каждого формата
+// Функции для отображения данных форматов
 function showPushData() {
     hideAllSections();
     const headers = ['Country Code', 'Country Name', 'CPC Mainstream', 'CPM Mainstream', 'CPC Adult', 'CPM Adult'];
@@ -107,7 +107,7 @@ inPageBtn.addEventListener('click', showInPageData);
 popBtn.addEventListener('click', showPopData);
 nativeBtn.addEventListener('click', showNativeData);
 
-// Данные (замените на реальную загрузку из data.json)
+// Данные (замените на загрузку из файла data.json)
 const pushData = [
     { country_code: 'US', country_name: 'United States', cpc_mainstream: 0.045, cpm_mainstream: 0.89, cpc_adult: 0.12, cpm_adult: 1.24 },
     // Другие записи...
