@@ -7,7 +7,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function getSafeData(data) {
-        return Array.isArray(data) ? data.slice() : []; // Гарантируем, что это массив
+        if (!Array.isArray(data)) {
+            console.warn("Предупреждение: Ожидался массив, но получено", data);
+            return [];
+        }
+        return [...data]; // Создаем копию массива, чтобы не менять оригинал
     }
 
     function createTable(data, format) {
@@ -52,15 +56,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function fillTableBody(tbody, data, headers) {
-        if (!Array.isArray(data)) {
-            console.error("Ошибка: fillTableBody получила некорректные данные", data);
-            data = [];
-        }
+        data = getSafeData(data); // Проверяем, что data - массив
 
         tbody.innerHTML = ''; // Очищаем перед обновлением
         
         if (data.length === 0) {
-            console.warn("Предупреждение: массив данных пуст.");
+            console.warn("Предупреждение: передан пустой массив данных.");
             return;
         }
 
