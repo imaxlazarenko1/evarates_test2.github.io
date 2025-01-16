@@ -7,6 +7,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function createTable(data, format) {
+        if (!Array.isArray(data)) {
+            console.error("Ошибка: данные для таблицы не являются массивом", data);
+            return document.createElement('table'); // Возвращаем пустую таблицу
+        }
+
         const headersMap = {
             push: ['Country code', 'Country name', 'CPC mainstream', 'CPM mainstream', 'CPC adult', 'CPM adult'],
             inPage: ['Country code', 'Country name', 'CPC', 'CPM'],
@@ -30,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
             sortIcon.classList.add('sort-icon');
             th.appendChild(sortIcon);
 
-            th.addEventListener('click', () => sortTable(table, data, format, header, th, sortIcon));
+            th.addEventListener('click', () => sortTable(table, [...data], format, header, th, sortIcon));
 
             headerRow.appendChild(th);
         });
@@ -47,7 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function fillTableBody(tbody, data, headers) {
         if (!Array.isArray(data)) {
-            console.error("Ошибка: данные для таблицы не являются массивом", data);
+            console.error("Ошибка: переданные данные в fillTableBody не являются массивом", data);
             return;
         }
 
@@ -103,6 +108,15 @@ document.addEventListener('DOMContentLoaded', () => {
             const response = await fetch(jsonUrl);
             if (!response.ok) throw new Error(`Ошибка загрузки данных: ${response.status}`);
             jsonData = await response.json();
+
+            // Проверяем, действительно ли jsonData содержит нужные массивы
+            Object.keys(jsonData).forEach(key => {
+                if (!Array.isArray(jsonData[key])) {
+                    console.warn(`Ошибка: jsonData[${key}] не массив`, jsonData[key]);
+                    jsonData[key] = []; // Подставляем пустой массив, чтобы избежать ошибок
+                }
+            });
+
         } catch (error) {
             console.error('Ошибка загрузки:', error);
         }
@@ -131,7 +145,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 if (Array.isArray(jsonData[format])) {
                     section.innerHTML = `<h2>${format} information</h2>`;
-                    const table = createTable(jsonData[format], format);
+                    const table = createTable(structuredClone ? structuredClone(jsonData[format]) : [...jsonData[format]], format);
                     section.appendChild(table);
                 } else {
                     section.innerHTML = `<h2>${format} information</h2><p>Нет данных для этого раздела.</p>`;
