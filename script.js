@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
     const jsonUrl = './data.json'; // Путь к JSON-файлу
     let jsonData = {}; // Данные из JSON
 
@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
             console.warn("Ожидался массив, но получено:", data);
             return [];
         }
-        return [...data]; // Гарантируем, что data - массив
+        return [...data]; // Создаем копию массива
     }
 
     function createTable(data, format) {
@@ -56,10 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function fillTableBody(tbody, data, headers) {
-        if (!Array.isArray(data)) {
-            console.error("Ошибка: переданы некорректные данные в fillTableBody", data);
-            data = [];
-        }
+        data = getSafeData(data); // Проверяем, что data - массив
 
         tbody.innerHTML = ''; // Очищаем перед обновлением
         
@@ -127,7 +124,8 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!response.ok) throw new Error(`Ошибка загрузки данных: ${response.status}`);
             jsonData = await response.json();
 
-            // Проверяем, действительно ли jsonData содержит массивы
+            console.log("Загруженные данные JSON:", jsonData); // Дебаг проверка
+
             Object.keys(jsonData).forEach(key => {
                 if (!Array.isArray(jsonData[key])) {
                     console.warn(`Ошибка: jsonData[${key}] не массив, заменяем на пустой массив`, jsonData[key]);
