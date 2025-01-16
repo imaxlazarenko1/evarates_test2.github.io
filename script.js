@@ -1,6 +1,8 @@
 document.addEventListener('DOMContentLoaded', async () => {
     const jsonUrl = './data.json';
     let jsonData = {};
+    let currentSortColumn = null;
+    let currentSortOrder = 'asc';
 
     async function logUserInfo() {
         try {
@@ -41,7 +43,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         table.classList.add('data-table');
 
         const headerRow = document.createElement('tr');
-        const state = {};
 
         headers.forEach(header => {
             const th = document.createElement('th');
@@ -52,12 +53,15 @@ document.addEventListener('DOMContentLoaded', async () => {
             sortIcon.classList.add('sort-icon');
             th.appendChild(sortIcon);
 
-            state[header] = 'asc';
-
             th.addEventListener('click', () => {
-                const isNumeric = !['Country code', 'Country name'].includes(header);
-                const order = state[header] = state[header] === 'asc' ? 'desc' : 'asc';
+                if (currentSortColumn === header) {
+                    currentSortOrder = currentSortOrder === 'asc' ? 'desc' : 'asc';
+                } else {
+                    currentSortColumn = header;
+                    currentSortOrder = 'asc';
+                }
 
+                const isNumeric = !['Country code', 'Country name'].includes(header);
                 const sortedData = [...data].sort((a, b) => {
                     let valA = a[header], valB = b[header];
                     if (isNumeric) {
@@ -67,7 +71,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                         valA = String(valA || '').toLowerCase();
                         valB = String(valB || '').toLowerCase();
                     }
-                    return order === 'asc' ? (valA > valB ? 1 : -1) : (valA < valB ? 1 : -1);
+                    return currentSortOrder === 'asc' ? (valA > valB ? 1 : -1) : (valA < valB ? 1 : -1);
                 });
 
                 table.replaceWith(createTable(sortedData, format));
