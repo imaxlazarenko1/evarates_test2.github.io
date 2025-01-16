@@ -2,18 +2,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const jsonUrl = './data.json'; // Путь к JSON файлу
     let jsonData = {}; // Данные из JSON
 
-    /**
-     * Функция скрытия всех разделов
-     */
     function hideAllSections() {
         document.querySelectorAll('.content-section').forEach(section => section.classList.remove('active'));
     }
 
-    /**
-     * Функция создания таблицы
-     * @param {Array} data - Данные
-     * @param {String} format - Тип данных
-     */
     function createTable(data, format) {
         const headersMap = {
             push: ['Country code', 'Country name', 'CPC mainstream', 'CPM mainstream', 'CPC adult', 'CPM adult'],
@@ -53,11 +45,13 @@ document.addEventListener('DOMContentLoaded', () => {
         return table;
     }
 
-    /**
-     * Функция заполнения тела таблицы
-     */
     function fillTableBody(tbody, data, headers) {
-        tbody.innerHTML = ''; // Очищаем тело перед обновлением
+        if (!Array.isArray(data)) {
+            console.error("Ошибка: Переданные данные не являются массивом", data);
+            return;
+        }
+        
+        tbody.innerHTML = ''; // Очищаем перед обновлением
         data.forEach(row => {
             const tr = document.createElement('tr');
             headers.forEach(header => {
@@ -74,24 +68,21 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    /**
-     * Функция сортировки таблицы
-     */
     function sortTable(table, data, format, column, th, sortIcon) {
+        if (!Array.isArray(data)) {
+            console.error("Ошибка: данные для сортировки не являются массивом", data);
+            return;
+        }
+
         const isNumeric = !['Country code', 'Country name'].includes(column);
         const tbody = table.querySelector('tbody');
 
-        // Определяем текущий порядок сортировки
         const currentOrder = th.dataset.order === 'asc' ? 'desc' : 'asc';
 
-        // Очищаем старые иконки
         document.querySelectorAll('.sort-icon').forEach(icon => icon.className = 'sort-icon');
-
-        // Устанавливаем активную иконку
         sortIcon.classList.add(currentOrder === 'asc' ? 'asc' : 'desc');
         th.dataset.order = currentOrder;
 
-        // Сортируем данные
         data.sort((a, b) => {
             if (isNumeric) {
                 const numA = parseFloat(String(a[column]).replace(',', '.')) || 0;
@@ -104,13 +95,9 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        // Заполняем таблицу новыми данными
         fillTableBody(tbody, data);
     }
 
-    /**
-     * Функция загрузки данных
-     */
     async function loadData() {
         try {
             const response = await fetch(jsonUrl);
@@ -121,9 +108,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    /**
-     * Настройка кнопок и обработчиков
-     */
     function setupButtonHandlers() {
         const buttons = {
             push: document.getElementById('pushBtn'),
@@ -145,7 +129,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const section = sections[format];
                 section.classList.add('active');
 
-                if (jsonData[format]) {
+                if (Array.isArray(jsonData[format])) {
                     section.innerHTML = `<h2>${format} information</h2>`;
                     const table = createTable(jsonData[format], format);
                     section.appendChild(table);
