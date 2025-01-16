@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function getSafeData(data) {
-        return Array.isArray(data) ? [...data] : []; // Возвращаем копию массива или пустой массив
+        return Array.isArray(data) ? data.slice() : []; // Гарантируем, что это массив
     }
 
     function createTable(data, format) {
@@ -52,15 +52,24 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function fillTableBody(tbody, data, headers) {
-        data = getSafeData(data); // Гарантируем, что data - массив
+        if (!Array.isArray(data)) {
+            console.error("Ошибка: fillTableBody получила некорректные данные", data);
+            data = [];
+        }
+
         tbody.innerHTML = ''; // Очищаем перед обновлением
         
         if (data.length === 0) {
-            console.warn("Предупреждение: Переданный массив данных пуст.");
+            console.warn("Предупреждение: массив данных пуст.");
             return;
         }
 
         data.forEach(row => {
+            if (typeof row !== 'object' || row === null) {
+                console.warn("Ошибка: строка таблицы не является объектом", row);
+                return;
+            }
+
             const tr = document.createElement('tr');
             headers.forEach(header => {
                 const td = document.createElement('td');
@@ -77,10 +86,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function sortTable(table, data, format, column, th, sortIcon) {
-        data = getSafeData(data); // Гарантируем, что data - массив
+        data = getSafeData(data); 
 
         if (data.length === 0) {
-            console.warn("Предупреждение: Попытка сортировки пустого массива.");
+            console.warn("Предупреждение: попытка сортировки пустого массива.");
             return;
         }
 
