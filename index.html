@@ -8,14 +8,21 @@
 
     <!-- Favicon -->
     <link rel="icon" href="./images/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" href="./images/favicon.png">
     <meta name="theme-color" content="#ffffff">
 
     <!-- SEO Meta -->
     <meta name="description" content="Evadav rates: информация о форматах Push, In-Page, Pop, и Native рекламы.">
+    <meta name="author" content="Evadav">
+    <meta name="robots" content="index, follow">
 </head>
 <body>
     <header class="header">
-        <h1>Evadav Rates</h1>
+        <h1>
+            <a href="https://refadav.com/?ref=NVsHhZcakGUooYQQvYsYBHsdbVurWNNu" target="_blank" rel="noopener noreferrer">
+                Evadav Rates
+            </a>
+        </h1>
     </header>
 
     <main class="container">
@@ -27,14 +34,77 @@
             <button id="nativeBtn" class="format-btn">Native</button>
         </div>
 
-        <!-- Контейнер для секций -->
-        <div id="dataContainer">
-            <section id="pushSection" class="content-section"></section>
-            <section id="inPageSection" class="content-section"></section>
-            <section id="popSection" class="content-section"></section>
-            <section id="nativeSection" class="content-section"></section>
-        </div>
+        <!-- Push -->
+        <section id="pushSection" class="content-section">
+            <h2>Push Information</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Country Code</th>
+                        <th>Country Name</th>
+                        <th>CPC Mainstream</th>
+                        <th>CPM Mainstream</th>
+                        <th>CPC Adult</th>
+                        <th>CPM Adult</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </section>
+
+        <!-- In-Page -->
+        <section id="inPageSection" class="content-section">
+            <h2>In-Page Information</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Country Code</th>
+                        <th>Country Name</th>
+                        <th>CPC</th>
+                        <th>CPM</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </section>
+
+        <!-- Pop -->
+        <section id="popSection" class="content-section">
+            <h2>Pop Information</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Country Code</th>
+                        <th>Country Name</th>
+                        <th>CPM</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </section>
+
+        <!-- Native -->
+        <section id="nativeSection" class="content-section">
+            <h2>Native Information</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Country Code</th>
+                        <th>Country Name</th>
+                        <th>CPC</th>
+                        <th>CPM</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </section>
     </main>
+
+    <footer class="footer">
+        <p>
+            <a href="https://refadav.com/?ref=NVsHhZcakGUooYQQvYsYBHsdbVurWNNu" target="_blank" rel="noopener noreferrer">evadav.com</a>
+        </p>
+    </footer>
 
     <script src="script.js"></script>
 </body>
