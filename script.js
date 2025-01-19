@@ -3,6 +3,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     let jsonData = {};
     let currentSortColumn = null;
     let currentSortOrder = 'asc';
+    let currentPage = 1;
+    let rowsPerPage = 50; // По умолчанию 50 строк
 
     async function logUserInfo() {
         try {
@@ -30,7 +32,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         document.querySelectorAll('.content-section').forEach(section => section.classList.remove('active'));
     }
 
-    function createTable(data, format) {
+    function createTable(data, format, page = 1) {
         const headersMap = {
             push: ['Country code', 'Country name', 'CPC mainstream', 'CPM mainstream', 'CPC adult', 'CPM adult'],
             inPage: ['Country code', 'Country name', 'CPC', 'CPM'],
@@ -77,7 +79,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 document.querySelectorAll('.sort-icon').forEach(icon => icon.textContent = '');
                 sortIcon.textContent = currentSortOrder === 'asc' ? ' ▲' : ' ▼';
 
-                table.replaceWith(createTable(sortedData, format));
+                table.replaceWith(createTable(sortedData, format, currentPage));
             });
 
             if (currentSortColumn === header) {
@@ -88,7 +90,18 @@ document.addEventListener('DOMContentLoaded', async () => {
         });
         table.appendChild(headerRow);
 
-        data.forEach(row => {
+        fillTableBody(table, data, headers, page);
+
+        return table;
+    }
+
+    function fillTableBody(table, data, headers, page) {
+        const tbody = document.createElement('tbody');
+        const start = (page - 1) * rowsPerPage;
+        const end = start + rowsPerPage;
+        const paginatedData = data.slice(start, end);
+
+        paginatedData.forEach(row => {
             const tr = document.createElement('tr');
             headers.forEach(header => {
                 const td = document.createElement('td');
@@ -98,10 +111,57 @@ document.addEventListener('DOMContentLoaded', async () => {
                     : value || '-';
                 tr.appendChild(td);
             });
-            table.appendChild(tr);
+            tbody.appendChild(tr);
         });
 
-        return table;
+        table.appendChild(tbody);
+        createPaginationControls(table, data.length);
+    }
+
+    function createPaginationControls(table, totalRows) {
+        let paginationContainer = table.nextElementSibling;
+        if (!paginationContainer || !paginationContainer.classList.contains('pagination')) {
+            paginationContainer = document.createElement('div');
+            paginationContainer.classList.add('pagination');
+            table.after(paginationContainer);
+        }
+
+        paginationContainer.innerHTML = '';
+
+        const totalPages = Math.ceil(totalRows / rowsPerPage);
+
+        const prevButton = document.createElement('button');
+        prevButton.textContent = 'Предыдущая';
+        prevButton.disabled = currentPage === 1;
+        prevButton.addEventListener('click', () => changePage(currentPage - 1));
+
+        const nextButton = document.createElement('button');
+        nextButton.textContent = 'Следующая';
+        nextButton.disabled = currentPage === totalPages;
+        nextButton.addEventListener('click', () => changePage(currentPage + 1));
+
+        const selectRowsPerPage = document.createElement('select');
+        [50, 100].forEach(value => {
+            const option = document.createElement('option');
+            option.value = value;
+            option.textContent = `Показывать ${value} строк`;
+            if (value === rowsPerPage) option.selected = true;
+            option.addEventListener('change', (e) => {
+                rowsPerPage = parseInt(e.target.value);
+                currentPage = 1;
+                renderActiveSection();
+            });
+            selectRowsPerPage.appendChild(option);
+        });
+
+        paginationContainer.appendChild(prevButton);
+        paginationContainer.appendChild(selectRowsPerPage);
+        paginationContainer.appendChild(nextButton);
+    }
+
+    function changePage(newPage) {
+        currentPage = newPage;
+        renderActiveSection();
     }
 
     async function loadData() {
@@ -109,7 +169,6 @@ document.addEventListener('DOMContentLoaded', async () => {
             const response = await fetch(jsonUrl);
             if (!response.ok) throw new Error(`Ошибка загрузки данных: ${response.status}`);
             jsonData = await response.json();
-            console.log('Данные загружены:', jsonData);
         } catch (error) {
             console.error(error);
         }
@@ -123,31 +182,32 @@ document.addEventListener('DOMContentLoaded', async () => {
             native: document.getElementById('nativeBtn')
         };
 
-        const sections = {
-            push: document.getElementById('pushSection'),
-            inPage: document.getElementById('inPageSection'),
-            pop: document.getElementById('popSection'),
-            native: document.getElementById('nativeSection')
-        };
-
         Object.keys(buttons).forEach(format => {
             buttons[format].addEventListener('click', () => {
                 hideAllSections();
-                const section = sections[format];
-                section.classList.add('active');
-
-                section.innerHTML = `<h2>${format} information</h2>`;
-                if (jsonData[format]) {
-                    section.appendChild(createTable(jsonData[format], format));
-                } else {
-                    section.innerHTML += '<p>Нет данных для этого раздела.</p>';
-                }
+                document.getElementById(`${format}Section`).classList.add('active');
+                currentPage = 1;
+                renderActiveSection();
             });
         });
     }
 
+    function renderActiveSection() {
+        const activeSection = document.querySelector('.content-section.active');
+        if (!activeSection) return;
+
+        const format = activeSection.id.replace('Section', '');
+        activeSection.innerHTML = `<h2>${format} information</h2>`;
+
+        if (Array.isArray(jsonData[format])) {
+            const table = createTable(jsonData[format], format, currentPage);
+            activeSection.appendChild(table);
+        } else {
+            activeSection.innerHTML += '<p>Нет данных для этого раздела.</p>';
+        }
+    }
+
     async function init() {
-        console.log('Инициализация приложения...');
         await loadData();
         setupButtonHandlers();
     }
