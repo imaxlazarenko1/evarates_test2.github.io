@@ -32,14 +32,72 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     function createTable(data, format, page = 1) {
+        const headersMap = {
+            push: ['Country code', 'Country name', 'CPC mainstream', 'CPM mainstream', 'CPC adult', 'CPM adult'],
+            inPage: ['Country code', 'Country name', 'CPC', 'CPM'],
+            native: ['Country code', 'Country name', 'CPC', 'CPM'],
+            pop: ['Country code', 'Country name', 'CPM']
+        };
+
+        const headers = headersMap[format] || [];
         const table = document.createElement('table');
         table.classList.add('data-table');
 
-        fillTableBody(table, data, format, page);
+        // 🔥 Добавляем заголовки таблицы
+        const thead = document.createElement('thead');
+        const headerRow = document.createElement('tr');
+
+        headers.forEach(header => {
+            const th = document.createElement('th');
+            th.textContent = header;
+            th.style.cursor = 'pointer';
+
+            const sortIcon = document.createElement('span');
+            sortIcon.classList.add('sort-icon');
+            th.appendChild(sortIcon);
+
+            th.addEventListener('click', () => {
+                if (currentSortColumn === header) {
+                    currentSortOrder = currentSortOrder === 'asc' ? 'desc' : 'asc';
+                } else {
+                    currentSortColumn = header;
+                    currentSortOrder = 'asc';
+                }
+
+                data.sort((a, b) => {
+                    let valA = a[header], valB = b[header];
+                    const isNumeric = !['Country code', 'Country name'].includes(header);
+                    if (isNumeric) {
+                        valA = parseFloat(String(valA).replace(',', '.')) || 0;
+                        valB = parseFloat(String(valB).replace(',', '.')) || 0;
+                    } else {
+                        valA = String(valA || '').toLowerCase();
+                        valB = String(valB || '').toLowerCase();
+                    }
+                    return currentSortOrder === 'asc' ? (valA > valB ? 1 : -1) : (valA < valB ? 1 : -1);
+                });
+
+                document.querySelectorAll('.sort-icon').forEach(icon => icon.textContent = '');
+                sortIcon.textContent = currentSortOrder === 'asc' ? ' ▲' : ' ▼';
+
+                table.replaceWith(createTable(data, format, currentPage));
+            });
+
+            if (currentSortColumn === header) {
+                sortIcon.textContent = currentSortOrder === 'asc' ? ' ▲' : ' ▼';
+            }
+
+            headerRow.appendChild(th);
+        });
+
+        thead.appendChild(headerRow);
+        table.appendChild(thead);
+
+        fillTableBody(table, data, headers, page);
         return table;
     }
 
-    function fillTableBody(table, data, format, page) {
+    function fillTableBody(table, data, headers, page) {
         const tbody = document.createElement('tbody');
         const start = (page - 1) * rowsPerPage;
         const end = start + rowsPerPage;
@@ -47,7 +105,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         paginatedData.forEach(row => {
             const tr = document.createElement('tr');
-            Object.keys(row).forEach(header => {
+            headers.forEach(header => {
                 const td = document.createElement('td');
                 const value = row[header];
                 td.textContent = (value !== null && value !== undefined && !isNaN(value)) 
