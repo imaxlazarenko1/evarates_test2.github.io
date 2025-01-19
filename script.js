@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     let currentSortColumn = null;
     let currentSortOrder = 'asc';
     let currentPage = 1;
-    let rowsPerPage = 50; // По умолчанию 50 стран
+    let rowsPerPage = 50; // По умолчанию 50 строк
 
     async function loadData() {
         try {
@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             if (!response.ok) throw new Error(`Ошибка загрузки данных: ${response.status}`);
             jsonData = await response.json();
         } catch (error) {
-            console.error("Ошибка загрузки данных:", error);
+            console.error(error);
         }
     }
 
@@ -21,92 +21,99 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (!activeSection) return;
 
         const format = activeSection.id.replace('Section', '');
-        const table = activeSection.querySelector('table');
-        const tbody = table.querySelector('tbody');
-        tbody.innerHTML = ''; // Очищаем старые данные
+        activeSection.innerHTML = `<h2>${format} information</h2>`;
 
-        if (Array.isArray(jsonData[format]) && jsonData[format].length > 0) {
-            fillTableBody(tbody, jsonData[format], format, currentPage);
+        if (Array.isArray(jsonData[format])) {
+            const table = createTable(jsonData[format], format, currentPage);
+            activeSection.appendChild(table);
         } else {
-            tbody.innerHTML = '<tr><td colspan="6">Нет данных</td></tr>';
+            activeSection.innerHTML += '<p>Нет данных для этого раздела.</p>';
         }
     }
 
-    function fillTableBody(tbody, data, format, page) {
+    function createTable(data, format, page = 1) {
         const headersMap = {
-            push: ['country_code', 'country_name', 'cpc_mainstream', 'cpm_mainstream', 'cpc_adult', 'cpm_adult'],
-            inPage: ['country_code', 'country_name', 'cpc', 'cpm'],
-            native: ['country_code', 'country_name', 'cpc', 'cpm'],
-            pop: ['country_code', 'country_name', 'cpm']
+            push: ['Country code', 'Country name', 'CPC mainstream', 'CPM mainstream', 'CPC adult', 'CPM adult'],
+            inPage: ['Country code', 'Country name', 'CPC', 'CPM'],
+            native: ['Country code', 'Country name', 'CPC', 'CPM'],
+            pop: ['Country code', 'Country name', 'CPM']
         };
 
-        const start = (page - 1) * rowsPerPage;
-        const end = start + rowsPerPage;
-        const paginatedData = data.slice(start, end);
+        const headers = headersMap[format] || [];
+        const table = document.createElement('table');
+        table.classList.add('data-table');
 
-        if (paginatedData.length === 0) {
-            tbody.innerHTML = '<tr><td colspan="6">Нет данных</td></tr>';
-            return;
-        }
+        const headerRow = document.createElement('tr');
 
-        paginatedData.forEach(row => {
-            const tr = document.createElement('tr');
-            headersMap[format].forEach(header => {
-                const td = document.createElement('td');
-                const value = row[header] !== undefined ? row[header] : "-"; 
-                td.textContent = (value !== null && value !== undefined && !isNaN(value))
-                    ? parseFloat(value).toLocaleString('ru-RU', { minimumFractionDigits: 3 }).replace('.', ',')
-                    : value || '-';
-                tr.appendChild(td);
-            });
-            tbody.appendChild(tr);
-        });
-    }
-
-    function sortTable(tbody, data, format, column, th, sortIcon) {
-        if (currentSortColumn === column) {
-            currentSortOrder = currentSortOrder === 'asc' ? 'desc' : 'asc';
-        } else {
-            currentSortColumn = column;
-            currentSortOrder = 'asc';
-        }
-
-        const isNumeric = !['country_code', 'country_name'].includes(column);
-        data.sort((a, b) => {
-            let valA = a[column], valB = b[column];
-            if (isNumeric) {
-                valA = parseFloat(String(valA).replace(',', '.')) || 0;
-                valB = parseFloat(String(valB).replace(',', '.')) || 0;
-            } else {
-                valA = String(valA || '').toLowerCase();
-                valB = String(valB || '').toLowerCase();
-            }
-            return currentSortOrder === 'asc' ? (valA > valB ? 1 : -1) : (valA < valB ? 1 : -1);
-        });
-
-        document.querySelectorAll('.sort-icon').forEach(icon => icon.textContent = '');
-        sortIcon.textContent = currentSortOrder === 'asc' ? ' ▲' : ' ▼';
-
-        tbody.innerHTML = '';
-        fillTableBody(tbody, data, format, currentPage);
-    }
-
-    function setupSorting() {
-        document.querySelectorAll('.content-section table thead th').forEach(th => {
-            const format = th.closest('.content-section').id.replace('Section', '');
-            const column = th.getAttribute('data-key'); // Используем `data-key`, чтобы соответствовать JSON
-            const tbody = th.closest('table').querySelector('tbody');
+        headers.forEach(header => {
+            const th = document.createElement('th');
+            th.textContent = header;
+            th.style.cursor = 'pointer';
 
             const sortIcon = document.createElement('span');
             sortIcon.classList.add('sort-icon');
             th.appendChild(sortIcon);
 
             th.addEventListener('click', () => {
-                if (jsonData[format]) {
-                    sortTable(tbody, jsonData[format], format, column, th, sortIcon);
+                if (currentSortColumn === header) {
+                    currentSortOrder = currentSortOrder === 'asc' ? 'desc' : 'asc';
+                } else {
+                    currentSortColumn = header;
+                    currentSortOrder = 'asc';
                 }
+
+                data.sort((a, b) => {
+                    let valA = a[header], valB = b[header];
+                    const isNumeric = !['Country code', 'Country name'].includes(header);
+                    if (isNumeric) {
+                        valA = parseFloat(String(valA).replace(',', '.')) || 0;
+                        valB = parseFloat(String(valB).replace(',', '.')) || 0;
+                    } else {
+                        valA = String(valA || '').toLowerCase();
+                        valB = String(valB || '').toLowerCase();
+                    }
+                    return currentSortOrder === 'asc' ? (valA > valB ? 1 : -1) : (valA < valB ? 1 : -1);
+                });
+
+                document.querySelectorAll('.sort-icon').forEach(icon => icon.textContent = '');
+                sortIcon.textContent = currentSortOrder === 'asc' ? ' ▲' : ' ▼';
+
+                table.replaceWith(createTable(data, format, currentPage));
             });
+
+            if (currentSortColumn === header) {
+                sortIcon.textContent = currentSortOrder === 'asc' ? ' ▲' : ' ▼';
+            }
+
+            headerRow.appendChild(th);
         });
+        table.appendChild(headerRow);
+
+        fillTableBody(table, data, headers, page);
+
+        return table;
+    }
+
+    function fillTableBody(table, data, headers, page) {
+        const tbody = document.createElement('tbody');
+        const start = (page - 1) * rowsPerPage;
+        const end = start + rowsPerPage;
+        const paginatedData = data.slice(start, end);
+
+        paginatedData.forEach(row => {
+            const tr = document.createElement('tr');
+            headers.forEach(header => {
+                const td = document.createElement('td');
+                const value = row[header];
+                td.textContent = (value !== null && value !== undefined && !isNaN(value)) 
+                    ? parseFloat(value).toLocaleString('ru-RU', { minimumFractionDigits: 3 }).replace('.', ',') 
+                    : value || '-';
+                tr.appendChild(td);
+            });
+            tbody.appendChild(tr);
+        });
+
+        table.appendChild(tbody);
     }
 
     document.getElementById('rowsPerPage').addEventListener('change', (event) => {
@@ -140,7 +147,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     async function init() {
         await loadData();
         setupButtonHandlers();
-        setupSorting();
 
         // Автоматически активируем первую вкладку (Push)
         document.getElementById('pushBtn').click();
