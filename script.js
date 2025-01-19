@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         const tbody = table.querySelector('tbody');
         tbody.innerHTML = ''; // Очищаем старые данные
 
-        if (Array.isArray(jsonData[format])) {
+        if (Array.isArray(jsonData[format]) && jsonData[format].length > 0) {
             fillTableBody(tbody, jsonData[format], format, currentPage);
         } else {
             tbody.innerHTML = '<tr><td colspan="6">Нет данных</td></tr>';
@@ -45,13 +45,18 @@ document.addEventListener('DOMContentLoaded', async () => {
         const end = start + rowsPerPage;
         const paginatedData = data.slice(start, end);
 
+        if (paginatedData.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="6">Нет данных</td></tr>';
+            return;
+        }
+
         paginatedData.forEach(row => {
             const tr = document.createElement('tr');
             headers.forEach(header => {
                 const td = document.createElement('td');
                 const value = row[header];
-                td.textContent = (value !== null && value !== undefined && !isNaN(value)) 
-                    ? parseFloat(value).toLocaleString('ru-RU', { minimumFractionDigits: 3 }).replace('.', ',') 
+                td.textContent = (value !== null && value !== undefined && !isNaN(value))
+                    ? parseFloat(value).toLocaleString('ru-RU', { minimumFractionDigits: 3 }).replace('.', ',')
                     : value || '-';
                 tr.appendChild(td);
             });
@@ -87,6 +92,24 @@ document.addEventListener('DOMContentLoaded', async () => {
         fillTableBody(tbody, data, format, currentPage);
     }
 
+    function setupSorting() {
+        document.querySelectorAll('.content-section table thead th').forEach(th => {
+            const format = th.closest('.content-section').id.replace('Section', '');
+            const column = th.textContent.trim();
+            const tbody = th.closest('table').querySelector('tbody');
+
+            const sortIcon = document.createElement('span');
+            sortIcon.classList.add('sort-icon');
+            th.appendChild(sortIcon);
+
+            th.addEventListener('click', () => {
+                if (jsonData[format]) {
+                    sortTable(tbody, jsonData[format], format, column, th, sortIcon);
+                }
+            });
+        });
+    }
+
     document.getElementById('rowsPerPage').addEventListener('change', (event) => {
         rowsPerPage = parseInt(event.target.value);
         currentPage = 1;
@@ -118,6 +141,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     async function init() {
         await loadData();
         setupButtonHandlers();
+        setupSorting();
 
         // Автоматически активируем первую вкладку (Push)
         document.getElementById('pushBtn').click();
