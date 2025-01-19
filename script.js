@@ -21,17 +21,18 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (!activeSection) return;
 
         const format = activeSection.id.replace('Section', '');
-        activeSection.innerHTML = `<h2>${format} information</h2>`;
+        const table = activeSection.querySelector('table');
+        const tbody = table.querySelector('tbody');
+        tbody.innerHTML = ''; // Очищаем старые данные
 
         if (Array.isArray(jsonData[format])) {
-            const table = createTable(jsonData[format], format, currentPage);
-            activeSection.appendChild(table);
+            fillTableBody(tbody, jsonData[format], format, currentPage);
         } else {
-            activeSection.innerHTML += '<p>Нет данных для этого раздела.</p>';
+            tbody.innerHTML = '<tr><td colspan="6">Нет данных</td></tr>';
         }
     }
 
-    function createTable(data, format, page = 1) {
+    function fillTableBody(tbody, data, format, page) {
         const headersMap = {
             push: ['Country Code', 'Country Name', 'CPC Mainstream', 'CPM Mainstream', 'CPC Adult', 'CPM Adult'],
             inPage: ['Country Code', 'Country Name', 'CPC', 'CPM'],
@@ -40,38 +41,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         };
 
         const headers = headersMap[format] || [];
-        const table = document.createElement('table');
-        table.classList.add('data-table');
-
-        // 🔥 Добавляем заголовки таблицы
-        const thead = document.createElement('thead');
-        const headerRow = document.createElement('tr');
-
-        headers.forEach(header => {
-            const th = document.createElement('th');
-            th.textContent = header;
-            th.style.cursor = 'pointer';
-
-            const sortIcon = document.createElement('span');
-            sortIcon.classList.add('sort-icon');
-            th.appendChild(sortIcon);
-
-            th.addEventListener('click', () => {
-                sortTable(table, data, format, header, th, sortIcon);
-            });
-
-            headerRow.appendChild(th);
-        });
-
-        thead.appendChild(headerRow);
-        table.appendChild(thead);
-
-        fillTableBody(table, data, headers, page);
-        return table;
-    }
-
-    function fillTableBody(table, data, headers, page) {
-        const tbody = document.createElement('tbody');
         const start = (page - 1) * rowsPerPage;
         const end = start + rowsPerPage;
         const paginatedData = data.slice(start, end);
@@ -88,11 +57,9 @@ document.addEventListener('DOMContentLoaded', async () => {
             });
             tbody.appendChild(tr);
         });
-
-        table.appendChild(tbody);
     }
 
-    function sortTable(table, data, format, column, th, sortIcon) {
+    function sortTable(tbody, data, format, column, th, sortIcon) {
         if (currentSortColumn === column) {
             currentSortOrder = currentSortOrder === 'asc' ? 'desc' : 'asc';
         } else {
@@ -116,7 +83,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         document.querySelectorAll('.sort-icon').forEach(icon => icon.textContent = '');
         sortIcon.textContent = currentSortOrder === 'asc' ? ' ▲' : ' ▼';
 
-        table.replaceWith(createTable(data, format, currentPage));
+        tbody.innerHTML = '';
+        fillTableBody(tbody, data, format, currentPage);
     }
 
     document.getElementById('rowsPerPage').addEventListener('change', (event) => {
