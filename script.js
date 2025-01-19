@@ -34,13 +34,12 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     function fillTableBody(tbody, data, format, page) {
         const headersMap = {
-            push: ['Country Code', 'Country Name', 'CPC Mainstream', 'CPM Mainstream', 'CPC Adult', 'CPM Adult'],
-            inPage: ['Country Code', 'Country Name', 'CPC', 'CPM'],
-            native: ['Country Code', 'Country Name', 'CPC', 'CPM'],
-            pop: ['Country Code', 'Country Name', 'CPM']
+            push: ['country_code', 'country_name', 'cpc_mainstream', 'cpm_mainstream', 'cpc_adult', 'cpm_adult'],
+            inPage: ['country_code', 'country_name', 'cpc', 'cpm'],
+            native: ['country_code', 'country_name', 'cpc', 'cpm'],
+            pop: ['country_code', 'country_name', 'cpm']
         };
 
-        const headers = headersMap[format] || [];
         const start = (page - 1) * rowsPerPage;
         const end = start + rowsPerPage;
         const paginatedData = data.slice(start, end);
@@ -52,9 +51,9 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         paginatedData.forEach(row => {
             const tr = document.createElement('tr');
-            headers.forEach(header => {
+            headersMap[format].forEach(header => {
                 const td = document.createElement('td');
-                const value = row.hasOwnProperty(header) ? row[header] : "-"; // Проверяем, есть ли данные
+                const value = row[header] !== undefined ? row[header] : "-"; 
                 td.textContent = (value !== null && value !== undefined && !isNaN(value))
                     ? parseFloat(value).toLocaleString('ru-RU', { minimumFractionDigits: 3 }).replace('.', ',')
                     : value || '-';
@@ -72,7 +71,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             currentSortOrder = 'asc';
         }
 
-        const isNumeric = !['Country Code', 'Country Name'].includes(column);
+        const isNumeric = !['country_code', 'country_name'].includes(column);
         data.sort((a, b) => {
             let valA = a[column], valB = b[column];
             if (isNumeric) {
@@ -95,7 +94,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     function setupSorting() {
         document.querySelectorAll('.content-section table thead th').forEach(th => {
             const format = th.closest('.content-section').id.replace('Section', '');
-            const column = th.textContent.trim();
+            const column = th.getAttribute('data-key'); // Используем `data-key`, чтобы соответствовать JSON
             const tbody = th.closest('table').querySelector('tbody');
 
             const sortIcon = document.createElement('span');
