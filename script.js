@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             if (!response.ok) throw new Error(`Ошибка загрузки данных: ${response.status}`);
             jsonData = await response.json();
         } catch (error) {
-            console.error(error);
+            console.error("Ошибка загрузки данных:", error);
         }
     }
 
@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             const tr = document.createElement('tr');
             headers.forEach(header => {
                 const td = document.createElement('td');
-                const value = row[header];
+                const value = row.hasOwnProperty(header) ? row[header] : "-"; // Проверяем, есть ли данные
                 td.textContent = (value !== null && value !== undefined && !isNaN(value))
                     ? parseFloat(value).toLocaleString('ru-RU', { minimumFractionDigits: 3 }).replace('.', ',')
                     : value || '-';
