@@ -33,10 +33,10 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     function createTable(data, format, page = 1) {
         const headersMap = {
-            push: ['Country code', 'Country name', 'CPC mainstream', 'CPM mainstream', 'CPC adult', 'CPM adult'],
-            inPage: ['Country code', 'Country name', 'CPC', 'CPM'],
-            native: ['Country code', 'Country name', 'CPC', 'CPM'],
-            pop: ['Country code', 'Country name', 'CPM']
+            push: ['Country Code', 'Country Name', 'CPC Mainstream', 'CPM Mainstream', 'CPC Adult', 'CPM Adult'],
+            inPage: ['Country Code', 'Country Name', 'CPC', 'CPM'],
+            native: ['Country Code', 'Country Name', 'CPC', 'CPM'],
+            pop: ['Country Code', 'Country Name', 'CPM']
         };
 
         const headers = headersMap[format] || [];
@@ -57,35 +57,8 @@ document.addEventListener('DOMContentLoaded', async () => {
             th.appendChild(sortIcon);
 
             th.addEventListener('click', () => {
-                if (currentSortColumn === header) {
-                    currentSortOrder = currentSortOrder === 'asc' ? 'desc' : 'asc';
-                } else {
-                    currentSortColumn = header;
-                    currentSortOrder = 'asc';
-                }
-
-                data.sort((a, b) => {
-                    let valA = a[header], valB = b[header];
-                    const isNumeric = !['Country code', 'Country name'].includes(header);
-                    if (isNumeric) {
-                        valA = parseFloat(String(valA).replace(',', '.')) || 0;
-                        valB = parseFloat(String(valB).replace(',', '.')) || 0;
-                    } else {
-                        valA = String(valA || '').toLowerCase();
-                        valB = String(valB || '').toLowerCase();
-                    }
-                    return currentSortOrder === 'asc' ? (valA > valB ? 1 : -1) : (valA < valB ? 1 : -1);
-                });
-
-                document.querySelectorAll('.sort-icon').forEach(icon => icon.textContent = '');
-                sortIcon.textContent = currentSortOrder === 'asc' ? ' ▲' : ' ▼';
-
-                table.replaceWith(createTable(data, format, currentPage));
+                sortTable(table, data, format, header, th, sortIcon);
             });
-
-            if (currentSortColumn === header) {
-                sortIcon.textContent = currentSortOrder === 'asc' ? ' ▲' : ' ▼';
-            }
 
             headerRow.appendChild(th);
         });
@@ -117,6 +90,33 @@ document.addEventListener('DOMContentLoaded', async () => {
         });
 
         table.appendChild(tbody);
+    }
+
+    function sortTable(table, data, format, column, th, sortIcon) {
+        if (currentSortColumn === column) {
+            currentSortOrder = currentSortOrder === 'asc' ? 'desc' : 'asc';
+        } else {
+            currentSortColumn = column;
+            currentSortOrder = 'asc';
+        }
+
+        const isNumeric = !['Country Code', 'Country Name'].includes(column);
+        data.sort((a, b) => {
+            let valA = a[column], valB = b[column];
+            if (isNumeric) {
+                valA = parseFloat(String(valA).replace(',', '.')) || 0;
+                valB = parseFloat(String(valB).replace(',', '.')) || 0;
+            } else {
+                valA = String(valA || '').toLowerCase();
+                valB = String(valB || '').toLowerCase();
+            }
+            return currentSortOrder === 'asc' ? (valA > valB ? 1 : -1) : (valA < valB ? 1 : -1);
+        });
+
+        document.querySelectorAll('.sort-icon').forEach(icon => icon.textContent = '');
+        sortIcon.textContent = currentSortOrder === 'asc' ? ' ▲' : ' ▼';
+
+        table.replaceWith(createTable(data, format, currentPage));
     }
 
     document.getElementById('rowsPerPage').addEventListener('change', (event) => {
