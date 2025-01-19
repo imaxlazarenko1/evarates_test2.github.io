@@ -6,30 +6,29 @@ document.addEventListener('DOMContentLoaded', async () => {
     let currentPage = 1;
     let rowsPerPage = 50; // По умолчанию 50 строк
 
-    async function logUserInfo() {
+    async function loadData() {
         try {
-            const ipResponse = await fetch('https://api.ipify.org?format=json');
-            if (!ipResponse.ok) throw new Error('Ошибка получения IP');
-            const { ip } = await ipResponse.json();
-
-            const logEntry = { date: new Date().toISOString(), ip };
-            const response = await fetch('/save-log', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(logEntry)
-            });
-
-            if (!response.ok) throw new Error(`Ошибка сохранения лога: ${response.statusText}`);
-            console.log('Лог сохранён:', logEntry);
+            const response = await fetch(jsonUrl);
+            if (!response.ok) throw new Error(`Ошибка загрузки данных: ${response.status}`);
+            jsonData = await response.json();
         } catch (error) {
-            console.error('Ошибка записи лога:', error);
+            console.error(error);
         }
     }
 
-    logUserInfo();
+    function renderActiveSection() {
+        const activeSection = document.querySelector('.content-section.active');
+        if (!activeSection) return;
 
-    function hideAllSections() {
-        document.querySelectorAll('.content-section').forEach(section => section.classList.remove('active'));
+        const format = activeSection.id.replace('Section', '');
+        activeSection.innerHTML = `<h2>${format} information</h2>`;
+
+        if (Array.isArray(jsonData[format])) {
+            const table = createTable(jsonData[format], format, currentPage);
+            activeSection.appendChild(table);
+        } else {
+            activeSection.innerHTML += '<p>Нет данных для этого раздела.</p>';
+        }
     }
 
     function createTable(data, format, page = 1) {
@@ -63,9 +62,9 @@ document.addEventListener('DOMContentLoaded', async () => {
                     currentSortOrder = 'asc';
                 }
 
-                const isNumeric = !['Country code', 'Country name'].includes(header);
-                const sortedData = [...data].sort((a, b) => {
+                data.sort((a, b) => {
                     let valA = a[header], valB = b[header];
+                    const isNumeric = !['Country code', 'Country name'].includes(header);
                     if (isNumeric) {
                         valA = parseFloat(String(valA).replace(',', '.')) || 0;
                         valB = parseFloat(String(valB).replace(',', '.')) || 0;
@@ -79,7 +78,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 document.querySelectorAll('.sort-icon').forEach(icon => icon.textContent = '');
                 sortIcon.textContent = currentSortOrder === 'asc' ? ' ▲' : ' ▼';
 
-                table.replaceWith(createTable(sortedData, format, currentPage));
+                table.replaceWith(createTable(data, format, currentPage));
             });
 
             if (currentSortColumn === header) {
@@ -115,64 +114,13 @@ document.addEventListener('DOMContentLoaded', async () => {
         });
 
         table.appendChild(tbody);
-        createPaginationControls(table, data.length);
     }
 
-    function createPaginationControls(table, totalRows) {
-        let paginationContainer = table.nextElementSibling;
-        if (!paginationContainer || !paginationContainer.classList.contains('pagination')) {
-            paginationContainer = document.createElement('div');
-            paginationContainer.classList.add('pagination');
-            table.after(paginationContainer);
-        }
-
-        paginationContainer.innerHTML = '';
-
-        const totalPages = Math.ceil(totalRows / rowsPerPage);
-
-        const prevButton = document.createElement('button');
-        prevButton.textContent = 'Предыдущая';
-        prevButton.disabled = currentPage === 1;
-        prevButton.addEventListener('click', () => changePage(currentPage - 1));
-
-        const nextButton = document.createElement('button');
-        nextButton.textContent = 'Следующая';
-        nextButton.disabled = currentPage === totalPages;
-        nextButton.addEventListener('click', () => changePage(currentPage + 1));
-
-        const selectRowsPerPage = document.createElement('select');
-        [50, 100].forEach(value => {
-            const option = document.createElement('option');
-            option.value = value;
-            option.textContent = `Показывать ${value} строк`;
-            if (value === rowsPerPage) option.selected = true;
-            option.addEventListener('change', (e) => {
-                rowsPerPage = parseInt(e.target.value);
-                currentPage = 1;
-                renderActiveSection();
-            });
-            selectRowsPerPage.appendChild(option);
-        });
-
-        paginationContainer.appendChild(prevButton);
-        paginationContainer.appendChild(selectRowsPerPage);
-        paginationContainer.appendChild(nextButton);
-    }
-
-    function changePage(newPage) {
-        currentPage = newPage;
+    document.getElementById('rowsPerPage').addEventListener('change', (event) => {
+        rowsPerPage = parseInt(event.target.value);
+        currentPage = 1;
         renderActiveSection();
-    }
-
-    async function loadData() {
-        try {
-            const response = await fetch(jsonUrl);
-            if (!response.ok) throw new Error(`Ошибка загрузки данных: ${response.status}`);
-            jsonData = await response.json();
-        } catch (error) {
-            console.error(error);
-        }
-    }
+    });
 
     function setupButtonHandlers() {
         const buttons = {
@@ -192,24 +140,16 @@ document.addEventListener('DOMContentLoaded', async () => {
         });
     }
 
-    function renderActiveSection() {
-        const activeSection = document.querySelector('.content-section.active');
-        if (!activeSection) return;
-
-        const format = activeSection.id.replace('Section', '');
-        activeSection.innerHTML = `<h2>${format} information</h2>`;
-
-        if (Array.isArray(jsonData[format])) {
-            const table = createTable(jsonData[format], format, currentPage);
-            activeSection.appendChild(table);
-        } else {
-            activeSection.innerHTML += '<p>Нет данных для этого раздела.</p>';
-        }
+    function hideAllSections() {
+        document.querySelectorAll('.content-section').forEach(section => section.classList.remove('active'));
     }
 
     async function init() {
         await loadData();
         setupButtonHandlers();
+
+        // Автоматически активируем первую вкладку (Push)
+        document.getElementById('pushBtn').click();
     }
 
     init();
