@@ -282,7 +282,7 @@
         },
         {
             "Country code": "BO",
-            "Country name": "Bolivia (Plurinational State of)",
+            "Country name": "Bolivia",
             "CPC mainstream": 0.003,
             "CPM mainstream": 0.0087,
             "CPC adult": 0.00285,
@@ -322,7 +322,7 @@
         },
         {
             "Country code": "CD",
-            "Country name": "Congo (Democratic Republic of the)",
+            "Country name": "Congo",
             "CPC mainstream": 0.02955,
             "CPM mainstream": 0.01575,
             "CPC adult": 0.0177,
@@ -386,7 +386,7 @@
         },
         {
             "Country code": "IR",
-            "Country name": "Iran (Islamic Republic of)",
+            "Country name": "Iran",
             "CPC mainstream": 0.07815,
             "CPM mainstream": 0.03465,
             "CPC adult": 0.0429,
@@ -594,7 +594,7 @@
         },
         {
             "Country code": "AE",
-            "Country name": "United Arab Emirates (UAE)",
+            "Country name": "United Arab Emirates",
             "CPC mainstream": 0.011550000000000001,
             "CPM mainstream": 0.04215,
             "CPC adult": 0.0075,
@@ -690,7 +690,7 @@
         },
         {
             "Country code": "VE",
-            "Country name": "Venezuela (Bolivarian Republic of)",
+            "Country name": "Venezuela",
             "CPC mainstream": 0.00135,
             "CPM mainstream": 0.00135,
             "CPC adult": 0.0009,
@@ -706,7 +706,7 @@
         },
         {
             "Country code": "MD",
-            "Country name": "Moldova (Republic of)",
+            "Country name": "Moldova",
             "CPC mainstream": 0.006,
             "CPM mainstream": 0.00165,
             "CPC adult": 0.00885,
@@ -826,7 +826,7 @@
         },
         {
             "Country code": "PR",
-            "Country name": "Puerto Rico (USA)",
+            "Country name": "Puerto Rico",
             "CPC mainstream": 0.006,
             "CPM mainstream": 0.0033,
             "CPC adult": 0.01005,
@@ -842,7 +842,7 @@
         },
         {
             "Country code": "MQ",
-            "Country name": "Martinique (France)",
+            "Country name": "Martinique",
             "CPC mainstream": 0.0168,
             "CPM mainstream": 0.0711,
             "CPC adult": 0.0054,
@@ -914,7 +914,7 @@
         },
         {
             "Country code": "KR",
-            "Country name": "Korea (Republic of)",
+            "Country name": "South Korea",
             "CPC mainstream": 0.006150000000000001,
             "CPM mainstream": 0.00165,
             "CPC adult": 0.0093,
@@ -962,7 +962,7 @@
         },
         {
             "Country code": "PF",
-            "Country name": "French Polynesia (France)",
+            "Country name": "French Polynesia",
             "CPC mainstream": 0.00465,
             "CPM mainstream": 0.0216,
             "CPC adult": 0.0036,
@@ -1098,7 +1098,7 @@
         },
         {
             "Country code": "MK",
-            "Country name": "North Macedonia (Republic of)",
+            "Country name": "North Macedonia",
             "CPC mainstream": 0.0009,
             "CPM mainstream": 0.00030000000000000003,
             "CPC adult": 0.0021,
@@ -1394,7 +1394,7 @@
         },
         {
             "Country code": "AE",
-            "Country name": "United Arab Emirates (UAE)",
+            "Country name": "United Arab Emirates",
             "CPC": 0.02,
             "CPM": 0.44699999999999995
         },
@@ -1442,7 +1442,7 @@
         },
         {
             "Country code": "KR",
-            "Country name": "Korea (Republic of)",
+            "Country name": "South Korea",
             "CPC": 0.001,
             "CPM": 0.146
         },
@@ -1688,7 +1688,7 @@
         },
         {
             "Country code": "VE",
-            "Country name": "Venezuela (Bolivarian Republic of)",
+            "Country name": "Venezuela",
             "CPC": 0.001,
             "CPM": 0.104
         },
@@ -1736,7 +1736,7 @@
         },
         {
             "Country code": "CD",
-            "Country name": "Congo (Democratic Republic of the)",
+            "Country name": "Congo",
             "CPC": 0.005999999999999999,
             "CPM": 0.227
         },
@@ -1808,7 +1808,7 @@
         },
         {
             "Country code": "PR",
-            "Country name": "Puerto Rico (USA)",
+            "Country name": "Puerto Rico",
             "CPC": 0.005,
             "CPM": 0.137
         },
@@ -1838,13 +1838,13 @@
         },
         {
             "Country code": "BO",
-            "Country name": "Bolivia (Plurinational State of)",
+            "Country name": "Bolivia",
             "CPC": 0.001,
             "CPM": 0.041999999999999996
         },
         {
             "Country code": "MD",
-            "Country name": "Moldova (Republic of)",
+            "Country name": "Moldova",
             "CPC": 0.001,
             "CPM": 0.08099999999999999
         },
@@ -1916,7 +1916,7 @@
         },
         {
             "Country code": "MK",
-            "Country name": "North Macedonia (Republic of)",
+            "Country name": "North Macedonia",
             "CPC": 0.0029999999999999996,
             "CPM": 0.11499999999999999
         },
@@ -1925,12 +1925,6 @@
             "Country name": "Réunion",
             "CPC": 0.011000000000000001,
             "CPM": 0.255
-        },
-        {
-            "Country code": NaN,
-            "Country name": "Namibia",
-            "CPC": 0.005999999999999999,
-            "CPM": 0.21999999999999997
         },
         {
             "Country code": "TG",
@@ -1988,7 +1982,7 @@
         },
         {
             "Country code": "GP",
-            "Country name": "Guadeloupe (France)",
+            "Country name": "Guadeloupe",
             "CPC": 0.009,
             "CPM": 0.259
         },
@@ -2048,13 +2042,13 @@
         },
         {
             "Country code": "MQ",
-            "Country name": "Martinique (France)",
+            "Country name": "Martinique",
             "CPC": 0.008,
             "CPM": 0.227
         },
         {
             "Country code": "GF",
-            "Country name": "French Guiana (France)",
+            "Country name": "French Guiana",
             "CPC": 0.008,
             "CPM": 0.33099999999999996
         },
@@ -2096,13 +2090,13 @@
         },
         {
             "Country code": "NC",
-            "Country name": "New Caledonia (France)",
+            "Country name": "New Caledonia",
             "CPC": 0.011000000000000001,
             "CPM": 0.261
         },
         {
             "Country code": "VI",
-            "Country name": "US Virgin Islands (USA)",
+            "Country name": "US Virgin Islands",
             "CPC": 0.01,
             "CPM": 0.41000000000000003
         },
@@ -2114,7 +2108,7 @@
         },
         {
             "Country code": "GU",
-            "Country name": "Guam (USA)",
+            "Country name": "Guam",
             "CPC": 0.013,
             "CPM": 0.138
         },
@@ -2150,7 +2144,7 @@
         },
         {
             "Country code": "KY",
-            "Country name": "Cayman Islands (UK)",
+            "Country name": "Cayman Islands",
             "CPC": 0.01,
             "CPM": 0.164
         },
@@ -2162,15 +2156,9 @@
         },
         {
             "Country code": "CW",
-            "Country name": "Curacao (Netherlands)",
+            "Country name": "Curacao",
             "CPC": 0.011000000000000001,
             "CPM": 0.235
-        },
-        {
-            "Country code": "XK",
-            "Country name": "Unknown (XK)",
-            "CPC": 0.001,
-            "CPM": 0.033
         },
         {
             "Country code": "CF",
@@ -2192,7 +2180,7 @@
         },
         {
             "Country code": "BM",
-            "Country name": "Bermuda (UK)",
+            "Country name": "Bermuda",
             "CPC": 0.011999999999999999,
             "CPM": 0.153
         },
@@ -2234,25 +2222,25 @@
         },
         {
             "Country code": "FM",
-            "Country name": "Micronesia (Federated States of)",
+            "Country name": "Micronesia",
             "CPC": 0.005999999999999999,
             "CPM": 0.273
         },
         {
             "Country code": "AW",
-            "Country name": "Aruba (Netherlands)",
+            "Country name": "Aruba",
             "CPC": 0.004,
             "CPM": 0.085
         },
         {
             "Country code": "GL",
-            "Country name": "Greenland (Denmark)",
+            "Country name": "Greenland",
             "CPC": 0.01,
             "CPM": 0.13899999999999998
         },
         {
             "Country code": "AS",
-            "Country name": "American Samoa (USA)",
+            "Country name": "American Samoa",
             "CPC": 0.018,
             "CPM": 0.259
         },
@@ -2282,13 +2270,13 @@
         },
         {
             "Country code": "TC",
-            "Country name": "Turks and Caicos Islands (UK)",
+            "Country name": "Turks and Caicos Islands",
             "CPC": 0.009,
             "CPM": 0.147
         },
         {
             "Country code": "PF",
-            "Country name": "French Polynesia (France)",
+            "Country name": "French Polynesia",
             "CPC": 0.002,
             "CPM": 0.073
         },
@@ -2300,7 +2288,7 @@
         },
         {
             "Country code": "MP",
-            "Country name": "Northern Mariana Islands (USA)",
+            "Country name": "Northern Mariana Islands",
             "CPC": 0.011999999999999999,
             "CPM": 0.117
         },
@@ -2348,7 +2336,7 @@
         },
         {
             "Country code": "VG",
-            "Country name": "British Virgin Islands (UK)",
+            "Country name": "British Virgin Islands",
             "CPC": 0.005,
             "CPM": 0.08800000000000001
         },
@@ -2366,7 +2354,7 @@
         },
         {
             "Country code": "MF",
-            "Country name": "Saint Martin (French part)",
+            "Country name": "Saint Martin",
             "CPC": 0.016999999999999998,
             "CPM": 0.178
         },
@@ -2384,7 +2372,7 @@
         },
         {
             "Country code": "SZ",
-            "Country name": "Eswatini (old Swaziland)",
+            "Country name": "Eswatini",
             "CPC": 0.001,
             "CPM": 0.047999999999999994
         },
@@ -2561,7 +2549,7 @@
         },
         {
             "Country code": "KR",
-            "Country name": "Korea (Republic of)",
+            "Country name": "South Korea",
             "CPM": 0.10999999999999999
         },
         {
@@ -2711,7 +2699,7 @@
         },
         {
             "Country code": "AE",
-            "Country name": "United Arab Emirates (UAE)",
+            "Country name": "United Arab Emirates",
             "CPM": 0.0398
         },
         {
@@ -2736,7 +2724,7 @@
         },
         {
             "Country code": "IR",
-            "Country name": "Iran (Islamic Republic of)",
+            "Country name": "Iran",
             "CPM": 0.0028
         },
         {
@@ -2766,7 +2754,7 @@
         },
         {
             "Country code": "MK",
-            "Country name": "North Macedonia (Republic of)",
+            "Country name": "North Macedonia",
             "CPM": 0.0634
         },
         {
@@ -2856,7 +2844,7 @@
         },
         {
             "Country code": "MD",
-            "Country name": "Moldova (Republic of)",
+            "Country name": "Moldova",
             "CPM": 0.007
         },
         {
@@ -2886,7 +2874,7 @@
         },
         {
             "Country code": "BO",
-            "Country name": "Bolivia (Plurinational State of)",
+            "Country name": "Bolivia",
             "CPM": 0.0092
         },
         {
@@ -2896,7 +2884,7 @@
         },
         {
             "Country code": "VE",
-            "Country name": "Venezuela (Bolivarian Republic of)",
+            "Country name": "Venezuela",
             "CPM": 0.0066
         },
         {
@@ -2961,7 +2949,7 @@
         },
         {
             "Country code": "CD",
-            "Country name": "Congo (Democratic Republic of the)",
+            "Country name": "Congo",
             "CPM": 0.027
         },
         {
@@ -3071,7 +3059,7 @@
         },
         {
             "Country code": "PR",
-            "Country name": "Puerto Rico (USA)",
+            "Country name": "Puerto Rico",
             "CPM": 0.0066
         },
         {
@@ -3191,7 +3179,7 @@
         },
         {
             "Country code": "VG",
-            "Country name": "British Virgin Islands (UK)",
+            "Country name": "British Virgin Islands",
             "CPM": 0.272
         },
         {
@@ -3260,11 +3248,6 @@
             "CPM": 0.7756
         },
         {
-            "Country code": NaN,
-            "Country name": "Namibia",
-            "CPM": 0.058
-        },
-        {
             "Country code": "IM",
             "Country name": "Isle of Man",
             "CPM": 0.0164
@@ -3296,7 +3279,7 @@
         },
         {
             "Country code": "KY",
-            "Country name": "Cayman Islands (UK)",
+            "Country name": "Cayman Islands",
             "CPM": 0.1392
         },
         {
@@ -3341,17 +3324,17 @@
         },
         {
             "Country code": "SZ",
-            "Country name": "Eswatini (old Swaziland)",
+            "Country name": "Eswatini",
             "CPM": 0.506
         },
         {
             "Country code": "VI",
-            "Country name": "US Virgin Islands (USA)",
+            "Country name": "US Virgin Islands",
             "CPM": 0.014
         },
         {
             "Country code": "NC",
-            "Country name": "New Caledonia (France)",
+            "Country name": "New Caledonia",
             "CPM": 0.0076
         },
         {
@@ -3361,7 +3344,7 @@
         },
         {
             "Country code": "AW",
-            "Country name": "Aruba (Netherlands)",
+            "Country name": "Aruba",
             "CPM": 0.042
         },
         {
@@ -3376,17 +3359,17 @@
         },
         {
             "Country code": "BM",
-            "Country name": "Bermuda (UK)",
+            "Country name": "Bermuda",
             "CPM": 0.1128
         },
         {
             "Country code": "PF",
-            "Country name": "French Polynesia (France)",
+            "Country name": "French Polynesia",
             "CPM": 0.2508
         },
         {
             "Country code": "SX",
-            "Country name": "Sint Maarten (Netherlands)",
+            "Country name": "Sint Maarten",
             "CPM": 0.7356
         },
         {
@@ -3396,7 +3379,7 @@
         },
         {
             "Country code": "MP",
-            "Country name": "Northern Mariana Islands (USA)",
+            "Country name": "Northern Mariana Islands",
             "CPM": 0.738
         },
         {
@@ -3411,17 +3394,17 @@
         },
         {
             "Country code": "FM",
-            "Country name": "Micronesia (Federated States of)",
+            "Country name": "Micronesia",
             "CPM": 0.5662
         },
         {
             "Country code": "GU",
-            "Country name": "Guam (USA)",
+            "Country name": "Guam",
             "CPM": 0.2088
         },
         {
             "Country code": "GP",
-            "Country name": "Guadeloupe (France)",
+            "Country name": "Guadeloupe",
             "CPM": 0.1024
         },
         {
@@ -3431,12 +3414,12 @@
         },
         {
             "Country code": "GL",
-            "Country name": "Greenland (Denmark)",
+            "Country name": "Greenland",
             "CPM": 0.0124
         },
         {
             "Country code": "CW",
-            "Country name": "Curacao (Netherlands)",
+            "Country name": "Curacao",
             "CPM": 0.03
         },
         {
@@ -3446,12 +3429,12 @@
         },
         {
             "Country code": "GF",
-            "Country name": "French Guiana (France)",
+            "Country name": "French Guiana",
             "CPM": 0.21
         },
         {
             "Country code": "AS",
-            "Country name": "American Samoa (USA)",
+            "Country name": "American Samoa",
             "CPM": 0.9296
         },
         {
@@ -3486,7 +3469,7 @@
         },
         {
             "Country code": "MQ",
-            "Country name": "Martinique (France)",
+            "Country name": "Martinique",
             "CPM": 0.058
         },
         {
@@ -3496,12 +3479,12 @@
         },
         {
             "Country code": "TC",
-            "Country name": "Turks and Caicos Islands (UK)",
+            "Country name": "Turks and Caicos Islands",
             "CPM": 0.6848
         },
         {
             "Country code": "CK",
-            "Country name": "Cook Islands (New Zealand)",
+            "Country name": "Cook Islands",
             "CPM": 1.4768
         },
         {
@@ -3516,12 +3499,12 @@
         },
         {
             "Country code": "MS",
-            "Country name": "Montserrat (UK)",
+            "Country name": "Montserrat",
             "CPM": 0.5234
         },
         {
             "Country code": "BQ",
-            "Country name": "Bonaire, Sint Eustatius and Saba (Netherlands)",
+            "Country name": "Bonaire, Sint Eustatius and Saba",
             "CPM": 0.4124
         }
     ],
@@ -3768,7 +3751,7 @@
         },
         {
             "Country code": "AE",
-            "Country name": "United Arab Emirates (UAE)",
+            "Country name": "United Arab Emirates",
             "CPC": 0.0336,
             "CPM": 0.3516
         },
@@ -3792,7 +3775,7 @@
         },
         {
             "Country code": "CD",
-            "Country name": "Congo (Democratic Republic of the)",
+            "Country name": "Congo",
             "CPC": 0.0132,
             "CPM": 0.15839999999999999
         },
@@ -3894,7 +3877,7 @@
         },
         {
             "Country code": "VE",
-            "Country name": "Venezuela (Bolivarian Republic of)",
+            "Country name": "Venezuela",
             "CPC": 0.009600000000000001,
             "CPM": 0.09480000000000001
         },
@@ -3912,7 +3895,7 @@
         },
         {
             "Country code": "KR",
-            "Country name": "Korea (Republic of)",
+            "Country name": "South Korea",
             "CPC": 0.009600000000000001,
             "CPM": 0.0336
         },
