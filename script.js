@@ -36,20 +36,32 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     function createTable(data, format, page = 1) {
         const headersMap = {
-            push: ['Country Code', 'Country Name', 'CPC ms', 'CPM ms', 'CPC Adult', 'CPM Adult'],
-            inPage: ['Country Code', 'Country Name', 'CPC', 'CPM'],
-            native: ['Country Code', 'Country Name', 'CPC', 'CPM'],
-            pop: ['Country Code', 'Country Name', 'CPM']
+            push: {
+                headers: ['Country Code', 'Country Name', 'CPC ms', 'CPM ms', 'CPC Adult', 'CPM Adult'],
+                jsonKeys: ['country_code', 'country_name', 'cpc_ms', 'cpm_ms', 'cpc_adult', 'cpm_adult']
+            },
+            inPage: {
+                headers: ['Country Code', 'Country Name', 'CPC', 'CPM'],
+                jsonKeys: ['country_code', 'country_name', 'cpc', 'cpm']
+            },
+            native: {
+                headers: ['Country Code', 'Country Name', 'CPC', 'CPM'],
+                jsonKeys: ['country_code', 'country_name', 'cpc', 'cpm']
+            },
+            pop: {
+                headers: ['Country Code', 'Country Name', 'CPM'],
+                jsonKeys: ['country_code', 'country_name', 'cpm']
+            }
         };
 
-        const headers = headersMap[format] || [];
+        const { headers, jsonKeys } = headersMap[format] || { headers: [], jsonKeys: [] };
         const table = document.createElement('table');
         table.classList.add('data-table');
 
         const thead = document.createElement('thead');
         const headerRow = document.createElement('tr');
 
-        headers.forEach(header => {
+        headers.forEach((header, index) => {
             const th = document.createElement('th');
             th.textContent = header;
             th.style.cursor = 'pointer';
@@ -59,15 +71,15 @@ document.addEventListener('DOMContentLoaded', async () => {
             th.appendChild(sortIcon);
 
             th.addEventListener('click', () => {
-                if (currentSortColumn === header) {
+                if (currentSortColumn === jsonKeys[index]) {
                     currentSortOrder = currentSortOrder === 'asc' ? 'desc' : 'asc';
                 } else {
-                    currentSortColumn = header;
+                    currentSortColumn = jsonKeys[index];
                     currentSortOrder = 'asc';
                 }
 
                 data.sort((a, b) => {
-                    let valA = a[header], valB = b[header];
+                    let valA = a[jsonKeys[index]], valB = b[jsonKeys[index]];
                     return currentSortOrder === 'asc' ? (valA > valB ? 1 : -1) : (valA < valB ? 1 : -1);
                 });
 
@@ -77,7 +89,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 table.replaceWith(createTable(data, format, currentPage));
             });
 
-            if (currentSortColumn === header) {
+            if (currentSortColumn === jsonKeys[index]) {
                 sortIcon.textContent = currentSortOrder === 'asc' ? ' ▲' : ' ▼';
             }
 
@@ -87,12 +99,12 @@ document.addEventListener('DOMContentLoaded', async () => {
         thead.appendChild(headerRow);
         table.appendChild(thead);
 
-        fillTableBody(table, data, headers, page);
+        fillTableBody(table, data, jsonKeys, page);
 
         return table;
     }
 
-    function fillTableBody(table, data, headers, page) {
+    function fillTableBody(table, data, jsonKeys, page) {
         const tbody = document.createElement('tbody');
         const start = (page - 1) * rowsPerPage;
         const end = start + rowsPerPage;
@@ -100,9 +112,9 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         paginatedData.forEach(row => {
             const tr = document.createElement('tr');
-            headers.forEach(header => {
+            jsonKeys.forEach(key => {
                 const td = document.createElement('td');
-                td.textContent = row[header] || '-';
+                td.textContent = row[key] !== undefined ? row[key] : '-';
                 tr.appendChild(td);
             });
             tbody.appendChild(tr);
