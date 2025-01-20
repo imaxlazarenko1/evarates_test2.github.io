@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     function createTable(data, format) {
         const headersMap = {
-            push: ['Country Code', 'Country Name', 'CPC ms', 'CPM ms', 'CPC Adult', 'CPM Adult'],
+            push: ['Country Code', 'Country Name', 'CPC MS', 'CPM MS', 'CPC Adult', 'CPM Adult'],
             inPage: ['Country Code', 'Country Name', 'CPC', 'CPM'],
             native: ['Country Code', 'Country Name', 'CPC', 'CPM'],
             pop: ['Country Code', 'Country Name', 'CPM']
