@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     let currentSortColumn = null;
     let currentSortOrder = 'asc';
     let currentPage = 1;
-    let rowsPerPage = 50; 
+    let rowsPerPage = 50;
     let searchQuery = '';
 
     async function loadData() {
@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (!activeSection) return;
 
         const format = activeSection.id.replace('Section', '');
-        activeSection.innerHTML = `<h2>${format} information</h2>`;
+        activeSection.innerHTML = `<h2>${format} Information</h2>`;
 
         if (Array.isArray(jsonData[format])) {
             const filteredData = filterData(jsonData[format]);
@@ -35,17 +35,19 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     function createTable(data, format, page = 1) {
         const headersMap = {
-            push: ['Country code', 'Country name', 'CPC ms', 'CPM ms', 'CPC adult', 'CPM adult'],
-            inPage: ['Country code', 'Country name', 'CPC', 'CPM'],
-            native: ['Country code', 'Country name', 'CPC', 'CPM'],
-            pop: ['Country code', 'Country name', 'CPM']
+            push: ['Country Code', 'Country Name', 'CPC Mainstream', 'CPM Mainstream', 'CPC Adult', 'CPM Adult'],
+            inPage: ['Country Code', 'Country Name', 'CPC', 'CPM'],
+            native: ['Country Code', 'Country Name', 'CPC', 'CPM'],
+            pop: ['Country Code', 'Country Name', 'CPM']
         };
 
         const headers = headersMap[format] || [];
         const table = document.createElement('table');
         table.classList.add('data-table');
 
+        const thead = document.createElement('thead');
         const headerRow = document.createElement('tr');
+
         headers.forEach(header => {
             const th = document.createElement('th');
             th.textContent = header;
@@ -80,7 +82,9 @@ document.addEventListener('DOMContentLoaded', async () => {
 
             headerRow.appendChild(th);
         });
-        table.appendChild(headerRow);
+
+        thead.appendChild(headerRow);
+        table.appendChild(thead);
 
         fillTableBody(table, data, headers, page);
 
@@ -115,8 +119,32 @@ document.addEventListener('DOMContentLoaded', async () => {
         renderActiveSection();
     });
 
+    function setupButtonHandlers() {
+        const buttons = {
+            push: document.getElementById('pushBtn'),
+            inPage: document.getElementById('inPageBtn'),
+            pop: document.getElementById('popBtn'),
+            native: document.getElementById('nativeBtn')
+        };
+
+        Object.keys(buttons).forEach(format => {
+            buttons[format].addEventListener('click', () => {
+                hideAllSections();
+                const section = document.getElementById(`${format}Section`);
+                section.classList.add('active');
+                currentPage = 1;
+                renderActiveSection();
+            });
+        });
+    }
+
+    function hideAllSections() {
+        document.querySelectorAll('.content-section').forEach(section => section.classList.remove('active'));
+    }
+
     async function init() {
         await loadData();
+        setupButtonHandlers();
         document.getElementById('pushBtn').click();
     }
 
