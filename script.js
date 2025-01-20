@@ -6,27 +6,28 @@ document.addEventListener('DOMContentLoaded', async () => {
     let currentPage = 1;
     let rowsPerPage = 50;
     let searchQuery = '';
+    let activeFormat = 'push'; // По умолчанию
 
     async function loadData() {
         try {
             const response = await fetch(jsonUrl);
             if (!response.ok) throw new Error(`Ошибка загрузки данных: ${response.status}`);
             jsonData = await response.json();
+            renderActiveSection(); // Отрисовать первый раздел после загрузки данных
         } catch (error) {
             console.error(error);
         }
     }
 
     function renderActiveSection() {
-        const activeSection = document.querySelector('.content-section.active');
+        const activeSection = document.getElementById(`${activeFormat}Section`);
         if (!activeSection) return;
 
-        const format = activeSection.id.replace('Section', '');
-        activeSection.innerHTML = `<h2>${format} Information</h2>`;
+        activeSection.innerHTML = `<h2>${activeFormat} Information</h2>`;
 
-        if (Array.isArray(jsonData[format])) {
-            const filteredData = filterData(jsonData[format]);
-            const table = createTable(filteredData, format, currentPage);
+        if (Array.isArray(jsonData[activeFormat])) {
+            const filteredData = filterData(jsonData[activeFormat]);
+            const table = createTable(filteredData, activeFormat, currentPage);
             activeSection.appendChild(table);
         } else {
             activeSection.innerHTML += '<p>Нет данных для этого раздела.</p>';
@@ -35,7 +36,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     function createTable(data, format, page = 1) {
         const headersMap = {
-            push: ['Country Code', 'Country Name', 'CPC Mainstream', 'CPM Mainstream', 'CPC Adult', 'CPM Adult'],
+            push: ['Country Code', 'Country Name', 'CPC ms', 'CPM ms', 'CPC Adult', 'CPM Adult'],
             inPage: ['Country Code', 'Country Name', 'CPC', 'CPM'],
             native: ['Country Code', 'Country Name', 'CPC', 'CPM'],
             pop: ['Country Code', 'Country Name', 'CPM']
@@ -129,22 +130,26 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         Object.keys(buttons).forEach(format => {
             buttons[format].addEventListener('click', () => {
+                activeFormat = format;
                 hideAllSections();
-                const section = document.getElementById(`${format}Section`);
-                section.classList.add('active');
-                currentPage = 1;
+                document.getElementById(`${format}Section`).classList.add('active');
                 renderActiveSection();
             });
         });
     }
 
     function hideAllSections() {
-        document.querySelectorAll('.content-section').forEach(section => section.classList.remove('active'));
+        document.querySelectorAll('.content-section').forEach(section => {
+            section.classList.remove('active');
+            section.innerHTML = ''; // Очистка содержимого
+        });
     }
 
     async function init() {
         await loadData();
         setupButtonHandlers();
+
+        // Убедиться, что первая вкладка (Push) активируется правильно
         document.getElementById('pushBtn').click();
     }
 
