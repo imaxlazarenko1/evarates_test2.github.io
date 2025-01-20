@@ -4,58 +4,48 @@ document.addEventListener('DOMContentLoaded', async () => {
     let currentSortColumn = null;
     let currentSortOrder = 'asc';
     let currentPage = 1;
-    let rowsPerPage = 50;
-    let searchQuery = '';
-    let activeFormat = 'push'; // По умолчанию активный формат
+    let rowsPerPage = 50; // По умолчанию 50 строк
 
     async function loadData() {
         try {
             const response = await fetch(jsonUrl);
-            if (!response.ok) throw new Error(`Ошибка загрузки данных: ${response.status}`);
+            if (!response.ok) throw new Error(Ошибка загрузки данных: ${response.status});
             jsonData = await response.json();
-            renderActiveSection(); // Отобразить первую секцию после загрузки данных
         } catch (error) {
-            console.error('Ошибка загрузки JSON:', error);
+            console.error(error);
         }
     }
 
     function renderActiveSection() {
-        const activeSection = document.getElementById(`${activeFormat}Section`);
+        const activeSection = document.querySelector('.content-section.active');
         if (!activeSection) return;
 
-        activeSection.innerHTML = `<h2>${activeFormat} Information</h2>`;
+        const format = activeSection.id.replace('Section', '');
+        activeSection.innerHTML = <h2>${format} information</h2>;
 
-        if (Array.isArray(jsonData[activeFormat])) {
-            const filteredData = filterData(jsonData[activeFormat]);
-            if (filteredData.length === 0) {
-                activeSection.innerHTML += '<p>Нет данных для этого раздела.</p>';
-                return;
-            }
-            const table = createTable(filteredData, activeFormat);
+        if (Array.isArray(jsonData[format])) {
+            const table = createTable(jsonData[format], format, currentPage);
             activeSection.appendChild(table);
         } else {
             activeSection.innerHTML += '<p>Нет данных для этого раздела.</p>';
         }
     }
 
-    function createTable(data, format) {
+    function createTable(data, format, page = 1) {
         const headersMap = {
-            push: ['country_code', 'country_name', 'cpc_ms', 'cpm_ms', 'cpc_adult', 'cpm_adult'],
-            inPage: ['country_code', 'country_name', 'cpc', 'cpm'],
-            native: ['country_code', 'country_name', 'cpc', 'cpm'],
-            pop: ['country_code', 'country_name', 'cpm']
+            push: ['Country code', 'Country name', 'CPC mainstream', 'CPM mainstream', 'CPC adult', 'CPM adult'],
+            inPage: ['Country code', 'Country name', 'CPC', 'CPM'],
+            native: ['Country code', 'Country name', 'CPC', 'CPM'],
+            pop: ['Country code', 'Country name', 'CPM']
         };
 
-        const columnNames = headersMap[format] || Object.keys(data[0]);
-        const headers = columnNames.map(key => key.replace(/_/g, ' ').toUpperCase());
-
+        const headers = headersMap[format] || [];
         const table = document.createElement('table');
         table.classList.add('data-table');
 
-        const thead = document.createElement('thead');
         const headerRow = document.createElement('tr');
 
-        headers.forEach((header, index) => {
+        headers.forEach(header => {
             const th = document.createElement('th');
             th.textContent = header;
             th.style.cursor = 'pointer';
@@ -65,50 +55,59 @@ document.addEventListener('DOMContentLoaded', async () => {
             th.appendChild(sortIcon);
 
             th.addEventListener('click', () => {
-                if (currentSortColumn === columnNames[index]) {
+                if (currentSortColumn === header) {
                     currentSortOrder = currentSortOrder === 'asc' ? 'desc' : 'asc';
                 } else {
-                    currentSortColumn = columnNames[index];
+                    currentSortColumn = header;
                     currentSortOrder = 'asc';
                 }
 
                 data.sort((a, b) => {
-                    let valA = a[columnNames[index]], valB = b[columnNames[index]];
+                    let valA = a[header], valB = b[header];
+                    const isNumeric = !['Country code', 'Country name'].includes(header);
+                    if (isNumeric) {
+                        valA = parseFloat(String(valA).replace(',', '.')) || 0;
+                        valB = parseFloat(String(valB).replace(',', '.')) || 0;
+                    } else {
+                        valA = String(valA || '').toLowerCase();
+                        valB = String(valB || '').toLowerCase();
+                    }
                     return currentSortOrder === 'asc' ? (valA > valB ? 1 : -1) : (valA < valB ? 1 : -1);
                 });
 
                 document.querySelectorAll('.sort-icon').forEach(icon => icon.textContent = '');
                 sortIcon.textContent = currentSortOrder === 'asc' ? ' ▲' : ' ▼';
 
-                table.replaceWith(createTable(data, format));
+                table.replaceWith(createTable(data, format, currentPage));
             });
 
-            if (currentSortColumn === columnNames[index]) {
+            if (currentSortColumn === header) {
                 sortIcon.textContent = currentSortOrder === 'asc' ? ' ▲' : ' ▼';
             }
 
             headerRow.appendChild(th);
         });
+        table.appendChild(headerRow);
 
-        thead.appendChild(headerRow);
-        table.appendChild(thead);
-
-        fillTableBody(table, data, columnNames);
+        fillTableBody(table, data, headers, page);
 
         return table;
     }
 
-    function fillTableBody(table, data, columnNames) {
+    function fillTableBody(table, data, headers, page) {
         const tbody = document.createElement('tbody');
-        const start = (currentPage - 1) * rowsPerPage;
+        const start = (page - 1) * rowsPerPage;
         const end = start + rowsPerPage;
         const paginatedData = data.slice(start, end);
 
         paginatedData.forEach(row => {
             const tr = document.createElement('tr');
-            columnNames.forEach(key => {
+            headers.forEach(header => {
                 const td = document.createElement('td');
-                td.textContent = row[key] !== undefined && row[key] !== null ? row[key] : '-';
+                const value = row[header];
+                td.textContent = (value !== null && value !== undefined && !isNaN(value)) 
+                    ? parseFloat(value).toLocaleString('ru-RU', { minimumFractionDigits: 3 }).replace('.', ',') 
+                    : value || '-';
                 tr.appendChild(td);
             });
             tbody.appendChild(tr);
@@ -117,12 +116,9 @@ document.addEventListener('DOMContentLoaded', async () => {
         table.appendChild(tbody);
     }
 
-    function filterData(data) {
-        return data.filter(row => Object.values(row).some(value => String(value).toLowerCase().includes(searchQuery.toLowerCase())));
-    }
-
-    document.getElementById('searchInput').addEventListener('input', (event) => {
-        searchQuery = event.target.value;
+    document.getElementById('rowsPerPage').addEventListener('change', (event) => {
+        rowsPerPage = parseInt(event.target.value);
+        currentPage = 1;
         renderActiveSection();
     });
 
@@ -136,24 +132,23 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         Object.keys(buttons).forEach(format => {
             buttons[format].addEventListener('click', () => {
-                activeFormat = format;
                 hideAllSections();
-                document.getElementById(`${format}Section`).classList.add('active');
+                document.getElementById(${format}Section).classList.add('active');
+                currentPage = 1;
                 renderActiveSection();
             });
         });
     }
 
     function hideAllSections() {
-        document.querySelectorAll('.content-section').forEach(section => {
-            section.classList.remove('active');
-            section.innerHTML = ''; // Очистка перед новой загрузкой
-        });
+        document.querySelectorAll('.content-section').forEach(section => section.classList.remove('active'));
     }
 
     async function init() {
         await loadData();
         setupButtonHandlers();
+
+        // Автоматически активируем первую вкладку (Push)
         document.getElementById('pushBtn').click();
     }
 
