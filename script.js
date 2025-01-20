@@ -4,12 +4,12 @@ document.addEventListener('DOMContentLoaded', async () => {
     let currentSortColumn = null;
     let currentSortOrder = 'asc';
     let currentPage = 1;
-    let rowsPerPage = 50; // По умолчанию 50 строк
+    let rowsPerPage = 50;
 
     async function loadData() {
         try {
             const response = await fetch(jsonUrl);
-            if (!response.ok) throw new Error(Ошибка загрузки данных: ${response.status});
+            if (!response.ok) throw new Error(`Ошибка загрузки данных: ${response.status}`);
             jsonData = await response.json();
         } catch (error) {
             console.error(error);
@@ -21,28 +21,29 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (!activeSection) return;
 
         const format = activeSection.id.replace('Section', '');
-        activeSection.innerHTML = <h2>${format} information</h2>;
+        activeSection.innerHTML = `<h2>${format} information</h2>`;
 
         if (Array.isArray(jsonData[format])) {
-            const table = createTable(jsonData[format], format, currentPage);
+            const table = createTable(jsonData[format], format);
             activeSection.appendChild(table);
         } else {
             activeSection.innerHTML += '<p>Нет данных для этого раздела.</p>';
         }
     }
 
-    function createTable(data, format, page = 1) {
+    function createTable(data, format) {
         const headersMap = {
-            push: ['Country code', 'Country name', 'CPC ms', 'CPM ms', 'CPC adult', 'CPM adult'],
-            inPage: ['Country code', 'Country name', 'CPC', 'CPM'],
-            native: ['Country code', 'Country name', 'CPC', 'CPM'],
-            pop: ['Country code', 'Country name', 'CPM']
+            push: ['Country Code', 'Country Name', 'CPC ms', 'CPM ms', 'CPC Adult', 'CPM Adult'],
+            inPage: ['Country Code', 'Country Name', 'CPC', 'CPM'],
+            native: ['Country Code', 'Country Name', 'CPC', 'CPM'],
+            pop: ['Country Code', 'Country Name', 'CPM']
         };
 
         const headers = headersMap[format] || [];
         const table = document.createElement('table');
         table.classList.add('data-table');
 
+        const thead = document.createElement('thead');
         const headerRow = document.createElement('tr');
 
         headers.forEach(header => {
@@ -64,7 +65,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
                 data.sort((a, b) => {
                     let valA = a[header], valB = b[header];
-                    const isNumeric = !['Country code', 'Country name'].includes(header);
+                    const isNumeric = !['Country Code', 'Country Name'].includes(header);
                     if (isNumeric) {
                         valA = parseFloat(String(valA).replace(',', '.')) || 0;
                         valB = parseFloat(String(valB).replace(',', '.')) || 0;
@@ -78,7 +79,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 document.querySelectorAll('.sort-icon').forEach(icon => icon.textContent = '');
                 sortIcon.textContent = currentSortOrder === 'asc' ? ' ▲' : ' ▼';
 
-                table.replaceWith(createTable(data, format, currentPage));
+                table.replaceWith(createTable(data, format));
             });
 
             if (currentSortColumn === header) {
@@ -87,16 +88,11 @@ document.addEventListener('DOMContentLoaded', async () => {
 
             headerRow.appendChild(th);
         });
-        table.appendChild(headerRow);
+        thead.appendChild(headerRow);
+        table.appendChild(thead);
 
-        fillTableBody(table, data, headers, page);
-
-        return table;
-    }
-
-    function fillTableBody(table, data, headers, page) {
         const tbody = document.createElement('tbody');
-        const start = (page - 1) * rowsPerPage;
+        const start = (currentPage - 1) * rowsPerPage;
         const end = start + rowsPerPage;
         const paginatedData = data.slice(start, end);
 
@@ -114,9 +110,10 @@ document.addEventListener('DOMContentLoaded', async () => {
         });
 
         table.appendChild(tbody);
+        return table;
     }
 
-    document.getElementById('rowsPerPage').addEventListener('change', (event) => {
+    document.getElementById('rowsPerPage')?.addEventListener('change', (event) => {
         rowsPerPage = parseInt(event.target.value);
         currentPage = 1;
         renderActiveSection();
@@ -131,9 +128,9 @@ document.addEventListener('DOMContentLoaded', async () => {
         };
 
         Object.keys(buttons).forEach(format => {
-            buttons[format].addEventListener('click', () => {
+            buttons[format]?.addEventListener('click', () => {
                 hideAllSections();
-                document.getElementById(${format}Section).classList.add('active');
+                document.getElementById(`${format}Section`).classList.add('active');
                 currentPage = 1;
                 renderActiveSection();
             });
@@ -144,13 +141,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         document.querySelectorAll('.content-section').forEach(section => section.classList.remove('active'));
     }
 
-    async function init() {
-        await loadData();
-        setupButtonHandlers();
-
-        // Автоматически активируем первую вкладку (Push)
-        document.getElementById('pushBtn').click();
-    }
-
-    init();
+    await loadData();
+    setupButtonHandlers();
+    document.getElementById('pushBtn')?.click();
 });
