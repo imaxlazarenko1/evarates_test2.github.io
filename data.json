@@ -3,1168 +3,1168 @@
         {
             "Country Code": "RU",
             "Country Name": "Russian Federation",
-            "CPC ms": 0.0744,
-            "CPM ms": 0.05324999999999999,
+            "CPC MS": 0.0744,
+            "CPM MS": 0.05324999999999999,
             "CPC Adult": 0.07694999999999999,
             "CPM Adult": 0.046799999999999994
         },
         {
             "Country Code": "BR",
             "Country Name": "Brazil",
-            "CPC ms": 0.0345,
-            "CPM ms": 0.07500000000000001,
+            "CPC MS": 0.0345,
+            "CPM MS": 0.07500000000000001,
             "CPC Adult": 0.01845,
             "CPM Adult": 0.03015
         },
         {
             "Country Code": "ID",
             "Country Name": "Indonesia",
-            "CPC ms": 0.037500000000000006,
-            "CPM ms": 0.1011,
+            "CPC MS": 0.037500000000000006,
+            "CPM MS": 0.1011,
             "CPC Adult": 0.01995,
             "CPM Adult": 0.07019999999999998
         },
         {
             "Country Code": "TR",
             "Country Name": "Turkey",
-            "CPC ms": 0.049049999999999996,
-            "CPM ms": 0.0882,
+            "CPC MS": 0.049049999999999996,
+            "CPM MS": 0.0882,
             "CPC Adult": 0.0249,
             "CPM Adult": 0.10215000000000002
         },
         {
             "Country Code": "BD",
             "Country Name": "Bangladesh",
-            "CPC ms": 0.0528,
-            "CPM ms": 0.12614999999999998,
+            "CPC MS": 0.0528,
+            "CPM MS": 0.12614999999999998,
             "CPC Adult": 0.04245,
             "CPM Adult": 0.08955
         },
         {
             "Country Code": "IN",
             "Country Name": "India",
-            "CPC ms": 0.0066,
-            "CPM ms": 0.011850000000000001,
+            "CPC MS": 0.0066,
+            "CPM MS": 0.011850000000000001,
             "CPC Adult": 0.0042,
             "CPM Adult": 0.00405
         },
         {
             "Country Code": "KZ",
             "Country Name": "Kazakhstan",
-            "CPC ms": 0.0669,
-            "CPM ms": 0.019799999999999998,
+            "CPC MS": 0.0669,
+            "CPM MS": 0.019799999999999998,
             "CPC Adult": 0.06675,
             "CPM Adult": 0.0333
         },
         {
             "Country Code": "CO",
             "Country Name": "Colombia",
-            "CPC ms": 0.0108,
-            "CPM ms": 0.0543,
+            "CPC MS": 0.0108,
+            "CPM MS": 0.0543,
             "CPC Adult": 0.0050999999999999995,
             "CPM Adult": 0.005849999999999999
         },
         {
             "Country Code": "US",
             "Country Name": "United States of America",
-            "CPC ms": 0.1986,
-            "CPM ms": 0.1638,
+            "CPC MS": 0.1986,
+            "CPM MS": 0.1638,
             "CPC Adult": 0.11099999999999999,
             "CPM Adult": 0.09090000000000001
         },
         {
             "Country Code": "PH",
             "Country Name": "Philippines",
-            "CPC ms": 0.02025,
-            "CPM ms": 0.03765,
+            "CPC MS": 0.02025,
+            "CPM MS": 0.03765,
             "CPC Adult": 0.01785,
             "CPM Adult": 0.039599999999999996
         },
         {
             "Country Code": "TH",
             "Country Name": "Thailand",
-            "CPC ms": 0.06810000000000001,
-            "CPM ms": 0.03585,
+            "CPC MS": 0.06810000000000001,
+            "CPM MS": 0.03585,
             "CPC Adult": 0.055650000000000005,
             "CPM Adult": 0.03915
         },
         {
             "Country Code": "ZA",
             "Country Name": "South Africa",
-            "CPC ms": 0.021750000000000002,
-            "CPM ms": 0.06795,
+            "CPC MS": 0.021750000000000002,
+            "CPM MS": 0.06795,
             "CPC Adult": 0.01725,
             "CPM Adult": 0.058499999999999996
         },
         {
             "Country Code": "AM",
             "Country Name": "Armenia",
-            "CPC ms": 0.09659999999999999,
-            "CPM ms": 0.1413,
+            "CPC MS": 0.09659999999999999,
+            "CPM MS": 0.1413,
             "CPC Adult": 0.0642,
             "CPM Adult": 0.08415
         },
         {
             "Country Code": "SY",
             "Country Name": "Syrian Arab Republic",
-            "CPC ms": 0.029249999999999998,
-            "CPM ms": 0.038099999999999995,
+            "CPC MS": 0.029249999999999998,
+            "CPM MS": 0.038099999999999995,
             "CPC Adult": 0.0201,
             "CPM Adult": 0.014849999999999999
         },
         {
             "Country Code": "IQ",
             "Country Name": "Iraq",
-            "CPC ms": 0.021,
-            "CPM ms": 0.0537,
+            "CPC MS": 0.021,
+            "CPM MS": 0.0537,
             "CPC Adult": 0.01665,
             "CPM Adult": 0.0378
         },
         {
             "Country Code": "UZ",
             "Country Name": "Uzbekistan",
-            "CPC ms": 0.028200000000000003,
-            "CPM ms": 0.04305,
+            "CPC MS": 0.028200000000000003,
+            "CPM MS": 0.04305,
             "CPC Adult": 0.01605,
             "CPM Adult": 0.035550000000000005
         },
         {
             "Country Code": "PK",
             "Country Name": "Pakistan",
-            "CPC ms": 0.0042,
-            "CPM ms": 0.01545,
+            "CPC MS": 0.0042,
+            "CPM MS": 0.01545,
             "CPC Adult": 0.0033,
             "CPM Adult": 0.00945
         },
         {
             "Country Code": "DE",
             "Country Name": "Germany",
-            "CPC ms": 0.063,
-            "CPM ms": 0.0636,
+            "CPC MS": 0.063,
+            "CPM MS": 0.0636,
             "CPC Adult": 0.045,
             "CPM Adult": 0.03509999999999999
         },
         {
             "Country Code": "KE",
             "Country Name": "Kenya",
-            "CPC ms": 0.03975,
-            "CPM ms": 0.30735,
+            "CPC MS": 0.03975,
+            "CPM MS": 0.30735,
             "CPC Adult": 0.04665,
             "CPM Adult": 0.3555
         },
         {
             "Country Code": "MX",
             "Country Name": "Mexico",
-            "CPC ms": 0.01335,
-            "CPM ms": 0.0228,
+            "CPC MS": 0.01335,
+            "CPM MS": 0.0228,
             "CPC Adult": 0.00795,
             "CPM Adult": 0.009000000000000001
         },
         {
             "Country Code": "JP",
             "Country Name": "Japan",
-            "CPC ms": 0.09659999999999999,
-            "CPM ms": 0.06615,
+            "CPC MS": 0.09659999999999999,
+            "CPM MS": 0.06615,
             "CPC Adult": 0.09165000000000001,
             "CPM Adult": 0.12825
         },
         {
             "Country Code": "YE",
             "Country Name": "Yemen",
-            "CPC ms": 0.02265,
-            "CPM ms": 0.10395,
+            "CPC MS": 0.02265,
+            "CPM MS": 0.10395,
             "CPC Adult": 0.0129,
             "CPM Adult": 0.02565
         },
         {
             "Country Code": "UA",
             "Country Name": "Ukraine",
-            "CPC ms": 0.01515,
-            "CPM ms": 0.013499999999999998,
+            "CPC MS": 0.01515,
+            "CPM MS": 0.013499999999999998,
             "CPC Adult": 0.023549999999999998,
             "CPM Adult": 0.03375
         },
         {
             "Country Code": "CI",
             "Country Name": "Côte d'Ivoire",
-            "CPC ms": 0.038099999999999995,
-            "CPM ms": 0.06615,
+            "CPC MS": 0.038099999999999995,
+            "CPM MS": 0.06615,
             "CPC Adult": 0.028950000000000004,
             "CPM Adult": 0.055799999999999995
         },
         {
             "Country Code": "ES",
             "Country Name": "Spain",
-            "CPC ms": 0.09,
-            "CPM ms": 0.04815,
+            "CPC MS": 0.09,
+            "CPM MS": 0.04815,
             "CPC Adult": 0.0216,
             "CPM Adult": 0.027450000000000002
         },
         {
             "Country Code": "IT",
             "Country Name": "Italy",
-            "CPC ms": 0.09029999999999999,
-            "CPM ms": 0.02955,
+            "CPC MS": 0.09029999999999999,
+            "CPM MS": 0.02955,
             "CPC Adult": 0.04875,
             "CPM Adult": 0.037349999999999994
         },
         {
             "Country Code": "BG",
             "Country Name": "Bulgaria",
-            "CPC ms": 0.07185,
-            "CPM ms": 0.03465,
+            "CPC MS": 0.07185,
+            "CPM MS": 0.03465,
             "CPC Adult": 0.0189,
             "CPM Adult": 0.0216
         },
         {
             "Country Code": "FR",
             "Country Name": "France",
-            "CPC ms": 0.023700000000000002,
-            "CPM ms": 0.0366,
+            "CPC MS": 0.023700000000000002,
+            "CPM MS": 0.0366,
             "CPC Adult": 0.02595,
             "CPM Adult": 0.02835
         },
         {
             "Country Code": "EG",
             "Country Name": "Egypt",
-            "CPC ms": 0.021750000000000002,
-            "CPM ms": 0.0195,
+            "CPC MS": 0.021750000000000002,
+            "CPM MS": 0.0195,
             "CPC Adult": 0.009600000000000001,
             "CPM Adult": 0.013500000000000002
         },
         {
             "Country Code": "FI",
             "Country Name": "Finland",
-            "CPC ms": 0.013499999999999998,
-            "CPM ms": 0.14550000000000002,
+            "CPC MS": 0.013499999999999998,
+            "CPM MS": 0.14550000000000002,
             "CPC Adult": 0.013499999999999998,
             "CPM Adult": 0.1431
         },
         {
             "Country Code": "NG",
             "Country Name": "Nigeria",
-            "CPC ms": 0.013049999999999999,
-            "CPM ms": 0.0321,
+            "CPC MS": 0.013049999999999999,
+            "CPM MS": 0.0321,
             "CPC Adult": 0.006749999999999999,
             "CPM Adult": 0.02295
         },
         {
             "Country Code": "AR",
             "Country Name": "Argentina",
-            "CPC ms": 0.024600000000000004,
-            "CPM ms": 0.0276,
+            "CPC MS": 0.024600000000000004,
+            "CPM MS": 0.0276,
             "CPC Adult": 0.0093,
             "CPM Adult": 0.0108
         },
         {
             "Country Code": "HU",
             "Country Name": "Hungary",
-            "CPC ms": 0.056999999999999995,
-            "CPM ms": 0.0327,
+            "CPC MS": 0.056999999999999995,
+            "CPM MS": 0.0327,
             "CPC Adult": 0.0486,
             "CPM Adult": 0.14805
         },
         {
             "Country Code": "RS",
             "Country Name": "Serbia",
-            "CPC ms": 0.0732,
-            "CPM ms": 0.054900000000000004,
+            "CPC MS": 0.0732,
+            "CPM MS": 0.054900000000000004,
             "CPC Adult": 0.07095,
             "CPM Adult": 0.1287
         },
         {
             "Country Code": "VN",
             "Country Name": "Viet Nam",
-            "CPC ms": 0.03495,
-            "CPM ms": 0.0855,
+            "CPC MS": 0.03495,
+            "CPM MS": 0.0855,
             "CPC Adult": 0.014100000000000001,
             "CPM Adult": 0.00405
         },
         {
             "Country Code": "BO",
             "Country Name": "Bolivia",
-            "CPC ms": 0.003,
-            "CPM ms": 0.0087,
+            "CPC MS": 0.003,
+            "CPM MS": 0.0087,
             "CPC Adult": 0.00285,
             "CPM Adult": 0.0045000000000000005
         },
         {
             "Country Code": "AZ",
             "Country Name": "Azerbaijan",
-            "CPC ms": 0.0741,
-            "CPM ms": 0.23055,
+            "CPC MS": 0.0741,
+            "CPM MS": 0.23055,
             "CPC Adult": 0.06795,
             "CPM Adult": 0.05625000000000001
         },
         {
             "Country Code": "LB",
             "Country Name": "Lebanon",
-            "CPC ms": 0.01845,
-            "CPM ms": 0.027450000000000002,
+            "CPC MS": 0.01845,
+            "CPM MS": 0.027450000000000002,
             "CPC Adult": 0.01575,
             "CPM Adult": 0.0216
         },
         {
             "Country Code": "CM",
             "Country Name": "Cameroon",
-            "CPC ms": 0.0417,
-            "CPM ms": 0.05474999999999999,
+            "CPC MS": 0.0417,
+            "CPM MS": 0.05474999999999999,
             "CPC Adult": 0.0519,
             "CPM Adult": 0.08415
         },
         {
             "Country Code": "PL",
             "Country Name": "Poland",
-            "CPC ms": 0.04995000000000001,
-            "CPM ms": 0.0138,
+            "CPC MS": 0.04995000000000001,
+            "CPM MS": 0.0138,
             "CPC Adult": 0.04845000000000001,
             "CPM Adult": 0.05535
         },
         {
             "Country Code": "CD",
             "Country Name": "Congo",
-            "CPC ms": 0.02955,
-            "CPM ms": 0.01575,
+            "CPC MS": 0.02955,
+            "CPM MS": 0.01575,
             "CPC Adult": 0.0177,
             "CPM Adult": 0.01935
         },
         {
             "Country Code": "GB",
             "Country Name": "United Kingdom of Great Britain and Northern Ireland",
-            "CPC ms": 0.0465,
-            "CPM ms": 0.0657,
+            "CPC MS": 0.0465,
+            "CPM MS": 0.0657,
             "CPC Adult": 0.04425,
             "CPM Adult": 0.055799999999999995
         },
         {
             "Country Code": "TZ",
             "Country Name": "Tanzania, United Republic of",
-            "CPC ms": 0.0075,
-            "CPM ms": 0.023850000000000003,
+            "CPC MS": 0.0075,
+            "CPM MS": 0.023850000000000003,
             "CPC Adult": 0.0114,
             "CPM Adult": 0.07650000000000001
         },
         {
             "Country Code": "DZ",
             "Country Name": "Algeria",
-            "CPC ms": 0.0078,
-            "CPM ms": 0.02445,
+            "CPC MS": 0.0078,
+            "CPM MS": 0.02445,
             "CPC Adult": 0.0024000000000000002,
             "CPM Adult": 0.00405
         },
         {
             "Country Code": "KG",
             "Country Name": "Kyrgyzstan",
-            "CPC ms": 0.006150000000000001,
-            "CPM ms": 0.01065,
+            "CPC MS": 0.006150000000000001,
+            "CPM MS": 0.01065,
             "CPC Adult": 0.011550000000000001,
             "CPM Adult": 0.009000000000000001
         },
         {
             "Country Code": "NL",
             "Country Name": "Netherlands",
-            "CPC ms": 0.0339,
-            "CPM ms": 0.024,
+            "CPC MS": 0.0339,
+            "CPM MS": 0.024,
             "CPC Adult": 0.010199999999999999,
             "CPM Adult": 0.029699999999999997
         },
         {
             "Country Code": "CA",
             "Country Name": "Canada",
-            "CPC ms": 0.15555,
-            "CPM ms": 0.15945,
+            "CPC MS": 0.15555,
+            "CPM MS": 0.15945,
             "CPC Adult": 0.02685,
             "CPM Adult": 0.04005
         },
         {
             "Country Code": "PE",
             "Country Name": "Peru",
-            "CPC ms": 0.0213,
-            "CPM ms": 0.01575,
+            "CPC MS": 0.0213,
+            "CPM MS": 0.01575,
             "CPC Adult": 0.006150000000000001,
             "CPM Adult": 0.0081
         },
         {
             "Country Code": "IR",
             "Country Name": "Iran",
-            "CPC ms": 0.07815,
-            "CPM ms": 0.03465,
+            "CPC MS": 0.07815,
+            "CPM MS": 0.03465,
             "CPC Adult": 0.0429,
             "CPM Adult": 0.11699999999999999
         },
         {
             "Country Code": "SD",
             "Country Name": "Sudan",
-            "CPC ms": 0.00855,
-            "CPM ms": 0.03075,
+            "CPC MS": 0.00855,
+            "CPM MS": 0.03075,
             "CPC Adult": 0.00555,
             "CPM Adult": 0.0225
         },
         {
             "Country Code": "MY",
             "Country Name": "Malaysia",
-            "CPC ms": 0.0219,
-            "CPM ms": 0.018000000000000002,
+            "CPC MS": 0.0219,
+            "CPM MS": 0.018000000000000002,
             "CPC Adult": 0.01335,
             "CPM Adult": 0.01035
         },
         {
             "Country Code": "SA",
             "Country Name": "Saudi Arabia",
-            "CPC ms": 0.011850000000000001,
-            "CPM ms": 0.0825,
+            "CPC MS": 0.011850000000000001,
+            "CPM MS": 0.0825,
             "CPC Adult": 0.0078,
             "CPM Adult": 0.0049499999999999995
         },
         {
             "Country Code": "MA",
             "Country Name": "Morocco",
-            "CPC ms": 0.003,
-            "CPM ms": 0.0111,
+            "CPC MS": 0.003,
+            "CPM MS": 0.0111,
             "CPC Adult": 0.015,
             "CPM Adult": 0.03285
         },
         {
             "Country Code": "CZ",
             "Country Name": "Czech Republic",
-            "CPC ms": 0.0546,
-            "CPM ms": 0.011699999999999999,
+            "CPC MS": 0.0546,
+            "CPM MS": 0.011699999999999999,
             "CPC Adult": 0.0603,
             "CPM Adult": 0.09315000000000001
         },
         {
             "Country Code": "CU",
             "Country Name": "Cuba",
-            "CPC ms": 0.00375,
-            "CPM ms": 0.0076500000000000005,
+            "CPC MS": 0.00375,
+            "CPM MS": 0.0076500000000000005,
             "CPC Adult": 0.0025499999999999997,
             "CPM Adult": 0.0022500000000000003
         },
         {
             "Country Code": "CG",
             "Country Name": "Congo",
-            "CPC ms": 0.03,
-            "CPM ms": 0.07725,
+            "CPC MS": 0.03,
+            "CPM MS": 0.07725,
             "CPC Adult": 0.01965,
             "CPM Adult": 0.036000000000000004
         },
         {
             "Country Code": "HT",
             "Country Name": "Haiti",
-            "CPC ms": 0.003,
-            "CPM ms": 0.0183,
+            "CPC MS": 0.003,
+            "CPM MS": 0.0183,
             "CPC Adult": 0.0021,
             "CPM Adult": 0.0036000000000000003
         },
         {
             "Country Code": "AT",
             "Country Name": "Austria",
-            "CPC ms": 0.05474999999999999,
-            "CPM ms": 0.04005,
+            "CPC MS": 0.05474999999999999,
+            "CPM MS": 0.04005,
             "CPC Adult": 0.0438,
             "CPM Adult": 0.02295
         },
         {
             "Country Code": "NI",
             "Country Name": "Nicaragua",
-            "CPC ms": 0.0069,
-            "CPM ms": 0.022949999999999998,
+            "CPC MS": 0.0069,
+            "CPM MS": 0.022949999999999998,
             "CPC Adult": 0.003,
             "CPM Adult": 0.006750000000000001
         },
         {
             "Country Code": "UG",
             "Country Name": "Uganda",
-            "CPC ms": 0.0045000000000000005,
-            "CPM ms": 0.02025,
+            "CPC MS": 0.0045000000000000005,
+            "CPM MS": 0.02025,
             "CPC Adult": 0.006,
             "CPM Adult": 0.02655
         },
         {
             "Country Code": "BY",
             "Country Name": "Belarus",
-            "CPC ms": 0.019799999999999998,
-            "CPM ms": 0.006150000000000001,
+            "CPC MS": 0.019799999999999998,
+            "CPM MS": 0.006150000000000001,
             "CPC Adult": 0.028200000000000003,
             "CPM Adult": 0.00945
         },
         {
             "Country Code": "NZ",
             "Country Name": "New Zealand",
-            "CPC ms": 0.012,
-            "CPM ms": 0.15660000000000002,
+            "CPC MS": 0.012,
+            "CPM MS": 0.15660000000000002,
             "CPC Adult": 0.025349999999999998,
             "CPM Adult": 0.08460000000000001
         },
         {
             "Country Code": "KH",
             "Country Name": "Cambodia",
-            "CPC ms": 0.014850000000000002,
-            "CPM ms": 0.011699999999999999,
+            "CPC MS": 0.014850000000000002,
+            "CPM MS": 0.011699999999999999,
             "CPC Adult": 0.006,
             "CPM Adult": 0.0045000000000000005
         },
         {
             "Country Code": "BE",
             "Country Name": "Belgium",
-            "CPC ms": 0.02835,
-            "CPM ms": 0.0129,
+            "CPC MS": 0.02835,
+            "CPM MS": 0.0129,
             "CPC Adult": 0.0174,
             "CPM Adult": 0.0252
         },
         {
             "Country Code": "RO",
             "Country Name": "Romania",
-            "CPC ms": 0.009600000000000001,
-            "CPM ms": 0.0021,
+            "CPC MS": 0.009600000000000001,
+            "CPM MS": 0.0021,
             "CPC Adult": 0.01215,
             "CPM Adult": 0.006750000000000001
         },
         {
             "Country Code": "GE",
             "Country Name": "Georgia",
-            "CPC ms": 0.0072,
-            "CPM ms": 0.011550000000000001,
+            "CPC MS": 0.0072,
+            "CPM MS": 0.011550000000000001,
             "CPC Adult": 0.005849999999999999,
             "CPM Adult": 0.0063
         },
         {
             "Country Code": "CH",
             "Country Name": "Switzerland",
-            "CPC ms": 0.0501,
-            "CPM ms": 0.0216,
+            "CPC MS": 0.0501,
+            "CPM MS": 0.0216,
             "CPC Adult": 0.05925,
             "CPM Adult": 0.042300000000000004
         },
         {
             "Country Code": "TJ",
             "Country Name": "Tajikistan",
-            "CPC ms": 0.011850000000000001,
-            "CPM ms": 0.00885,
+            "CPC MS": 0.011850000000000001,
+            "CPM MS": 0.00885,
             "CPC Adult": 0.02445,
             "CPM Adult": 0.013049999999999999
         },
         {
             "Country Code": "SE",
             "Country Name": "Sweden",
-            "CPC ms": 0.029700000000000004,
-            "CPM ms": 0.0057,
+            "CPC MS": 0.029700000000000004,
+            "CPM MS": 0.0057,
             "CPC Adult": 0.020399999999999998,
             "CPM Adult": 0.045450000000000004
         },
         {
             "Country Code": "GH",
             "Country Name": "Ghana",
-            "CPC ms": 0.00795,
-            "CPM ms": 0.01125,
+            "CPC MS": 0.00795,
+            "CPM MS": 0.01125,
             "CPC Adult": 0.013949999999999999,
             "CPM Adult": 0.0342
         },
         {
             "Country Code": "PA",
             "Country Name": "Panama",
-            "CPC ms": 0.007050000000000001,
-            "CPM ms": 0.014850000000000002,
+            "CPC MS": 0.007050000000000001,
+            "CPM MS": 0.014850000000000002,
             "CPC Adult": 0.00375,
             "CPM Adult": 0.0054
         },
         {
             "Country Code": "NP",
             "Country Name": "Nepal",
-            "CPC ms": 0.00465,
-            "CPM ms": 0.025349999999999998,
+            "CPC MS": 0.00465,
+            "CPM MS": 0.025349999999999998,
             "CPC Adult": 0.003,
             "CPM Adult": 0.0081
         },
         {
             "Country Code": "PT",
             "Country Name": "Portugal",
-            "CPC ms": 0.009600000000000001,
-            "CPM ms": 0.0025499999999999997,
+            "CPC MS": 0.009600000000000001,
+            "CPM MS": 0.0025499999999999997,
             "CPC Adult": 0.01215,
             "CPM Adult": 0.014400000000000001
         },
         {
             "Country Code": "CL",
             "Country Name": "Chile",
-            "CPC ms": 0.00945,
-            "CPM ms": 0.0048000000000000004,
+            "CPC MS": 0.00945,
+            "CPM MS": 0.0048000000000000004,
             "CPC Adult": 0.01035,
             "CPM Adult": 0.0063
         },
         {
             "Country Code": "AE",
             "Country Name": "United Arab Emirates",
-            "CPC ms": 0.011550000000000001,
-            "CPM ms": 0.04215,
+            "CPC MS": 0.011550000000000001,
+            "CPM MS": 0.04215,
             "CPC Adult": 0.0075,
             "CPM Adult": 0.02565
         },
         {
             "Country Code": "ET",
             "Country Name": "Ethiopia",
-            "CPC ms": 0.0036,
-            "CPM ms": 0.021750000000000002,
+            "CPC MS": 0.0036,
+            "CPM MS": 0.021750000000000002,
             "CPC Adult": 0.00525,
             "CPM Adult": 0.063
         },
         {
             "Country Code": "AU",
             "Country Name": "Australia",
-            "CPC ms": 0.0084,
-            "CPM ms": 0.040799999999999996,
+            "CPC MS": 0.0084,
+            "CPM MS": 0.040799999999999996,
             "CPC Adult": 0.029700000000000004,
             "CPM Adult": 0.0513
         },
         {
             "Country Code": "GT",
             "Country Name": "Guatemala",
-            "CPC ms": 0.0042,
-            "CPM ms": 0.011550000000000001,
+            "CPC MS": 0.0042,
+            "CPM MS": 0.011550000000000001,
             "CPC Adult": 0.0018,
             "CPM Adult": 0.00315
         },
         {
             "Country Code": "MM",
             "Country Name": "Myanmar",
-            "CPC ms": 0.0072,
-            "CPM ms": 0.03615,
+            "CPC MS": 0.0072,
+            "CPM MS": 0.03615,
             "CPC Adult": 0.033,
             "CPM Adult": 0.09090000000000001
         },
         {
             "Country Code": "NO",
             "Country Name": "Norway",
-            "CPC ms": 0.03555,
-            "CPM ms": 0.0050999999999999995,
+            "CPC MS": 0.03555,
+            "CPM MS": 0.0050999999999999995,
             "CPC Adult": 0.01665,
             "CPM Adult": 0.05805
         },
         {
             "Country Code": "ZM",
             "Country Name": "Zambia",
-            "CPC ms": 0.0076500000000000005,
-            "CPM ms": 0.0111,
+            "CPC MS": 0.0076500000000000005,
+            "CPM MS": 0.0111,
             "CPC Adult": 0.0183,
             "CPM Adult": 0.0495
         },
         {
             "Country Code": "CY",
             "Country Name": "Cyprus",
-            "CPC ms": 0.03765,
-            "CPM ms": 0.028200000000000003,
+            "CPC MS": 0.03765,
+            "CPM MS": 0.028200000000000003,
             "CPC Adult": 0.00915,
             "CPM Adult": 0.021150000000000002
         },
         {
             "Country Code": "CF",
             "Country Name": "Central African Republic",
-            "CPC ms": 0.009899999999999999,
-            "CPM ms": 0.0318,
+            "CPC MS": 0.009899999999999999,
+            "CPM MS": 0.0318,
             "CPC Adult": 0.00885,
             "CPM Adult": 0.01935
         },
         {
             "Country Code": "DK",
             "Country Name": "Denmark",
-            "CPC ms": 0.01605,
-            "CPM ms": 0.0021,
+            "CPC MS": 0.01605,
+            "CPM MS": 0.0021,
             "CPC Adult": 0.022949999999999998,
             "CPM Adult": 0.05085
         },
         {
             "Country Code": "BW",
             "Country Name": "Botswana",
-            "CPC ms": 0.0084,
-            "CPM ms": 0.0348,
+            "CPC MS": 0.0084,
+            "CPM MS": 0.0348,
             "CPC Adult": 0.006,
             "CPM Adult": 0.035550000000000005
         },
         {
             "Country Code": "IL",
             "Country Name": "Israel",
-            "CPC ms": 0.007050000000000001,
-            "CPM ms": 0.0027,
+            "CPC MS": 0.007050000000000001,
+            "CPM MS": 0.0027,
             "CPC Adult": 0.0084,
             "CPM Adult": 0.011699999999999999
         },
         {
             "Country Code": "VE",
             "Country Name": "Venezuela",
-            "CPC ms": 0.00135,
-            "CPM ms": 0.00135,
+            "CPC MS": 0.00135,
+            "CPM MS": 0.00135,
             "CPC Adult": 0.0009,
             "CPM Adult": 0.0018000000000000002
         },
         {
             "Country Code": "MW",
             "Country Name": "Malawi",
-            "CPC ms": 0.0075,
-            "CPM ms": 0.0228,
+            "CPC MS": 0.0075,
+            "CPM MS": 0.0228,
             "CPC Adult": 0.00735,
             "CPM Adult": 0.0225
         },
         {
             "Country Code": "MD",
             "Country Name": "Moldova",
-            "CPC ms": 0.006,
-            "CPM ms": 0.00165,
+            "CPC MS": 0.006,
+            "CPM MS": 0.00165,
             "CPC Adult": 0.00885,
             "CPM Adult": 0.005849999999999999
         },
         {
             "Country Code": "AO",
             "Country Name": "Angola",
-            "CPC ms": 0.005849999999999999,
-            "CPM ms": 0.00825,
+            "CPC MS": 0.005849999999999999,
+            "CPM MS": 0.00825,
             "CPC Adult": 0.00555,
             "CPM Adult": 0.011699999999999999
         },
         {
             "Country Code": "SK",
             "Country Name": "Slovakia",
-            "CPC ms": 0.010199999999999999,
-            "CPM ms": 0.003,
+            "CPC MS": 0.010199999999999999,
+            "CPM MS": 0.003,
             "CPC Adult": 0.0276,
             "CPM Adult": 0.042749999999999996
         },
         {
             "Country Code": "HR",
             "Country Name": "Croatia",
-            "CPC ms": 0.01335,
-            "CPM ms": 0.00405,
+            "CPC MS": 0.01335,
+            "CPM MS": 0.00405,
             "CPC Adult": 0.0129,
             "CPM Adult": 0.013500000000000002
         },
         {
             "Country Code": "ML",
             "Country Name": "Mali",
-            "CPC ms": 0.01215,
-            "CPM ms": 0.06855,
+            "CPC MS": 0.01215,
+            "CPM MS": 0.06855,
             "CPC Adult": 0.013949999999999999,
             "CPM Adult": 0.01935
         },
         {
             "Country Code": "MZ",
             "Country Name": "Mozambique",
-            "CPC ms": 0.00825,
-            "CPM ms": 0.0076500000000000005,
+            "CPC MS": 0.00825,
+            "CPM MS": 0.0076500000000000005,
             "CPC Adult": 0.021,
             "CPM Adult": 0.035550000000000005
         },
         {
             "Country Code": "LV",
             "Country Name": "Latvia",
-            "CPC ms": 0.01245,
-            "CPM ms": 0.00195,
+            "CPC MS": 0.01245,
+            "CPM MS": 0.00195,
             "CPC Adult": 0.01965,
             "CPM Adult": 0.02835
         },
         {
             "Country Code": "EC",
             "Country Name": "Ecuador",
-            "CPC ms": 0.0033,
-            "CPM ms": 0.0015,
+            "CPC MS": 0.0033,
+            "CPM MS": 0.0015,
             "CPC Adult": 0.0036,
             "CPM Adult": 0.0049499999999999995
         },
         {
             "Country Code": "SG",
             "Country Name": "Singapore",
-            "CPC ms": 0.039150000000000004,
-            "CPM ms": 0.03435,
+            "CPC MS": 0.039150000000000004,
+            "CPM MS": 0.03435,
             "CPC Adult": 0.023549999999999998,
             "CPM Adult": 0.018000000000000002
         },
         {
             "Country Code": "GN",
             "Country Name": "Guinea",
-            "CPC ms": 0.0348,
-            "CPM ms": 0.0972,
+            "CPC MS": 0.0348,
+            "CPM MS": 0.0972,
             "CPC Adult": 0.03015,
             "CPM Adult": 0.061649999999999996
         },
         {
             "Country Code": "LT",
             "Country Name": "Lithuania",
-            "CPC ms": 0.011699999999999999,
-            "CPM ms": 0.0018,
+            "CPC MS": 0.011699999999999999,
+            "CPM MS": 0.0018,
             "CPC Adult": 0.015300000000000001,
             "CPM Adult": 0.0171
         },
         {
             "Country Code": "GR",
             "Country Name": "Greece",
-            "CPC ms": 0.021,
-            "CPM ms": 0.00375,
+            "CPC MS": 0.021,
+            "CPM MS": 0.00375,
             "CPC Adult": 0.02025,
             "CPM Adult": 0.030599999999999995
         },
         {
             "Country Code": "TW",
             "Country Name": "Taiwan, Province of China[a]",
-            "CPC ms": 0.00855,
-            "CPM ms": 0.00195,
+            "CPC MS": 0.00855,
+            "CPM MS": 0.00195,
             "CPC Adult": 0.06915,
             "CPM Adult": 0.05985
         },
         {
             "Country Code": "PY",
             "Country Name": "Paraguay",
-            "CPC ms": 0.0069,
-            "CPM ms": 0.00375,
+            "CPC MS": 0.0069,
+            "CPM MS": 0.00375,
             "CPC Adult": 0.0024000000000000002,
             "CPM Adult": 0.0027
         },
         {
             "Country Code": "MG",
             "Country Name": "Madagascar",
-            "CPC ms": 0.00435,
-            "CPM ms": 0.0105,
+            "CPC MS": 0.00435,
+            "CPM MS": 0.0105,
             "CPC Adult": 0.0018,
             "CPM Adult": 0.0081
         },
         {
             "Country Code": "PR",
             "Country Name": "Puerto Rico",
-            "CPC ms": 0.006,
-            "CPM ms": 0.0033,
+            "CPC MS": 0.006,
+            "CPM MS": 0.0033,
             "CPC Adult": 0.01005,
             "CPM Adult": 0.0036000000000000003
         },
         {
             "Country Code": "BA",
             "Country Name": "Bosnia and Herzegovina",
-            "CPC ms": 0.0025499999999999997,
-            "CPM ms": 0.0021,
+            "CPC MS": 0.0025499999999999997,
+            "CPM MS": 0.0021,
             "CPC Adult": 0.00315,
             "CPM Adult": 0.0027
         },
         {
             "Country Code": "MQ",
             "Country Name": "Martinique",
-            "CPC ms": 0.0168,
-            "CPM ms": 0.0711,
+            "CPC MS": 0.0168,
+            "CPM MS": 0.0711,
             "CPC Adult": 0.0054,
             "CPM Adult": 0.00135
         },
         {
             "Country Code": "JM",
             "Country Name": "Jamaica",
-            "CPC ms": 0.00915,
-            "CPM ms": 0.0288,
+            "CPC MS": 0.00915,
+            "CPM MS": 0.0288,
             "CPC Adult": 0.0027,
             "CPM Adult": 0.0027
         },
         {
             "Country Code": "AF",
             "Country Name": "Afghanistan",
-            "CPC ms": 0.0015,
-            "CPM ms": 0.00645,
+            "CPC MS": 0.0015,
+            "CPM MS": 0.00645,
             "CPC Adult": 0.00135,
             "CPM Adult": 0.0108
         },
         {
             "Country Code": "CR",
             "Country Name": "Costa Rica",
-            "CPC ms": 0.0024000000000000002,
-            "CPM ms": 0.0015,
+            "CPC MS": 0.0024000000000000002,
+            "CPM MS": 0.0015,
             "CPC Adult": 0.003,
             "CPM Adult": 0.00315
         },
         {
             "Country Code": "EE",
             "Country Name": "Estonia",
-            "CPC ms": 0.0042,
-            "CPM ms": 0.0015,
+            "CPC MS": 0.0042,
+            "CPM MS": 0.0015,
             "CPC Adult": 0.00915,
             "CPM Adult": 0.01035
         },
         {
             "Country Code": "IE",
             "Country Name": "Ireland",
-            "CPC ms": 0.0114,
-            "CPM ms": 0.00195,
+            "CPC MS": 0.0114,
+            "CPM MS": 0.00195,
             "CPC Adult": 0.01335,
             "CPM Adult": 0.24434999999999998
         },
         {
             "Country Code": "ME",
             "Country Name": "Montenegro",
-            "CPC ms": 0.00165,
-            "CPM ms": 0.00045,
+            "CPC MS": 0.00165,
+            "CPM MS": 0.00045,
             "CPC Adult": 0.0027,
             "CPM Adult": 0.0036000000000000003
         },
         {
             "Country Code": "SN",
             "Country Name": "Senegal",
-            "CPC ms": 0.0015,
-            "CPM ms": 0.01095,
+            "CPC MS": 0.0015,
+            "CPM MS": 0.01095,
             "CPC Adult": 0.02445,
             "CPM Adult": 0.0441
         },
         {
             "Country Code": "SV",
             "Country Name": "El Salvador",
-            "CPC ms": 0.0024000000000000002,
-            "CPM ms": 0.00165,
+            "CPC MS": 0.0024000000000000002,
+            "CPM MS": 0.00165,
             "CPC Adult": 0.0033,
             "CPM Adult": 0.0045000000000000005
         },
         {
             "Country Code": "KR",
             "Country Name": "South Korea",
-            "CPC ms": 0.006150000000000001,
-            "CPM ms": 0.00165,
+            "CPC MS": 0.006150000000000001,
+            "CPM MS": 0.00165,
             "CPC Adult": 0.0093,
             "CPM Adult": 0.00855
         },
         {
             "Country Code": "ZW",
             "Country Name": "Zimbabwe",
-            "CPC ms": 0.0045000000000000005,
-            "CPM ms": 0.0129,
+            "CPC MS": 0.0045000000000000005,
+            "CPM MS": 0.0129,
             "CPC Adult": 0.0045000000000000005,
             "CPM Adult": 0.01935
         },
         {
             "Country Code": "TM",
             "Country Name": "Turkmenistan",
-            "CPC ms": 0.0027,
-            "CPM ms": 0.0048000000000000004,
+            "CPC MS": 0.0027,
+            "CPM MS": 0.0048000000000000004,
             "CPC Adult": 0.009000000000000001,
             "CPM Adult": 0.038250000000000006
         },
         {
             "Country Code": "DO",
             "Country Name": "Dominican Republic",
-            "CPC ms": 0.0009,
-            "CPM ms": 0.00045,
+            "CPC MS": 0.0009,
+            "CPM MS": 0.00045,
             "CPC Adult": 0.00195,
             "CPM Adult": 0.0018000000000000002
         },
         {
             "Country Code": "VU",
             "Country Name": "Vanuatu",
-            "CPC ms": 0.012,
-            "CPM ms": 0.12495,
+            "CPC MS": 0.012,
+            "CPM MS": 0.12495,
             "CPC Adult": 0.00345,
             "CPM Adult": 0.01935
         },
         {
             "Country Code": "QA",
             "Country Name": "Qatar",
-            "CPC ms": 0.007050000000000001,
-            "CPM ms": 0.006749999999999999,
+            "CPC MS": 0.007050000000000001,
+            "CPM MS": 0.006749999999999999,
             "CPC Adult": 0.0048000000000000004,
             "CPM Adult": 0.0108
         },
         {
             "Country Code": "PF",
             "Country Name": "French Polynesia",
-            "CPC ms": 0.00465,
-            "CPM ms": 0.0216,
+            "CPC MS": 0.00465,
+            "CPM MS": 0.0216,
             "CPC Adult": 0.0036,
             "CPM Adult": 0.0081
         },
         {
             "Country Code": "TN",
             "Country Name": "Tunisia",
-            "CPC ms": 0.00075,
-            "CPM ms": 0.00105,
+            "CPC MS": 0.00075,
+            "CPM MS": 0.00105,
             "CPC Adult": 0.00645,
             "CPM Adult": 0.0207
         },
         {
             "Country Code": "HN",
             "Country Name": "Honduras",
-            "CPC ms": 0.00075,
-            "CPM ms": 0.00075,
+            "CPC MS": 0.00075,
+            "CPM MS": 0.00075,
             "CPC Adult": 0.00135,
             "CPM Adult": 0.0022500000000000003
         },
         {
             "Country Code": "HK",
             "Country Name": "Hong Kong",
-            "CPC ms": 0.00975,
-            "CPM ms": 0.00075,
+            "CPC MS": 0.00975,
+            "CPM MS": 0.00075,
             "CPC Adult": 0.0927,
             "CPM Adult": 0.0783
         },
         {
             "Country Code": "UY",
             "Country Name": "Uruguay",
-            "CPC ms": 0.00135,
-            "CPM ms": 0.00015000000000000001,
+            "CPC MS": 0.00135,
+            "CPM MS": 0.00015000000000000001,
             "CPC Adult": 0.00465,
             "CPM Adult": 0.0049499999999999995
         },
         {
             "Country Code": "GQ",
             "Country Name": "Equatorial Guinea",
-            "CPC ms": 0.0021,
-            "CPM ms": 0.003,
+            "CPC MS": 0.0021,
+            "CPM MS": 0.003,
             "CPC Adult": 0.011699999999999999,
             "CPM Adult": 0.09494999999999999
         },
         {
             "Country Code": "SO",
             "Country Name": "Somalia",
-            "CPC ms": 0.0027,
-            "CPM ms": 0.0063,
+            "CPC MS": 0.0027,
+            "CPM MS": 0.0063,
             "CPC Adult": 0.0165,
             "CPM Adult": 0.1323
         },
         {
             "Country Code": "LK",
             "Country Name": "Sri Lanka",
-            "CPC ms": 0.00045,
-            "CPM ms": 0.00045,
+            "CPC MS": 0.00045,
+            "CPM MS": 0.00045,
             "CPC Adult": 0.013949999999999999,
             "CPM Adult": 0.013949999999999999
         },
         {
             "Country Code": "JO",
             "Country Name": "Jordan",
-            "CPC ms": 0.0025499999999999997,
-            "CPM ms": 0.00030000000000000003,
+            "CPC MS": 0.0025499999999999997,
+            "CPM MS": 0.00030000000000000003,
             "CPC Adult": 0.0025499999999999997,
             "CPM Adult": 0.0022500000000000003
         },
         {
             "Country Code": "BI",
             "Country Name": "Burundi",
-            "CPC ms": 0.00165,
-            "CPM ms": 0.0171,
+            "CPC MS": 0.00165,
+            "CPM MS": 0.0171,
             "CPC Adult": 0.0294,
             "CPM Adult": 0.07200000000000001
         },
         {
             "Country Code": "LY",
             "Country Name": "Libya",
-            "CPC ms": 0.0009,
-            "CPM ms": 0.0009,
+            "CPC MS": 0.0009,
+            "CPM MS": 0.0009,
             "CPC Adult": 0.0015,
             "CPM Adult": 0.0018000000000000002
         },
         {
             "Country Code": "CN",
             "Country Name": "China",
-            "CPC ms": 0.0,
-            "CPM ms": 0.0006000000000000001,
+            "CPC MS": 0.0,
+            "CPM MS": 0.0006000000000000001,
             "CPC Adult": 0.07305,
             "CPM Adult": 0.8122499999999999
         },
         {
             "Country Code": "BF",
             "Country Name": "Burkina Faso",
-            "CPC ms": 0.0039,
-            "CPM ms": 0.00165,
+            "CPC MS": 0.0039,
+            "CPM MS": 0.00165,
             "CPC Adult": 0.0207,
             "CPM Adult": 0.0243
         },
         {
             "Country Code": "SI",
             "Country Name": "Slovenia",
-            "CPC ms": 0.0012000000000000001,
-            "CPM ms": 0.00030000000000000003,
+            "CPC MS": 0.0012000000000000001,
+            "CPM MS": 0.00030000000000000003,
             "CPC Adult": 0.0147,
             "CPM Adult": 0.0108
         },
         {
             "Country Code": "TG",
             "Country Name": "Togo",
-            "CPC ms": 0.00105,
-            "CPM ms": 0.00285,
+            "CPC MS": 0.00105,
+            "CPM MS": 0.00285,
             "CPC Adult": 0.00465,
             "CPM Adult": 0.013049999999999999
         },
         {
             "Country Code": "AL",
             "Country Name": "Albania",
-            "CPC ms": 0.00135,
-            "CPM ms": 0.00015000000000000001,
+            "CPC MS": 0.00135,
+            "CPM MS": 0.00015000000000000001,
             "CPC Adult": 0.00165,
             "CPM Adult": 0.0022500000000000003
         },
         {
             "Country Code": "GW",
             "Country Name": "Guinea-Bissau",
-            "CPC ms": 0.0027,
-            "CPM ms": 0.0009,
+            "CPC MS": 0.0027,
+            "CPM MS": 0.0009,
             "CPC Adult": 0.013949999999999999,
             "CPM Adult": 0.03465
         },
         {
             "Country Code": "MK",
             "Country Name": "North Macedonia",
-            "CPC ms": 0.0009,
-            "CPM ms": 0.00030000000000000003,
+            "CPC MS": 0.0009,
+            "CPM MS": 0.00030000000000000003,
             "CPC Adult": 0.0021,
             "CPM Adult": 0.0027
         },
         {
             "Country Code": "MN",
             "Country Name": "Mongolia",
-            "CPC ms": 0.00045,
-            "CPM ms": 0.00105,
+            "CPC MS": 0.00045,
+            "CPM MS": 0.00105,
             "CPC Adult": 0.0171,
             "CPM Adult": 0.03015
         },
         {
             "Country Code": "VC",
             "Country Name": "Saint Vincent and the Grenadines",
-            "CPC ms": 0.0015,
-            "CPM ms": 0.00375,
+            "CPC MS": 0.0015,
+            "CPM MS": 0.00375,
             "CPC Adult": 0.00135,
             "CPM Adult": 0.00135
         },
         {
             "Country Code": "MT",
             "Country Name": "Malta",
-            "CPC ms": 0.0012000000000000001,
-            "CPM ms": 0.00030000000000000003,
+            "CPC MS": 0.0012000000000000001,
+            "CPM MS": 0.00030000000000000003,
             "CPC Adult": 0.006749999999999999,
             "CPM Adult": 0.007200000000000001
         },
         {
             "Country Code": "RW",
             "Country Name": "Rwanda",
-            "CPC ms": 0.00045,
-            "CPM ms": 0.00015000000000000001,
+            "CPC MS": 0.00045,
+            "CPM MS": 0.00015000000000000001,
             "CPC Adult": 0.0036,
             "CPM Adult": 0.0216
         },
         {
             "Country Code": "TT",
             "Country Name": "Trinidad and Tobago",
-            "CPC ms": 0.00075,
-            "CPM ms": 0.0009,
+            "CPC MS": 0.00075,
+            "CPM MS": 0.0009,
             "CPC Adult": 0.0036,
             "CPM Adult": 0.0018000000000000002
         },
         {
             "Country Code": "TL",
             "Country Name": "Timor-Leste",
-            "CPC ms": 0.0006000000000000001,
-            "CPM ms": 0.00015000000000000001,
+            "CPC MS": 0.0006000000000000001,
+            "CPM MS": 0.00015000000000000001,
             "CPC Adult": 0.00165,
             "CPM Adult": 0.0027
         },
         {
             "Country Code": "CV",
             "Country Name": "Cabo Verde",
-            "CPC ms": 0.00045,
-            "CPM ms": 0.00015000000000000001,
+            "CPC MS": 0.00045,
+            "CPM MS": 0.00015000000000000001,
             "CPC Adult": 0.0015,
             "CPM Adult": 0.00315
         },
         {
             "Country Code": "LR",
             "Country Name": "Liberia",
-            "CPC ms": 0.00045,
-            "CPM ms": 0.00075,
+            "CPC MS": 0.00045,
+            "CPM MS": 0.00075,
             "CPC Adult": 0.022949999999999998,
             "CPM Adult": 0.037349999999999994
         }
