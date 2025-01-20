@@ -22,23 +22,18 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (!activeSection) return;
 
         const format = activeSection.id.replace('Section', '');
-
-        // Фильтруем данные по введённому поисковому запросу
-        let filteredData = jsonData[format] || [];
-        if (searchQuery) {
-            filteredData = filteredData.filter(row =>
-                row["country_code"].toLowerCase().includes(searchQuery) ||
-                row["country_name"].toLowerCase().includes(searchQuery)
-            );
-        }
-
         activeSection.innerHTML = `<h2>${format} information</h2>`;
 
-        if (filteredData.length > 0) {
+        if (Array.isArray(jsonData[format])) {
+            const filteredData = jsonData[format].filter(row => 
+                row["country_code"].toLowerCase().includes(searchQuery) || 
+                row["country_name"].toLowerCase().includes(searchQuery)
+            );
+
             const table = createTable(filteredData, format);
             activeSection.appendChild(table);
         } else {
-            activeSection.innerHTML += '<p>Нет данных для этого запроса.</p>';
+            activeSection.innerHTML += '<p>Нет данных для этого раздела.</p>';
         }
     }
 
