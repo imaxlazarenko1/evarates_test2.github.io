@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     let currentSortOrder = 'asc';
     let currentPage = 1;
     let rowsPerPage = 50;
+    let searchQuery = "";
 
     async function loadData() {
         try {
@@ -24,7 +25,12 @@ document.addEventListener('DOMContentLoaded', async () => {
         activeSection.innerHTML = `<h2>${format} information</h2>`;
 
         if (Array.isArray(jsonData[format])) {
-            const table = createTable(jsonData[format], format);
+            const filteredData = jsonData[format].filter(row => 
+                row["country_code"].toLowerCase().includes(searchQuery) || 
+                row["country_name"].toLowerCase().includes(searchQuery)
+            );
+
+            const table = createTable(filteredData, format);
             activeSection.appendChild(table);
         } else {
             activeSection.innerHTML += '<p>Нет данных для этого раздела.</p>';
@@ -33,10 +39,21 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     function createTable(data, format) {
         const headersMap = {
-            push: ['Country Code', 'Country Name', 'CPC ms', 'CPM ms', 'CPC Adult', 'CPM Adult'],
-            inPage: ['Country Code', 'Country Name', 'CPC', 'CPM'],
-            native: ['Country Code', 'Country Name', 'CPC', 'CPM'],
-            pop: ['Country Code', 'Country Name', 'CPM']
+            push: ['country_code', 'country_name', 'cpc_ms', 'cpm_ms', 'cpc_adult', 'cpm_adult'],
+            inPage: ['country_code', 'country_name', 'cpc', 'cpm'],
+            native: ['country_code', 'country_name', 'cpc', 'cpm'],
+            pop: ['country_code', 'country_name', 'cpm']
+        };
+
+        const headersDisplay = {
+            country_code: "Country Code",
+            country_name: "Country Name",
+            cpc_ms: "CPC ms",
+            cpm_ms: "CPM ms",
+            cpc_adult: "CPC Adult",
+            cpm_adult: "CPM Adult",
+            cpc: "CPC",
+            cpm: "CPM"
         };
 
         const headers = headersMap[format] || [];
@@ -48,7 +65,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         headers.forEach(header => {
             const th = document.createElement('th');
-            th.textContent = header;
+            th.textContent = headersDisplay[header] || header;
             th.style.cursor = 'pointer';
 
             const sortIcon = document.createElement('span');
@@ -65,7 +82,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
                 data.sort((a, b) => {
                     let valA = a[header], valB = b[header];
-                    const isNumeric = !['Country Code', 'Country Name'].includes(header);
+                    const isNumeric = !['country_code', 'country_name'].includes(header);
                     if (isNumeric) {
                         valA = parseFloat(String(valA).replace(',', '.')) || 0;
                         valB = parseFloat(String(valB).replace(',', '.')) || 0;
@@ -100,10 +117,15 @@ document.addEventListener('DOMContentLoaded', async () => {
             const tr = document.createElement('tr');
             headers.forEach(header => {
                 const td = document.createElement('td');
-                const value = row[header];
-                td.textContent = (value !== null && value !== undefined && !isNaN(value)) 
-                    ? parseFloat(value).toLocaleString('ru-RU', { minimumFractionDigits: 3 }).replace('.', ',') 
-                    : value || '-';
+                let value = row[header];
+
+                if (value !== null && value !== undefined && !isNaN(value)) {
+                    value = parseFloat(value).toLocaleString('ru-RU', { minimumFractionDigits: 3 }).replace('.', ',');
+                } else if (value === null || value === undefined) {
+                    value = "-";  // Замена пустых значений на прочерк
+                }
+
+                td.textContent = value;
                 tr.appendChild(td);
             });
             tbody.appendChild(tr);
@@ -116,6 +138,11 @@ document.addEventListener('DOMContentLoaded', async () => {
     document.getElementById('rowsPerPage')?.addEventListener('change', (event) => {
         rowsPerPage = parseInt(event.target.value);
         currentPage = 1;
+        renderActiveSection();
+    });
+
+    document.getElementById('searchInput')?.addEventListener('input', (event) => {
+        searchQuery = event.target.value.toLowerCase().trim();
         renderActiveSection();
     });
 
