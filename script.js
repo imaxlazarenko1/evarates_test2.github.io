@@ -5,7 +5,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     let currentSortOrder = 'asc';
     let currentPage = 1;
     let rowsPerPage = 50;
-    let searchQuery = "";
 
     async function loadData() {
         try {
@@ -25,12 +24,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         activeSection.innerHTML = `<h2>${format} information</h2>`;
 
         if (Array.isArray(jsonData[format])) {
-            const filteredData = jsonData[format].filter(row => 
-                row["country_code"].toLowerCase().includes(searchQuery) || 
-                row["country_name"].toLowerCase().includes(searchQuery)
-            );
-
-            const table = createTable(filteredData, format);
+            const table = createTable(jsonData[format], format);
             activeSection.appendChild(table);
         } else {
             activeSection.innerHTML += '<p>Нет данных для этого раздела.</p>';
@@ -138,11 +132,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     document.getElementById('rowsPerPage')?.addEventListener('change', (event) => {
         rowsPerPage = parseInt(event.target.value);
         currentPage = 1;
-        renderActiveSection();
-    });
-
-    document.getElementById('searchInput')?.addEventListener('input', (event) => {
-        searchQuery = event.target.value.toLowerCase().trim();
         renderActiveSection();
     });
 
