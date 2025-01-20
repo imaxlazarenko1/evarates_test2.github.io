@@ -4,7 +4,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     let currentSortColumn = null;
     let currentSortOrder = 'asc';
     let currentPage = 1;
-    let rowsPerPage = 50; // По умолчанию 50 строк
+    let rowsPerPage = 50; 
+    let searchQuery = '';
 
     async function loadData() {
         try {
@@ -24,7 +25,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         activeSection.innerHTML = `<h2>${format} information</h2>`;
 
         if (Array.isArray(jsonData[format])) {
-            const table = createTable(jsonData[format], format, currentPage);
+            const filteredData = filterData(jsonData[format]);
+            const table = createTable(filteredData, format, currentPage);
             activeSection.appendChild(table);
         } else {
             activeSection.innerHTML += '<p>Нет данных для этого раздела.</p>';
@@ -44,7 +46,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         table.classList.add('data-table');
 
         const headerRow = document.createElement('tr');
-
         headers.forEach(header => {
             const th = document.createElement('th');
             th.textContent = header;
@@ -64,14 +65,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 
                 data.sort((a, b) => {
                     let valA = a[header], valB = b[header];
-                    const isNumeric = !['Country code', 'Country name'].includes(header);
-                    if (isNumeric) {
-                        valA = parseFloat(String(valA).replace(',', '.')) || 0;
-                        valB = parseFloat(String(valB).replace(',', '.')) || 0;
-                    } else {
-                        valA = String(valA || '').toLowerCase();
-                        valB = String(valB || '').toLowerCase();
-                    }
                     return currentSortOrder === 'asc' ? (valA > valB ? 1 : -1) : (valA < valB ? 1 : -1);
                 });
 
@@ -104,10 +97,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             const tr = document.createElement('tr');
             headers.forEach(header => {
                 const td = document.createElement('td');
-                const value = row[header];
-                td.textContent = (value !== null && value !== undefined && !isNaN(value)) 
-                    ? parseFloat(value).toLocaleString('ru-RU', { minimumFractionDigits: 3 }).replace('.', ',') 
-                    : value || '-';
+                td.textContent = row[header] || '-';
                 tr.appendChild(td);
             });
             tbody.appendChild(tr);
@@ -116,39 +106,17 @@ document.addEventListener('DOMContentLoaded', async () => {
         table.appendChild(tbody);
     }
 
-    document.getElementById('rowsPerPage').addEventListener('change', (event) => {
-        rowsPerPage = parseInt(event.target.value);
-        currentPage = 1;
+    function filterData(data) {
+        return data.filter(row => Object.values(row).some(value => String(value).toLowerCase().includes(searchQuery.toLowerCase())));
+    }
+
+    document.getElementById('searchInput').addEventListener('input', (event) => {
+        searchQuery = event.target.value;
         renderActiveSection();
     });
 
-    function setupButtonHandlers() {
-        const buttons = {
-            push: document.getElementById('pushBtn'),
-            inPage: document.getElementById('inPageBtn'),
-            pop: document.getElementById('popBtn'),
-            native: document.getElementById('nativeBtn')
-        };
-
-        Object.keys(buttons).forEach(format => {
-            buttons[format].addEventListener('click', () => {
-                hideAllSections();
-                document.getElementById(`${format}Section`).classList.add('active');
-                currentPage = 1;
-                renderActiveSection();
-            });
-        });
-    }
-
-    function hideAllSections() {
-        document.querySelectorAll('.content-section').forEach(section => section.classList.remove('active'));
-    }
-
     async function init() {
         await loadData();
-        setupButtonHandlers();
-
-        // Автоматически активируем первую вкладку (Push)
         document.getElementById('pushBtn').click();
     }
 
