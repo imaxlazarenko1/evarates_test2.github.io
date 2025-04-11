@@ -102,7 +102,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 const td = document.createElement('td');
                 const value = row[header];
                 td.textContent = (value !== null && value !== undefined && !isNaN(value)) 
-                    ? parseFloat(value).toLocaleString('ru-RU', { minimumFractionDigits: 3 }).replace('.', ',') 
+                    ? parseFloat(value).toLocaleString('ru-RU', { minimumFractionDigits: 2 }).replace('.', ',') 
                     : value || '-';
                 tr.appendChild(td);
             });
