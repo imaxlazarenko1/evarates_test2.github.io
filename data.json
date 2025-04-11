@@ -1,9 +1,17 @@
 {
     "push": [
         {
+            "Country Code": "ID",
+            "Country Name": "Indonesia",
+            "CPC MS": 0.04,
+            "CPM MS": 0.11,
+            "CPC Adult": 0.03,
+            "CPM Adult": 0.07
+        },
+        {
             "Country Code": "RU",
             "Country Name": "Russian Federation",
-            "CPC MS": 0.07700000000000001,
+            "CPC MS": 0.06,
             "CPM MS": 0.05591249999999999,
             "CPC Adult": 0.0900315,
             "CPM Adult": 0.05241599999999998
@@ -16,14 +24,7 @@
             "CPC Adult": 0.020295,
             "CPM Adult": 0.0340695
         },
-        {
-            "Country Code": "ID",
-            "Country Name": "Indonesia",
-            "CPC MS": 0.04462500000000001,
-            "CPM MS": 0.115254,
-            "CPC Adult": 0.022144499999999998,
-            "CPM Adult": 0.07230599999999998
-        },
+
         {
             "Country Code": "TR",
             "Country Name": "Turkey",
