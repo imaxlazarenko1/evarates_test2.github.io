@@ -2404,6 +2404,11 @@
     ],
     "pop": [
         {
+            "Country Code": "PH",
+            "Country Name": "Philippines",
+            "CPM": 0.8
+        },
+        {
             "Country Code": "ID",
             "Country Name": "Indonesia",
             "CPM": 0.42
@@ -2432,11 +2437,6 @@
             "Country Code": "PK",
             "Country Name": "Pakistan",
             "CPM": 0.25
-        },
-        {
-            "Country Code": "PH",
-            "Country Name": "Philippines",
-            "CPM": 0.65
         },
         {
             "Country Code": "TH",
