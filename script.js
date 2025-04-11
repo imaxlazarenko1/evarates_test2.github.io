@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (!activeSection) return;
 
         const format = activeSection.id.replace('Section', '');
-        activeSection.innerHTML = `<h2>Push information</h2>`;
+        activeSection.innerHTML = `<h2>${format} information</h2>`;
 
         if (Array.isArray(jsonData[format])) {
             const table = createTable(jsonData[format], format);
