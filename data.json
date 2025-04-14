@@ -1174,38 +1174,44 @@
         {
             "Country Code": "US",
             "Country Name": "United States of America",
-            "CPC": 0.035910000000000004,
-            "CPM": 0.45516799999999996
+            "CPC": 0.045,
+            "CPM": 0.15
         },
         {
             "Country Code": "IN",
             "Country Name": "India",
-            "CPC": 0.00011600000000000001,
-            "CPM": 0.055746000000000004
+            "CPC": 0.001,
+            "CPM": 0.03
+        },
+        {
+            "Country Code": "PH",
+            "Country Name": "Philippines",
+            "CPC": 0.01,
+            "CPM": 0.15
         },
         {
             "Country Code": "CN",
             "Country Name": "China",
-            "CPC": 0.021044999999999998,
-            "CPM": 0.8959199999999999
+            "CPC": 0.017,
+            "CPM": 0.55
         },
         {
             "Country Code": "DE",
             "Country Name": "Germany",
-            "CPC": 0.015792,
-            "CPM": 0.42611400000000005
+            "CPC": 0.01,
+            "CPM": 0.20
         },
         {
             "Country Code": "IT",
             "Country Name": "Italy",
-            "CPC": 0.020531999999999998,
-            "CPM": 0.370272
+            "CPC": 0.01,
+            "CPM": 0.20
         },
         {
             "Country Code": "GB",
             "Country Name": "United Kingdom of Great Britain and Northern Ireland",
-            "CPC": 0.017159999999999998,
-            "CPM": 0.395112
+            "CPC": 0.01,
+            "CPM": 0.25
         },
         {
             "Country Code": "PL",
@@ -1248,12 +1254,6 @@
             "Country Name": "Russian Federation",
             "CPC": 0.005558999999999998,
             "CPM": 0.320229
-        },
-        {
-            "Country Code": "PH",
-            "Country Name": "Philippines",
-            "CPC": 0.010880999999999998,
-            "CPM": 0.21700200000000003
         },
         {
             "Country Code": "AU",
